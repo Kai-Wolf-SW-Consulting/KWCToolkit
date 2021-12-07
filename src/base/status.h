@@ -14,10 +14,10 @@ namespace error {
 enum Code { OK = 0 };
 }  // namespace error
 
-/// Determines whether a call or a given object is error free.
-/// Status objects may be used, whenever one inputs an object into a function
-/// and wants to check, if the desired transformation could be applied
-/// sucessfully.
+// Determines whether a call or a given object is error free.
+// Status objects may be used, whenever one inputs an object into a function
+// and wants to check, if the desired transformation could be applied
+// successfully.
 class Status {
   public:
     Status() : code_(error::OK) {}

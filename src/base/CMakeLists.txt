@@ -4,6 +4,28 @@
 
 add_library(kwc_base
   array_copy.h
+  array_size.h
+  assert.cc
+  assert.h
+  callback.h
+  callback_impl.h
+  callback_types.h
+  check.h
+  cmdline_flags.cc
+  cmdline_flags.h
+  compiler.h
+  for_each_argument.h
+  integral_types.h
+  logging.cc
+  logging.h
+  macros.h
+  platform.h
+  ref_count.cc
+  ref_count.h
+  result.cc
+  result.h
+  rw_protected.h
+  scope_guard.h
   status.cc
   status.h)
 
@@ -25,7 +47,14 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 if(BUILD_TESTING)
   include(GoogleTest)
   add_executable(kwc_base_test
-    array_copy_test.cc)
+    array_copy_test.cc
+    array_size_test.cc
+    callback_test.cc
+    cmdline_flags_test.cc
+    for_each_argument_test.cc
+    ref_count_test.cc
+    result_test.cc
+    scope_guard_test.cc)
 
   target_link_libraries(kwc_base_test
     PRIVATE kwc::base GTest::gtest_main GTest::gtest)

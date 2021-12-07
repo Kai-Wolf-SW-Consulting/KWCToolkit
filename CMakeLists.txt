@@ -19,8 +19,14 @@ set(APPLICATION_ID            "${APPLICATION_VENDOR_ID}.${PROJECT_NAME}")
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
+option(ENABLE_CPPCHECK "Enable static analysis with cppcheck" OFF)
+option(ENABLE_CLANG_TIDY "Enable static analysis with clang-tidy" ON)
+option(ENABLE_INCLUDE_WHAT_YOU_USE "Enable static analysis with include-what-you-use" ON)
+
 ## Setup project defaults
+include(CompilerFlags)
 include(InstallLocation)
+include(StaticAnalyzer)
 
 ## Automatically creates a BUILD_TESTING option (default ON)
 include(CTest)

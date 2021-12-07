@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(ArrayCopyTesdt, CopyElementWiseIntoEqualSizedArray) {
+TEST(ArrayCopyTest, CopyElementWiseIntoEqualSizedArray) {
     int a[] = {17, 23, 42, 69, 53, 72, 96};
     int b[7];
     kwc::ArrayCopy(b, a);
