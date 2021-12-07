@@ -1,0 +1,74 @@
+// Copyright (c) 2021, Kai Wolf - SW Consulting. All rights reserved.
+// For the licensing terms see LICENSE file in the root directory. For the
+// list of contributors see the AUTHORS file in the same directory.
+
+#ifndef KWCTOOLKIT_STRINGS_STRING_UTILS_H_
+#define KWCTOOLKIT_STRINGS_STRING_UTILS_H_
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+// String utility functions used throughout the codebase
+
+namespace kwc {
+namespace strings {
+
+// Whitespace for char tab, line tab, form feed (FF) and space
+#define WHITESPACE_ASCII_NO_CR_LF 0x09, 0x0B, 0x0C, 0x20
+
+// Whitespace for line feed (LF) and carriage return (CR)
+#define WHITESPACE_ASCII WHITESPACE_ASCII_NO_CR_LF, 0x0A, 0x0D
+
+constexpr char kWhitespaceASCII[] = {WHITESPACE_ASCII, 0};
+
+enum TrimPositions {
+    TRIM_NONE = 0,
+    TRIM_LEADING = 1 << 0,
+    TRIM_TRAILING = 1 << 1,
+    TRIM_ALL = TRIM_LEADING | TRIM_TRAILING,
+};
+
+bool IsStringASCII(const std::wstring& str);
+
+bool IsStringASCII(const std::string& str);
+
+template <typename Char>
+bool IsASCIILower(const Char c) {
+    return 'a' <= c && c <= 'z';
+}
+
+inline char ToLowerASCII(const char c) {
+    return ('A' <= c && c <= 'Z') ? (c + ('a' - 'A')) : c;
+}
+
+std::string ToLowerASCII(const std::string& str);
+
+template <typename Char>
+bool IsASCIIUpper(Char c) {
+    return 'A' <= c && c <= 'Z';
+}
+
+inline char ToUpperASCII(const char c) {
+    return ('a' <= c && c <= 'z') ? (c + ('A' - 'a')) : c;
+}
+
+std::string ToUpperASCII(const std::string& str);
+
+std::string TrimString(const std::string& input,
+                       const std::string& trim_chars,
+                       TrimPositions positions);
+
+inline bool EndsWith(const std::string& value, const std::string& suffix) {
+    if (suffix.size() > value.size()) {
+        return false;
+    }
+    return std::equal(suffix.rbegin(), suffix.rend(), value.rbegin());
+}
+
+std::vector<float> StringsToFloat(const std::vector<std::string>& strings);
+
+}  // namespace strings
+}  // namespace kwc
+
+#endif  // KWCTOOLKIT_STRINGS_STRING_UTILS_H_
