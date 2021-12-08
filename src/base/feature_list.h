@@ -5,6 +5,7 @@
 #ifndef KWC_BASE_FEATURE_LIST_H_
 #define KWC_BASE_FEATURE_LIST_H_
 
+#include <functional>
 #include <map>
 #include <memory>
 #include <string>

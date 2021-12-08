@@ -6,7 +6,6 @@
 #define KWCTOOLKIT_BASE_ASSERT_H_
 
 #include "base/compiler.h"
-#include "base/logging.h"
 
 // These Assert should always be used in favor of the regular C stdlib
 // style assert() function. In a debug build ASSERT (cond) will

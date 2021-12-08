@@ -5,10 +5,7 @@
 #ifndef KWCTOOLKIT_BASE_CMDLINE_FLAGS_H_
 #define KWCTOOLKIT_BASE_CMDLINE_FLAGS_H_
 
-#include <cstdint>
 #include <string>
-#include <tuple>
-#include <utility>
 
 #include "base/integral_types.h"
 

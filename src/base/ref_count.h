@@ -6,8 +6,8 @@
 #define KWCTOOLKIT_BASE_REF_COUNT_H_
 
 #include <atomic>
+#include <type_traits>
 
-#include "base/compiler.h"
 #include "base/integral_types.h"
 
 namespace kwc {

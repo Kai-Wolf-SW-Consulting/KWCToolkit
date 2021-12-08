@@ -6,6 +6,7 @@
 #define KWCTOOLKIT_STRINGS_STRING_UTILS_H_
 
 #include <algorithm>
+#include <iosfwd>
 #include <string>
 #include <vector>
 

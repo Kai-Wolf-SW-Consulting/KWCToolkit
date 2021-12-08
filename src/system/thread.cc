@@ -4,14 +4,14 @@
 
 #include "system/thread.h"
 
+#include <algorithm>
+
+#include "base/assert.h"
+#include "base/platform.h"  // IWYU pragma: keep
+
 #if !defined(OS_WINDOWS)
     #include <sched.h>
 #endif
-
-#include <algorithm>
-
-#include "base/platform.h"
-#include "base/assert.h"
 
 namespace kwc {
 namespace system {
@@ -52,7 +52,7 @@ void Thread::start() {
 #if defined(OS_WINDOWS)
     // Set the reserved stack size to 1M, which is default on Windows/Linux
     thread_ = ::CreateThread(nullptr, 1024 * 1024, &startThread, this,
-                              STACK_SIZE_PARAM_IS_A_RESERVATION, &thread_id_);
+                             STACK_SIZE_PARAM_IS_A_RESERVATION, &thread_id_);
     ASSERT(thread_ && "Thread creation failed");
     ASSERT(thread_id_);
 #else

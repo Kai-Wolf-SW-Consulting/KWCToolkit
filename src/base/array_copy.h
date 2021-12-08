@@ -5,9 +5,7 @@
 #ifndef KWCTOOLKIT_BASE_ARRAY_COPY_H_
 #define KWCTOOLKIT_BASE_ARRAY_COPY_H_
 
-#include <cstddef>
 #include <cstring>
-#include <iostream>
 #include <type_traits>
 
 namespace kwc {

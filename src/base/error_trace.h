@@ -5,14 +5,12 @@
 #ifndef KWCTOOLKIT_BASE_ERROR_TRACE_H_
 #define KWCTOOLKIT_BASE_ERROR_TRACE_H_
 
-#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
 
 #include "base/compiler.h"
 #include "base/integral_types.h"
-#include "base/macros.h"
 
 namespace kwc {
 enum class InternalErrorType : uint32;

@@ -8,8 +8,7 @@
 #include <cstring>
 #include <iostream>
 #include <limits>
-
-#include "base/check.h"
+#include <string>
 
 namespace kwc {
 namespace base {

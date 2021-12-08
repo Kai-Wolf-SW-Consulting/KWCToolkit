@@ -4,8 +4,6 @@
 
 #include "file/file_utils.h"
 
-#include "base/platform.h"
-
 #if defined(OS_WINDOWS)
     #include <direct.h>
     #include <io.h>

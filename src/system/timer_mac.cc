@@ -2,11 +2,7 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include <CoreServices/CoreServices.h>
-#include <mach/mach.h>
 #include <mach/mach_time.h>
-
-#include <cstdint>
 
 #include "base/integral_types.h"
 #include "system/timer.h"

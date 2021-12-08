@@ -5,7 +5,10 @@
 #ifndef KWC_STRINGS_UTF_STRING_CONVERSION_H_
 #define KWC_STRINGS_UTF_STRING_CONVERSION_H_
 
+#include <stdint.h>
+
 #include <cstddef>
+#include <iosfwd>
 #include <string>
 
 // UTF8 conversion utility functions to translate between Windows/Unix

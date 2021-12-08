@@ -3,10 +3,9 @@
 // list of contributors see the AUTHORS file in the same directory.
 
 #include "base/callback.h"
+#include "base/callback_types.h"
 
 #include <gtest/gtest.h>
-
-#include <string>
 
 namespace {
 int value = 0;

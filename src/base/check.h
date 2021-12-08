@@ -5,11 +5,9 @@
 #ifndef KWCTOOLKIT_BASE_CHECK_H_
 #define KWCTOOLKIT_BASE_CHECK_H_
 
-#include <cstdlib>
 #include <ostream>
 
-#include "base/logging.h"
-#include "base/macros.h"
+#include "base/logging.h"  // IWYU pragma: keep
 
 namespace kwc {
 namespace base {

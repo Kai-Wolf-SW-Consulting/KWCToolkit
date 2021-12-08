@@ -4,6 +4,7 @@
 
 #include "strings/string_utils.h"
 
+#include <stdint.h>
 #include <cstddef>
 
 namespace kwc {

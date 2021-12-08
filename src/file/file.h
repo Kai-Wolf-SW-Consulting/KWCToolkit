@@ -5,16 +5,12 @@
 #ifndef KWC_FILE_FILE_H_
 #define KWC_FILE_FILE_H_
 
-#include <fcntl.h>
-#include <sys/stat.h>
+#include <sys/fcntl.h>
 #include <sys/types.h>
-
-#include <string>
-
-#include "file/file_path.h"
 
 namespace kwc {
 namespace file {
+class FilePath;
 
 class File {
   public:

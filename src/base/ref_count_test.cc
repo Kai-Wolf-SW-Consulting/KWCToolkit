@@ -6,7 +6,6 @@
 
 #include <gtest/gtest.h>
 
-#include <cstdint>
 #include <thread>
 
 #include "base/integral_types.h"

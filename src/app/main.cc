@@ -2,6 +2,10 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
+#include <cstdio>
+#include <cstdlib>
+#include <ostream>
+
 #include "app/app.h"
 #include "base/cmdline_flags.h"
 #include "base/logging.h"
@@ -9,7 +13,7 @@
 
 #if defined(OS_MACOS) || defined(OS_LINUX)
     #include <execinfo.h>
-    #include <signal.h>
+    #include <csignal>
 
 // Setup some debugging info in case the program segfaults hard
 inline void SegmentationFaultHandler(int sig) {

@@ -5,9 +5,7 @@
 #ifndef KWC_FILE_FILE_PATH_H_
 #define KWC_FILE_FILE_PATH_H_
 
-#include <cstddef>
 #include <string>
-#include <vector>
 
 namespace kwc {
 namespace file {

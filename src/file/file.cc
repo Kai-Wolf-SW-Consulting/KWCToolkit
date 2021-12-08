@@ -4,11 +4,12 @@
 
 #include "file/file.h"
 
-#include <algorithm>
+#include <ostream>
+#include <type_traits>
 
 #include "base/check.h"
 #include "base/logging.h"
-#include "base/macros.h"
+#include "file/file_path.h"
 
 #if defined(OS_WINDOWS)
     #include <direct.h>

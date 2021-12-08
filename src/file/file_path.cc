@@ -4,7 +4,7 @@
 
 #include "file/file_path.h"
 
-#include "base/platform.h"
+#include <cstddef>
 
 namespace kwc {
 namespace file {

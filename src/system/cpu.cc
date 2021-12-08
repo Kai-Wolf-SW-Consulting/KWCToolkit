@@ -4,12 +4,13 @@
 
 #include "system/cpu.h"
 
-#include <cstddef>
+#include <stdint.h>
+
 #include <cstring>
+#include <type_traits>
 
 #include "base/array_size.h"
 #include "base/compiler.h"
-#include "base/macros.h"
 
 #if defined(ARCH_CPU_X86_FAMILY) && defined(COMPILER_MSVC)
     #include <immintrin.h>  // for _xgetbv()

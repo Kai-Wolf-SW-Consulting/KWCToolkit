@@ -61,9 +61,9 @@
 //     == foo->bar(23, 1.7);
 
 #include "base/callback_impl.h"
-#include "base/callback_types.h"
 
 namespace kwc {
+class Callback;
 
 template <typename Instance>
 void DeletePointer(Instance* instance) {

@@ -5,20 +5,16 @@
 #ifndef KWC_FILE_FILE_UTILS_H_
 #define KWC_FILE_FILE_UTILS_H_
 
-#include <fcntl.h>
+#include <sys/errno.h>
+#include <sys/fcntl.h>
 #include <sys/stat.h>
 
 #include <algorithm>
-#include <cerrno>
-#include <cstddef>
 #include <cstdio>
 #include <limits>
-#include <type_traits>
-#include <vector>
 
 #include "base/assert.h"
 #include "base/check.h"
-#include "base/integral_types.h"
 #include "base/compiler.h"
 #include "base/scope_guard.h"
 #include "file/file_path.h"

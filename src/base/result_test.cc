@@ -9,6 +9,7 @@
 #include <memory>
 #include <vector>
 
+#include "base/integral_types.h"
 #include "base/ref_count.h"
 
 using namespace kwc;

@@ -5,6 +5,7 @@
 #include "base/assert.h"
 
 #include <cstdlib>
+#include <ostream>
 
 #include "base/logging.h"
 

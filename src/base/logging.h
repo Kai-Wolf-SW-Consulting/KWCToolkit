@@ -5,12 +5,13 @@
 #ifndef KWCTOOLKIT_BASE_LOGGING_H_
 #define KWCTOOLKIT_BASE_LOGGING_H_
 
-#include "base/macros.h"
+#include <ostream>
 
-#ifdef OS_WINDOWS
+#include "base/platform.h"  // IWYU pragma: keep
+
+#if defined(OS_WINDOWS)
     #undef ERROR
 #endif
-#include <ostream>
 
 namespace kwc {
 namespace base {

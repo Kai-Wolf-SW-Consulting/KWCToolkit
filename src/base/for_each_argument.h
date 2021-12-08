@@ -5,7 +5,6 @@
 #ifndef KWCTOOLKIT_BASE_FOR_EACH_ARGUMENT_H_
 #define KWCTOOLKIT_BASE_FOR_EACH_ARGUMENT_H_
 
-#include <iostream>
 #include <utility>
 
 namespace kwc {

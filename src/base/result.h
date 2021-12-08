@@ -8,9 +8,10 @@
 #include <cstdint>
 #include <memory>
 #include <type_traits>
+#include <utility>  // IWYU pragma: keep
 
 #include "base/assert.h"
-#include "base/compiler.h"
+#include "base/ref_count.h"
 
 namespace kwc {
 namespace base {
@@ -114,9 +115,9 @@ template <typename T, typename E>
 class Result<T*, E> {
   public:
     static_assert(std::alignment_of<T>::value >= 4,
-                   "Result<T*, E*> needs two bits for tagged pointers");
+                  "Result<T*, E*> needs two bits for tagged pointers");
     static_assert(std::alignment_of<E>::value >= 4,
-                   "Result<T*, E*> needs two bits for tagged pointers");
+                  "Result<T*, E*> needs two bits for tagged pointers");
 
     Result(T* success) : payload_(internal::createPayload(success, internal::Success)) {}
 
@@ -168,9 +169,9 @@ template <typename T, typename E>
 class Result<const T*, E> {
   public:
     static_assert(std::alignment_of<T>::value >= 4,
-                   "Result<T*, E*> needs two bits for tagged pointers");
+                  "Result<T*, E*> needs two bits for tagged pointers");
     static_assert(std::alignment_of<E>::value >= 4,
-                   "Result<T*, E*> needs two bits for tagged pointers");
+                  "Result<T*, E*> needs two bits for tagged pointers");
 
     Result(const T* success) : payload_(internal::createPayload(success, internal::Success)) {}
 
@@ -210,16 +211,13 @@ class Result<const T*, E> {
     intptr_t payload_ = internal::kEmptyPayload;
 };
 
-template <typename T>
-class Ref;
-
 template <typename T, typename E>
 class Result<Ref<T>, E> {
   public:
     static_assert(std::alignment_of<T>::value >= 4,
-                   "Result<T*, E*> needs two bits for tagged pointers");
+                  "Result<T*, E*> needs two bits for tagged pointers");
     static_assert(std::alignment_of<E>::value >= 4,
-                   "Result<T*, E*> needs two bits for tagged pointers");
+                  "Result<T*, E*> needs two bits for tagged pointers");
 
     template <typename U>
     Result(Ref<U>&& success)

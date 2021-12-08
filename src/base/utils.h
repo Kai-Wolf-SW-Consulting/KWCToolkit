@@ -5,8 +5,11 @@
 #ifndef KWC_BASE_UTILS_H_
 #define KWC_BASE_UTILS_H_
 
+#include <stddef.h>
+
+#include <iterator>
 #include <tuple>
-#include <vector>
+#include <utility>
 
 namespace kwc {
 namespace base {

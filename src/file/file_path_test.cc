@@ -5,6 +5,7 @@
 #include "file/file_path.h"
 
 #include <gtest/gtest.h>
+#include <stddef.h>
 
 #include "base/array_size.h"
 
@@ -30,7 +31,7 @@ class FilePathTest : public testing::Test {
 
 TEST_F(FilePathTest, CheckBaseName) {
     const struct UnaryTestData cases[] = {
-        // clang-format off
+  // clang-format off
         { "",             "" },
         { "aa",           "aa" },
         { "/aa/bb",       "bb" },
@@ -51,7 +52,7 @@ TEST_F(FilePathTest, CheckBaseName) {
         { "//aa/bb",      "bb" },
         { "//aa/",        "aa" },
         { "//aa",         "aa" },
-        // clang-format on
+  // clang-format on
     };
 
     for (auto i = 0u; i < arraysize(cases); i++) {
@@ -64,7 +65,7 @@ TEST_F(FilePathTest, CheckBaseName) {
 
 TEST_F(FilePathTest, CheckDirectoryNavigations) {
     const struct UnaryTestData cases[] = {
-        // clang-format off
+  // clang-format off
         { "",             "."},
         { "aa",           "." },
         { "/aa/bb",       "/aa" },
@@ -86,7 +87,7 @@ TEST_F(FilePathTest, CheckDirectoryNavigations) {
         { "//aa/bb",      "//aa" },
         { "//aa/",        "//" },
         { "//aa",         "//" },
-        // clang-format on
+  // clang-format on
     };
 
     for (auto i = 0u; i < arraysize(cases); i++) {
@@ -99,7 +100,7 @@ TEST_F(FilePathTest, CheckDirectoryNavigations) {
 
 TEST_F(FilePathTest, CheckAppendPaths) {
     const struct BinaryTestData cases[] = {
-        // clang-format off
+  // clang-format off
         { { "",       "cc" }, "cc" },
         { { ".",      "ff" }, "ff" },
         { { "/",      "cc" }, "/cc" },
@@ -108,7 +109,7 @@ TEST_F(FilePathTest, CheckAppendPaths) {
         { { "//aa",     "" }, "//aa" },
         { { "//aa/",    "" }, "//aa" },
         { { "//",     "aa" }, "//aa" },
-        // clang-format on
+  // clang-format on
     };
 
     for (std::size_t i = 0; i < arraysize(cases); ++i) {
@@ -125,7 +126,7 @@ TEST_F(FilePathTest, CheckAppendPaths) {
 
 TEST_F(FilePathTest, CheckEqual) {
     const struct BinaryBooleanTestData cases[] = {
-        // clang-format off
+  // clang-format off
         { { "/foo/bar/baz",  "/foo/bar/baz" },      true },
         { { "/foo/bar",      "/foo/bar/baz" },      false },
         { { "/foo/bar/baz",  "/foo/bar" },          false },
@@ -135,7 +136,7 @@ TEST_F(FilePathTest, CheckEqual) {
         { { "foo/bar",       "foo/bar" },           true },
         { { "foo/bar",       "foo/bar/baz" },       false },
         { { "",              "foo" },               false },
-        // clang-format on
+  // clang-format on
     };
 
     for (std::size_t i = 0; i < arraysize(cases); ++i) {

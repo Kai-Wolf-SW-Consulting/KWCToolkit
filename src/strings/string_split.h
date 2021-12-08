@@ -6,7 +6,6 @@
 #define KWCTOOLKIT_STRINGS_STRING_SPLIT_H_
 
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace kwc {
