@@ -17,9 +17,20 @@ set(KWCToolkit_DEFAULT_ARGS
   -DCMAKE_PREFIX_PATH:PATH=${KWCToolkit_INSTALL_PREFIX};${CMAKE_PREFIX_PATH}
   -DCMAKE_TOOLCHAIN_FILE:FILEPATH=${CMAKE_TOOLCHAIN_FILE})
 
-# Setu project dependencies
+# Setup project dependencies
 include(ExternalProject)
 include(Projects)
+
+# Add ICU UTF8 handling library
+add_library(third_party_icu
+  icu/v60.1/icu_utf.cc
+  icu/v60.1/icu_utf.h)
+add_library(third_party::icu ALIAS third_party_icu)
+target_include_directories(third_party_icu
+  SYSTEM PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/icu/v60.1>
+    $<INSTALL_INTERFACE:icu/v60.1>)
+install(TARGETS third_party_icu EXPORT ${PROJECT_NAME}Targets)
 
 option(USE_SYSTEM_GTEST "Use installed version of googletest library" OFF)
 if(USE_SYSTEM_GTEST)

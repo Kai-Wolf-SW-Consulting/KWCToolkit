@@ -6,7 +6,9 @@ add_library(kwc_strings
   string_split.cc
   string_split.h
   string_utils.cc
-  string_utils.h)
+  string_utils.h
+  utf_string_conversion.cc
+  utf_string_conversion.h)
 
 add_library(kwc::strings ALIAS kwc_strings)
 
@@ -14,6 +16,9 @@ target_include_directories(kwc_strings
   PUBLIC
     $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
     $<INSTALL_INTERFACE:include>)
+
+target_link_libraries(kwc_strings
+  PUBLIC third_party::icu)
 
 install(TARGETS kwc_strings
   EXPORT ${PROJECT_NAME}Targets

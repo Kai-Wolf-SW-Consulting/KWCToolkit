@@ -18,6 +18,8 @@ add_library(kwc_base
   error.h
   error_trace.cc
   error_trace.h
+  feature_list.cc
+  feature_list.h
   for_each_argument.h
   integral_types.h
   logging.cc
@@ -31,7 +33,8 @@ add_library(kwc_base
   rw_protected.h
   scope_guard.h
   status.cc
-  status.h)
+  status.h
+  utils.h)
 
 add_library(kwc::base ALIAS kwc_base)
 
@@ -58,7 +61,8 @@ if(BUILD_TESTING)
     for_each_argument_test.cc
     ref_count_test.cc
     result_test.cc
-    scope_guard_test.cc)
+    scope_guard_test.cc
+    utils_test.cc)
 
   target_link_libraries(kwc_base_test
     PRIVATE kwc::base GTest::gtest_main GTest::gtest)
