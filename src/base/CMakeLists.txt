@@ -10,10 +10,14 @@ add_library(kwc_base
   callback.h
   callback_impl.h
   callback_types.h
+  check.cc
   check.h
   cmdline_flags.cc
   cmdline_flags.h
   compiler.h
+  error.h
+  error_trace.cc
+  error_trace.h
   for_each_argument.h
   integral_types.h
   logging.cc

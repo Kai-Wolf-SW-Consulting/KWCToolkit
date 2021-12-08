@@ -70,7 +70,7 @@
 // The CACHELINE_ALIGNED macro models the behaviour of alignas()
 // for supported compilers. The result of the application of this macro is
 // always implementation-defined. Hence, use this with care
-#if defined(__GNUC__)
+#if defined(COMPILER_GCC)
     #if defined(__i386__) || defined(__x86_64__)
         #define CACHELINE_SIZE 64
     #elif defined(__powerpc64__)
@@ -86,7 +86,7 @@
         #define CACHELINE_SIZE 64
     #endif
     #define CACHELINE_ALIGNED __attribute__((aligned(CACHELINE_SIZE)))
-#elif defined(_MSC_VER)
+#elif defined(COMPILER_MSVC)
     #define CACHELINE_SIZE 64
     #define CACHELINE_ALIGNED __declspec(align(CACHELINE_SIZE))
 #else
@@ -118,7 +118,7 @@
 // condition is likely to be true or false
 #undef LIKELY
 #undef UNLIKELY
-#if defined(__GNUC__) && __GNUC__ >= 4
+#if defined(COMPILER_GCC) && __GNUC__ >= 4
     #define LIKELY(x) (__builtin_expect((x), 1))
     #define UNLIKELY(x) (__builtin_expect((x), 0))
 #else
@@ -141,10 +141,33 @@
     #define RESTRICT __restrict__
 #endif
 
+// Add support for nodiscard if available
+#if defined(COMPILER_GCC) || defined(COMPILER_CLANG)
+    #if !defined(__has_cpp_attribute)
+        #define __has_cpp_attribute(name) 0
+    #endif
+
+    // Use either warn_unused_result on clang or a c++1z extension for C++14.
+    // Also avoid warn_unused_result with GCC as it is only a function attribute
+    // as opossed to a type attribute
+    #if __has_cpp_attribute(warn_unused_result) && defined(COMPILER_CLANG)
+        #define NO_DISCARD __attribute__((warn_unused_result))
+    #elif __cplusplus >= 201703L && __has_cpp_attribute(nodiscard)
+        #define NO_DISCARD [[nodiscard]]
+    #endif
+#elif defined(COMPILER_MSVC)
+    #if __cplusplus >= 201703L && _MSC_VER >= 1911
+        #define NO_DISCARD [[nodiscard]]
+    #endif
+#endif
+#if !defined(NO_DISCARD)
+    #define NO_DISCARD
+#endif
+
 // Apparently (void) EXPR works on all compilers to silence unused variables
 #define UNUSED(EXPR) (void)EXPR
 
-#ifdef COMPILER_MSVC
+#if defined(COMPILER_MSVC)
     #define MAYBE_UNUSED
 #else
     #define MAYBE_UNUSED __attribute__((unused))
