@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_BASE_ENVIRONMENT_H_
-#define KWC_BASE_ENVIRONMENT_H_
+#ifndef KWCTOOLKIT_BASE_ENVIRONMENT_H_
+#define KWCTOOLKIT_BASE_ENVIRONMENT_H_
 
 #include <memory>
 #include <string>
@@ -36,4 +36,4 @@ class Environment {
 }  // namespace system
 }  // namespace kwc
 
-#endif  // KWC_BASE_ENVIRONMENT_H_
+#endif  // KWCTOOLKIT_BASE_ENVIRONMENT_H_

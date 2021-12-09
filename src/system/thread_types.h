@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_SYSTEM_THREAD_TYPES_H_
-#define KWC_SYSTEM_THREAD_TYPES_H_
+#ifndef KWCTOOLKIT_SYSTEM_THREAD_TYPES_H_
+#define KWCTOOLKIT_SYSTEM_THREAD_TYPES_H_
 
 #include "base/platform.h"
 
@@ -15,7 +15,7 @@
 #elif defined(OS_POSIX)
     #include <pthread.h>
     #include <unistd.h>
-    #if defined(OS_APPLE)
+    #if defined(OS_MACOS)
         #include <pthread_spis.h>
     #endif
 #endif
@@ -47,4 +47,4 @@ void setCurrentThreadName(const char* name);
 }  // namespace system
 }  // namespace kwc
 
-#endif  // KWC_SYSTEM_THREAD_TYPES_H_
+#endif  // KWCTOOLKIT_SYSTEM_THREAD_TYPES_H_

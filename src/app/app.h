@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_APP_APP_H_
-#define KWC_APP_APP_H_
+#ifndef KWCTOOLKIT_APP_APP_H_
+#define KWCTOOLKIT_APP_APP_H_
 
 #include <string>
 
@@ -65,4 +65,4 @@ class App {
 }  // namespace app
 }  // namespace kwc
 
-#endif  // KWC_APP_APP_H_
+#endif  // KWCTOOLKIT_APP_APP_H_

@@ -5,6 +5,7 @@
 add_library(kwc_strings
   string_split.cc
   string_split.h
+  string_switch.h
   string_utils.cc
   string_utils.h
   utf_string_conversion.cc
@@ -31,7 +32,8 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 if(BUILD_TESTING)
   include(GoogleTest)
   add_executable(kwc_strings_test
-    string_split_test.cc)
+    string_split_test.cc
+    string_switch_test.cc)
 
   target_link_libraries(kwc_strings_test
     PRIVATE kwc::strings GTest::gtest_main GTest::gtest)

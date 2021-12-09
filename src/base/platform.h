@@ -34,8 +34,8 @@
 #endif
 
 // for accessing standard POSIX features, use OS_POSIX instead of a more specific macro
-#if defined(OS_ANDROID) || defined(OS_FREEBSD) || defined(OS_NETBSD) || defined(OS_OPENBSD) || \
-    defined(OS_MACOS)
+#if defined(OS_ANDROID) || defined(OS_LINUX) || defined(OS_FREEBSD) || defined(OS_NETBSD) || \
+    defined(OS_OPENBSD) || defined(OS_MACOS)
     #define OS_POSIX 1
 #endif
 

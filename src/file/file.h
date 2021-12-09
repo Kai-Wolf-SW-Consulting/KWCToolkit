@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_FILE_FILE_H_
-#define KWC_FILE_FILE_H_
+#ifndef KWCTOOLKIT_FILE_FILE_H_
+#define KWCTOOLKIT_FILE_FILE_H_
 
 #include <sys/fcntl.h>
 #include <sys/types.h>
@@ -39,4 +39,4 @@ class File {
 }  // namespace file
 }  // namespace kwc
 
-#endif  // KWC_FILE_FILE_H_
+#endif  // KWCTOOLKIT_FILE_FILE_H_

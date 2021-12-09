@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_SYSTEM_TIMER_H_
-#define KWC_SYSTEM_TIMER_H_
+#ifndef KWCTOOLKIT_SYSTEM_TIMER_H_
+#define KWCTOOLKIT_SYSTEM_TIMER_H_
 
 #include <chrono>
 #include <ctime>
@@ -57,4 +57,4 @@ Timer* createTimer();
 }  // namespace system
 }  // namespace kwc
 
-#endif  // KWC_SYSTEM_TIMER_H_
+#endif  // KWCTOOLKIT_SYSTEM_TIMER_H_

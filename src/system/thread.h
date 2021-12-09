@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_SYSTEM_THREAD_H_
-#define KWC_SYSTEM_THREAD_H_
+#ifndef KWCTOOLKIT_SYSTEM_THREAD_H_
+#define KWCTOOLKIT_SYSTEM_THREAD_H_
 
 #include "base/macros.h"
 #include "base/platform.h"
@@ -95,4 +95,4 @@ class Thread {
 }  // namespace system
 }  // namespace kwc
 
-#endif  // KWC_SYSTEM_THREAD_H_
+#endif  // KWCTOOLKIT_SYSTEM_THREAD_H_

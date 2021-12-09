@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_SYSTEM_CPU_H_
-#define KWC_SYSTEM_CPU_H_
+#ifndef KWCTOOLKIT_SYSTEM_CPU_H_
+#define KWCTOOLKIT_SYSTEM_CPU_H_
 
 #include <string>
 
@@ -76,4 +76,4 @@ class CPU final {
 }  // namespace system
 }  // namespace kwc
 
-#endif  // KWC_SYSTEM_CPU_H_
+#endif  // KWCTOOLKIT_SYSTEM_CPU_H_

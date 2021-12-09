@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_APP_APP_INFO_H_
-#define KWC_APP_APP_INFO_H_
+#ifndef KWCTOOLKIT_APP_APP_INFO_H_
+#define KWCTOOLKIT_APP_APP_INFO_H_
 
 // AUTO-GENERATION WARNING:
 // This file has been automatically generated.
@@ -71,4 +71,4 @@
     #error "Please specify the application id in the top-level CMakeLists.txt file."
 #endif
 
-#endif  // KWC_APP_APP_INFO_H_
+#endif  // KWCTOOLKIT_APP_APP_INFO_H_

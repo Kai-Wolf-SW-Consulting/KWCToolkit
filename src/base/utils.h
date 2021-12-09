@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_BASE_UTILS_H_
-#define KWC_BASE_UTILS_H_
+#ifndef KWCTOOLKIT_BASE_UTILS_H_
+#define KWCTOOLKIT_BASE_UTILS_H_
 
 #include <stddef.h>
 
@@ -53,4 +53,4 @@ constexpr auto Enumerate(T&& iterable) {
 }  // namespace base
 }  // namespace kwc
 
-#endif  // KWC_BASE_UTILS_H_
+#endif  // KWCTOOLKIT_BASE_UTILS_H_

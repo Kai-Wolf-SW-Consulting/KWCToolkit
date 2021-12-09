@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_FILE_FILE_PATH_H_
-#define KWC_FILE_FILE_PATH_H_
+#ifndef KWCTOOLKIT_FILE_FILE_PATH_H_
+#define KWCTOOLKIT_FILE_FILE_PATH_H_
 
 #include <string>
 
@@ -43,4 +43,4 @@ class FilePath {
 }  // namespace file
 }  // namespace kwc
 
-#endif  // KWC_FILE_FILE_PATH_H_
+#endif  // KWCTOOLKIT_FILE_FILE_PATH_H_

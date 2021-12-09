@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWC_STRINGS_UTF_STRING_CONVERSION_H_
-#define KWC_STRINGS_UTF_STRING_CONVERSION_H_
+#ifndef KWCTOOLKIT_STRINGS_UTF_STRING_CONVERSION_H_
+#define KWCTOOLKIT_STRINGS_UTF_STRING_CONVERSION_H_
 
 #include <stdint.h>
 
@@ -31,4 +31,4 @@ std::size_t WriteUnicodeCharacter(uint32_t code_point, std::wstring* output);
 }  // namespace strings
 }  // namespace kwc
 
-#endif  // KWC_STRINGS_UTF_STRING_CONVERSION_H_
+#endif  // KWCTOOLKIT_STRINGS_UTF_STRING_CONVERSION_H_
