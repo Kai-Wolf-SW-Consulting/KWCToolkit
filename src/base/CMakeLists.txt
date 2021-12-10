@@ -20,6 +20,7 @@ add_library(kwc_base
   error_trace.h
   feature_list.cc
   feature_list.h
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:for_each_argument.h>
   for_each_argument.h
   integral_types.h
   logging.cc
@@ -34,7 +35,7 @@ add_library(kwc_base
   scope_guard.h
   status.cc
   status.h
-  utils.h)
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:utils.h>)
 
 add_library(kwc::base ALIAS kwc_base)
 
@@ -58,11 +59,11 @@ if(BUILD_TESTING)
     array_size_test.cc
     callback_test.cc
     cmdline_flags_test.cc
-    for_each_argument_test.cc
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:for_each_argument_test.cc>
     ref_count_test.cc
     result_test.cc
     scope_guard_test.cc
-    utils_test.cc)
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:utils_test.cc>)
 
   target_link_libraries(kwc_base_test
     PRIVATE kwc::base GTest::gtest_main GTest::gtest)

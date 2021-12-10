@@ -6,6 +6,8 @@
 
 #include <gtest/gtest.h>
 
+#include <cstring>
+
 using namespace kwc::strings;
 
 TEST(StringSwitchTest, TestWithStdString) {
@@ -23,7 +25,7 @@ TEST(StringSwitchTest, TestWithConstChar) {
             .Case("value", "17")
             .Case("other", "23")
             .Default("42");
-    EXPECT_EQ("17", result);
+    ASSERT_TRUE(strncmp("17", result, 2) == 0);
 }
 
 TEST(StringSwitchTest, TestWithIntegers) {

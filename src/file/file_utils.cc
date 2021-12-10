@@ -25,6 +25,7 @@ int IgnoreCloseReturn(int r) {
 }
 }  // namespace
 
+#if defined(OS_MACOS) || defined(OS_LINUX)
 int openNoInterrupt(const char* name, int flags, mode_t mode) {
     return int(internal::wrapNoInterrupt(open, name, flags, mode));
 }
@@ -40,6 +41,7 @@ ssize_t readFull(int fd, void* buf, std::size_t count) {
 ssize_t writeFull(int fd, const void* buf, std::size_t count) {
     return internal::wrapIncomplete(write, fd, const_cast<void*>(buf), count);
 }
+#endif
 
 }  // namespace file
 }  // namespace kwc

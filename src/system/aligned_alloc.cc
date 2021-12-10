@@ -13,7 +13,7 @@ namespace system {
 
 void* alignedAlloc(std::ptrdiff_t num_bytes, std::size_t alignment) {
 #if defined(OS_WINDOWS)
-    return _aligned_malloc(numBytes, alignment);
+    return _aligned_malloc(num_bytes, alignment);
 #else
     void* ptr;
     if (posix_memalign(&ptr, alignment, num_bytes)) {

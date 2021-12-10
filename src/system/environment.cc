@@ -8,6 +8,7 @@
 
 #include "base/platform.h"
 #include "strings/string_utils.h"
+#include "strings/utf_string_conversion.h"
 
 #if defined(OS_WINDOWS)
     #include <windows.h>
@@ -56,15 +57,13 @@ class EnvironmentImpl : public Environment {
             *result = env_value;
         return true;
 #elif defined(OS_WINDOWS)
-        DWORD value_length =
-            ::GetEnvironmentVariable(strings::UTF8ToWide(var_name).c_str(), nullptr, 0);
-        if (value_length == 0)
+        std::unique_ptr<char[]> value (new char[32767]);
+        DWORD value_length = ::GetEnvironmentVariableA(var_name.c_str(), value.get(), 32767);
+        if (value_length == 0) {
             return false;
+        }
         if (result) {
-            std::unique_ptr<wchar_t[]> value(new wchar_t[value_length]);
-            ::GetEnvironmentVariable(strings::UTF8ToWide(var_name).c_str(), value.get(),
-                                     value_length);
-            *result = strings::WideToUTF8(value.get());
+            *result = value.get ();
         }
         return true;
 #else
@@ -78,8 +77,7 @@ class EnvironmentImpl : public Environment {
         return !setenv(var_name.data(), new_value.c_str(), 1);
 #elif defined(OS_WINDOWS)
         // On success, a nonzero value is returned
-        return !!SetEnvironmentVariable(strings::UTF8ToWide(var_name).c_str(),
-                                        strings::UTF8ToWide(new_value).c_str());
+        return !!SetEnvironmentVariableA(var_name.c_str(), new_value.c_str());
 #endif
     }
 
@@ -89,7 +87,7 @@ class EnvironmentImpl : public Environment {
         return !unsetenv(var_name.data());
 #elif defined(OS_WINDOWS)
         // On success, a nonzero value is returned
-        return !!SetEnvironmentVariable(strings::UTF8ToWide(var_name).c_str(), nullptr);
+        return !!SetEnvironmentVariableA(var_name.c_str(), nullptr);
 #endif
     }
 };

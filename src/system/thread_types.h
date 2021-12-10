@@ -10,6 +10,7 @@
 #if defined(OS_WINDOWS)
     // The inclusion of winsock2.h before windows.h is necessary here in order
     // to maintain consistency with win32 specifics
+    #define _WINSOCKAPI_
     #include <windows.h>
     #include <winsock2.h>
 #elif defined(OS_POSIX)

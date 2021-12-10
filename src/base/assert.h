@@ -54,7 +54,7 @@
 
 #define ASSERT(condition) ASSERT_HELPER(__FILE__, __func__, __LINE__, condition)
 
-#define FAIL(msg)     \
+#define KWC_FAIL(msg)     \
     do {              \
         ERROR(msg);   \
         std::abort(); \

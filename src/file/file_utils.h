@@ -5,10 +5,6 @@
 #ifndef KWCTOOLKIT_FILE_FILE_UTILS_H_
 #define KWCTOOLKIT_FILE_FILE_UTILS_H_
 
-#include <sys/errno.h>
-#include <sys/fcntl.h>
-#include <sys/stat.h>
-
 #include <algorithm>
 #include <cstdio>
 #include <limits>
@@ -17,11 +13,19 @@
 #include "base/check.h"
 #include "base/compiler.h"
 #include "base/scope_guard.h"
+#include "base/platform.h"
 #include "file/file_path.h"
+
+#if defined(OS_POSIX) || defined(OS_LINUX)
+#include <sys/errno.h>
+#include <sys/fcntl.h>
+#include <sys/stat.h>
+#endif
 
 namespace kwc {
 namespace file {
 
+#if defined(OS_MACOS) || defined(OS_LINUX)
 // These are wrappers around commonly used system calls so that they retry on EINTR.
 // See wrapIncomplete below for read/write.
 int openNoInterrupt(const char* name, int flags, mode_t mode = 0666);
@@ -146,6 +150,8 @@ bool WriteFile(const FilePath& filename,
         data.empty() || writeFull(fd, &data[0], data.size()) == static_cast<ssize_t>(data.size());
     return closeNoInterrupt(fd) == 0 && ok;
 }
+
+#endif
 
 }  // namespace file
 }  // namespace kwc

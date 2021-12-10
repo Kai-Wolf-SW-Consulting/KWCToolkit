@@ -155,7 +155,7 @@ int64 SystemInfo::getAmountOfAvailablePhysicalMemoryImpl() {
         return 0;
     }
 
-    return static_cast<int64>(mem_info.availPhys) * 1024;
+    return static_cast<int64>(mem_info.avail_phys) * 1024;
 }
 
 int64 SystemInfo::getAmountOfVirtualMemory() {

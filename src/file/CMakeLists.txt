@@ -3,8 +3,8 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 add_library(kwc_file
-  file.cc
-  file.h
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:file.cc>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:file.h>
   file_path.cc
   file_path.h
   file_utils.cc
