@@ -11,7 +11,14 @@
 namespace kwc {
 namespace base {
 namespace error {
-enum Code { OK = 0 };
+enum Code {
+    OK = 0,
+    CANCELLED = 1,
+    UNKNOWN = 2,
+    INVALID_ARGUMENT = 3,
+    NOT_FOUND = 4,
+    DATA_LOSS = 5
+};
 }  // namespace error
 
 // Determines whether a call or a given object is error free.

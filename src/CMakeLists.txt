@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(base)
 add_subdirectory(file)
+add_subdirectory(serialization)
 add_subdirectory(strings)
 add_subdirectory(system)
 add_subdirectory(utils)
