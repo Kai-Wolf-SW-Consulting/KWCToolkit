@@ -12,6 +12,8 @@ add_library(kwc_system
   cpu.h
   environment.cc
   environment.h
+  executor.cc
+  executor.h
   sleep.cc
   sleep.h
   system_info.cc
