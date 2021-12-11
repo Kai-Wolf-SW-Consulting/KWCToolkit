@@ -7,7 +7,10 @@ add_library(kwc_utils
   base_64.h
   benchmark.h
   color_print.cc
-  color_print.h)
+  color_print.h
+  levenshtein.h
+  regex.cc
+  regex.h)
 
 add_library(kwc::utils ALIAS kwc_utils)
 
@@ -30,7 +33,9 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 if(BUILD_TESTING)
   include(GoogleTest)
   add_executable(kwc_utils_test
-    base_64_test.cc)
+    base_64_test.cc
+    levenshtein_test.cc
+    regex_test.cc)
 
   target_link_libraries(kwc_utils_test
     PRIVATE kwc::strings kwc::utils GTest::gtest_main GTest::gtest)

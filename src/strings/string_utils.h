@@ -30,6 +30,14 @@ enum TrimPositions {
     TRIM_ALL = TRIM_LEADING | TRIM_TRAILING,
 };
 
+inline bool IsWhitespace(const char ch) {
+    return isspace(ch);
+}
+
+inline bool IsWhitespace(const char* ch) {
+    return isspace(ch[0]);
+}
+
 bool IsStringASCII(const std::wstring& str);
 
 bool IsStringASCII(const std::string& str);
