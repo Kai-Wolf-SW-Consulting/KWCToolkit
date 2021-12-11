@@ -2,6 +2,7 @@
 [
   { include: ["<__functional_base>", private, "<functional>", public ] },
   { include: ["<__mutex_base>", private, "<mutex>", public ] },
+  { include: ["<sys/errno.h>", private, "<cerrno>", public ] },
   { include: ["<pthread/pthread_impl.h>", private, "<pthread.h>", public ] },
   { include: ["<malloc/_malloc.h>", private, "<cstdlib>", public ] },
   { include: ["<sys/_pthread/_pthread_t.h>", private, "<pthread.h>", public ] },

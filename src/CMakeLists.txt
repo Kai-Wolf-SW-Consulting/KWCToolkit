@@ -10,5 +10,6 @@ add_subdirectory(base)
 add_subdirectory(file)
 add_subdirectory(strings)
 add_subdirectory(system)
+add_subdirectory(utils)
 
 add_subdirectory(app)
