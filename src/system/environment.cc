@@ -8,7 +8,6 @@
 
 #include "base/platform.h"
 #include "strings/string_utils.h"
-#include "strings/utf_string_conversion.h"
 
 #if defined(OS_WINDOWS)
     #include <windows.h>

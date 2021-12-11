@@ -10,6 +10,7 @@
 #include "base/platform.h"  // IWYU pragma: keep
 
 #if !defined(OS_WINDOWS)
+    #include <pthread/pthread.h>
     #include <sched.h>
 #endif
 

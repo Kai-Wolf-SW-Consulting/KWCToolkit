@@ -8,8 +8,8 @@
 #include <string>
 
 #include "base/integral_types.h"
-#include "base/platform.h"
-#include "system/system_memory_info.h"
+#include "base/platform.h"              // IWYU pragma: keep
+#include "system/system_memory_info.h"  // IWYU pragma: keep
 
 namespace kwc {
 namespace system {
@@ -23,7 +23,8 @@ class SystemInfo {
     static int64 getAmountOfPhysicalMemory();
 
     // Return the number of bytes of current available physical memory on this machine
-    // That is, the amount that can be allocated without any significant runtime impact on the system
+    // That is, the amount that can be allocated without any significant runtime impact on the
+    // system
     static int64 getAmountOfAvailablePhysicalMemory();
 
     // Return the number of megabytes of physical memory on this machine
