@@ -2,11 +2,11 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
+#include <unistd.h>
+
 #include "base/assert.h"
 #include "system/system_info.h"
 #include "system/system_memory_info.h"
-
-#include <unistd.h>
 
 namespace kwc {
 namespace system {

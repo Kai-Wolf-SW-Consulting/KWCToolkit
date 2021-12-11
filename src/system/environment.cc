@@ -56,13 +56,13 @@ class EnvironmentImpl : public Environment {
             *result = env_value;
         return true;
 #elif defined(OS_WINDOWS)
-        std::unique_ptr<char[]> value (new char[32767]);
+        std::unique_ptr<char[]> value(new char[32767]);
         DWORD value_length = ::GetEnvironmentVariableA(var_name.c_str(), value.get(), 32767);
         if (value_length == 0) {
             return false;
         }
         if (result) {
-            *result = value.get ();
+            *result = value.get();
         }
         return true;
 #else

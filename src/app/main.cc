@@ -13,6 +13,7 @@
 
 #if defined(OS_MACOS) || defined(OS_LINUX)
     #include <execinfo.h>
+
     #include <csignal>
 
 // Setup some debugging info in case the program segfaults hard

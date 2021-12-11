@@ -9,7 +9,7 @@
 using namespace kwc::system;
 
 namespace {
-void nothingRunFunction(void* ) {}
+void nothingRunFunction(void*) {}
 
 void setBoolFlagRunFunction(void* obj) {
     bool* objAsBool = static_cast<bool*>(obj);

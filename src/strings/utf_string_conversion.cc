@@ -70,10 +70,7 @@ bool ReadUnicodeCharacter(const char* src,
     return IsValidCodepoint(code_point);
 }
 
-bool ReadUnicodeCharacter(const wchar_t* src,
-                          int32_t ,
-                          int32_t* char_index,
-                          uint32_t* code_point) {
+bool ReadUnicodeCharacter(const wchar_t* src, int32_t, int32_t* char_index, uint32_t* code_point) {
     // conversion is straight-forward since the source is 32-bit.
     *code_point = src[*char_index];
     return IsValidCodepoint(*code_point);

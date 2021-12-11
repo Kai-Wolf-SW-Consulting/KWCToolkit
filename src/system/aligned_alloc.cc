@@ -6,7 +6,7 @@
 
 #include <cstdlib>
 
-#include "base/platform.h" // IWYU pragma: keep
+#include "base/platform.h"  // IWYU pragma: keep
 
 namespace kwc {
 namespace system {

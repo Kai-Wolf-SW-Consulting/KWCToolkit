@@ -3,6 +3,7 @@
 // list of contributors see the AUTHORS file in the same directory.
 
 #include "base/check.h"
+
 #include "base/logging.h"
 
 namespace kwc {

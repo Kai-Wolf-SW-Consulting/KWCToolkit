@@ -56,9 +56,9 @@ struct SystemMemoryInfo {
 #endif
 };
 
-// Parse memory consumption from either /proc/meminfo and /proc/vmstat (Linux, Android) or retrieve it using
-// system API calls (Windows, macOS)
-bool GetSystemMemoryInfo(SystemMemoryInfo *mem_info);
+// Parse memory consumption from either /proc/meminfo and /proc/vmstat (Linux, Android) or retrieve
+// it using system API calls (Windows, macOS)
+bool GetSystemMemoryInfo(SystemMemoryInfo* mem_info);
 
 }  // namespace system
 }  // namespace kwc

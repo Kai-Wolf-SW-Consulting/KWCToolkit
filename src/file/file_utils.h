@@ -12,14 +12,14 @@
 #include "base/assert.h"
 #include "base/check.h"
 #include "base/compiler.h"
-#include "base/scope_guard.h"
 #include "base/platform.h"
+#include "base/scope_guard.h"
 #include "file/file_path.h"
 
 #if defined(OS_POSIX) || defined(OS_LINUX)
-#include <sys/errno.h>
-#include <sys/fcntl.h>
-#include <sys/stat.h>
+    #include <sys/errno.h>
+    #include <sys/fcntl.h>
+    #include <sys/stat.h>
 #endif
 
 namespace kwc {

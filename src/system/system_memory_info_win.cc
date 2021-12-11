@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include <windows.h>
 #include <psapi.h>
+#include <windows.h>
 #include <winternl.h>
 
 #include <cstddef>
