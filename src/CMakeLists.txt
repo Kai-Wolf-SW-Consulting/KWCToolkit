@@ -11,6 +11,7 @@ add_subdirectory(file)
 add_subdirectory(serialization)
 add_subdirectory(strings)
 add_subdirectory(system)
+add_subdirectory(transport)
 add_subdirectory(utils)
 
 add_subdirectory(app)

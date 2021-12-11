@@ -56,11 +56,32 @@ inline char ToUpperASCII(const char c) {
 
 std::string ToUpperASCII(const std::string& str);
 
+template <typename Char>
+struct CaseInsensitiveCompare {
+    bool operator()(Char x, Char y) const { return ToLowerASCII(x) == ToLowerASCII(y); }
+};
+
 std::string TrimString(const std::string& input,
                        const std::string& trim_chars,
                        TrimPositions positions);
 
-inline bool EndsWith(const std::string& value, const std::string& suffix) {
+template <typename String>
+bool StartsWith(String str, String search_for, bool case_sensitive) {
+    if (search_for.size() > str.size()) {
+        return false;
+    }
+
+    auto source = str.substr(0, search_for.size());
+    if (case_sensitive) {
+        return source == search_for;
+    }
+
+    return std::equal(search_for.begin(), search_for.end(), source.begin(),
+                      CaseInsensitiveCompare<typename String::value_type>());
+}
+
+template <typename String>
+bool EndsWith(const String& value, const String& suffix) {
     if (suffix.size() > value.size()) {
         return false;
     }
