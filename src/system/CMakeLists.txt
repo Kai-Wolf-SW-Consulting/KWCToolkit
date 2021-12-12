@@ -14,6 +14,8 @@ add_library(kwc_system
   environment.h
   executor.cc
   executor.h
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:process_internal_linux.cc>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:process_internal_linux.h>
   sleep.cc
   sleep.h
   system_info.cc
