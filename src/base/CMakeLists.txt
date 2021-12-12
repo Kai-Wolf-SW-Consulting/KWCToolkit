@@ -12,6 +12,8 @@ add_library(kwc_base
   callback_types.h
   check.cc
   check.h
+  cmdline.cc
+  cmdline.h
   cmdline_flags.cc
   cmdline_flags.h
   compiler.h
@@ -59,6 +61,7 @@ if(BUILD_TESTING)
     array_size_test.cc
     callback_test.cc
     cmdline_flags_test.cc
+    cmdline_test.cc
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:for_each_argument_test.cc>
     ref_count_test.cc
     result_test.cc
@@ -66,6 +69,6 @@ if(BUILD_TESTING)
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:utils_test.cc>)
 
   target_link_libraries(kwc_base_test
-    PRIVATE kwc::base GTest::gtest_main GTest::gtest)
+    PRIVATE kwc::base kwc::strings kwc::file GTest::gtest_main GTest::gtest)
   gtest_discover_tests(kwc_base_test)
 endif()
