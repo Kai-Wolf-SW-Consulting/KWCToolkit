@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <limits>
+#include <memory>
 
 #include "base/assert.h"
 #include "base/check.h"
@@ -24,6 +25,12 @@
 
 namespace kwc {
 namespace file {
+
+FilePath GetTempDir();
+
+bool DirectoryExists(const FilePath& path);
+
+bool CreateDirectory(const FilePath& full_path);
 
 #if defined(OS_MACOS) || defined(OS_LINUX)
 // These are wrappers around commonly used system calls so that they retry on EINTR.

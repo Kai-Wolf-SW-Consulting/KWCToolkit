@@ -34,6 +34,7 @@ class FilePath {
     FilePath append(const FilePath& component) const;
     FilePath baseName() const;
     FilePath directoryName() const;
+    FilePath stripTrailingSeparators() const;
 
   private:
     void stripTrailingSeparatorsInternal();

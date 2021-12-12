@@ -5,8 +5,13 @@
 add_library(kwc_file
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:file.cc>
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:file.h>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:file_enumerator.cc>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:file_enumerator.h>
+  file_info.cc
+  file_info.h
   file_path.cc
   file_path.h
+  file_path_constants.h
   file_utils.cc
   file_utils.h)
 
@@ -28,9 +33,11 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 if(BUILD_TESTING)
   include(GoogleTest)
   add_executable(kwc_file_test
-    file_path_test.cc)
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:file_enumerator_test.cc>
+    file_path_test.cc
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:file_test.cc>)
 
   target_link_libraries(kwc_file_test
-    PRIVATE kwc::file GTest::gtest_main GTest::gtest)
+    PRIVATE kwc::base kwc::system kwc::file GTest::gtest_main GTest::gtest)
   gtest_discover_tests(kwc_file_test)
 endif()

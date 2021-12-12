@@ -4,11 +4,11 @@
 
 #include "file/file.h"
 
-#include <ostream>
-#include <type_traits>
+#include <sys/stat.h>
+#include <sys/types.h>
 
-#include "base/check.h"
-#include "base/logging.h"
+#include <cstdio>
+
 #include "file/file_path.h"
 
 #if defined(OS_WINDOWS)
@@ -22,56 +22,56 @@
 namespace kwc {
 namespace file {
 
-File::File() noexcept : fd_(-1), owns_fd_(false) {}
+File::File(FILE* const descriptor, const std::string& name) : file_(descriptor), name_(name) {}
 
-File::File(int fd, bool owns_fd) noexcept : fd_(fd), owns_fd_(owns_fd) {
-    CHECK_GE(fd, -1) << "file descriptor must be -1 or non-negative";
-    CHECK(fd != -1 || !owns_fd) << "cannot own -1";
+File* File::open(const FilePath& name, const char* const flag) {
+    FILE* const fd = fopen(name.value().c_str(), flag);
+    if (fd == nullptr)
+        return nullptr;
+    File* const f = new File(fd, name.value());
+    return f;
 }
 
-File::File(const FilePath& filename, int flags, mode_t mode)
-    : fd_(::open(filename.value().c_str(), flags, mode)), owns_fd_(false) {
-    if (fd_ == -1) {
-        LOGGING(base::ERROR) << "Error: open file failed on: " << filename.value() << "\n";
-    } else {
-        owns_fd_ = true;
+bool File::isOpen() const {
+    return file_ != nullptr;
+}
+
+std::size_t File::read(void* const buffer, std::size_t size) {
+    return fread(buffer, 1, size, file_);
+}
+
+std::size_t File::write(const void* const buffer, std::size_t size) {
+    return fwrite(buffer, 1, size, file_);
+}
+
+bool File::close() {
+    if (fclose(file_) == 0) {
+        file_ = nullptr;
+        return true;
     }
+    return false;
 }
 
-int File::fd() const {
-    return fd_;
+bool File::flush() {
+    return fflush(file_) == 0;
 }
 
-File::operator bool() const {
-    return fd_ != -1;
+std::size_t File::getSize() const {
+    struct stat f_stat;
+    stat(name_.c_str(), &f_stat);
+    return static_cast<std::size_t>(f_stat.st_size);
 }
 
-void File::close() {
-    owns_fd_ ? ::close(fd_) : 0;
-    release();
+std::string File::getAbsoluteFileName() const {
+    return name_;
 }
 
-int File::release() noexcept {
-    int released = fd_;
-    fd_ = -1;
-    owns_fd_ = false;
-    return released;
+bool File::remove(FilePath name) {
+    return ::remove(name.value().c_str()) == 0;
 }
 
-File::File(File&& other) noexcept : fd_(other.fd_), owns_fd_(other.owns_fd_) {
-    other.release();
-}
-
-void File::swap(File& other) noexcept {
-    using std::swap;
-    swap(fd_, other.fd_);
-    swap(owns_fd_, other.owns_fd_);
-}
-
-File& File::operator=(File&& other) {
-    close();
-    swap(other);
-    return *this;
+bool File::exists(const FilePath& name) {
+    return access(name.value().c_str(), F_OK) == 0;
 }
 
 }  // namespace file

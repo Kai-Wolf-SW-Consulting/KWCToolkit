@@ -125,6 +125,13 @@ FilePath FilePath::directoryName() const {
     return new_path;
 }
 
+FilePath FilePath::stripTrailingSeparators() const {
+    FilePath new_path(path_);
+    new_path.stripTrailingSeparatorsInternal();
+
+    return new_path;
+}
+
 void FilePath::stripTrailingSeparatorsInternal() {
     const auto start = 1;
     auto last_stripped = std::string::npos;
