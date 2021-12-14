@@ -2,7 +2,7 @@
 // For the licensing terms see LICENSE n the root directory. For the
 // list of contributors see the AUTHORS n the same directory.
 
-#include "base/cmdline.h"
+#include "system/cmdline.h"
 
 #include <gtest/gtest.h>
 

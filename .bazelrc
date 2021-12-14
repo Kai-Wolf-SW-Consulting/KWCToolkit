@@ -1,0 +1,4 @@
+# These compile flags are active no matter which build mode we're in
+build --cxxopt="-std=c++17"
+build --cxxopt="-fno-rtti"
+build --cxxopt="-fno-exceptions"

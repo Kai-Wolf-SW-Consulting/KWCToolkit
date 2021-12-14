@@ -16,7 +16,7 @@
 namespace kwc {
 namespace base {
 
-enum LogSeverity { FATAL, ERROR, WARNING, INFO, DEBUG };
+enum LogSeverity { FATAL, ERROR, WARNING, INFO };
 
 namespace internal {
 int GetLoggingLevel();

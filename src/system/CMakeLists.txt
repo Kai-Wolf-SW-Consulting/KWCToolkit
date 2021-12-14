@@ -8,12 +8,16 @@ find_package(Threads REQUIRED)
 add_library(kwc_system
   aligned_alloc.cc
   aligned_alloc.h
+  cmdline.cc
+  cmdline.h
   cpu.cc
   cpu.h
   environment.cc
   environment.h
   executor.cc
   executor.h
+  feature_list.cc
+  feature_list.h
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:process_internal_linux.cc>
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:process_internal_linux.h>
   sleep.cc
@@ -75,6 +79,7 @@ if(BUILD_TESTING)
   include(GoogleTest)
   add_executable(kwc_system_test
     aligned_alloc_test.cc
+    cmdline_test.cc
     environment_test.cc
     system_info_test.cc
     thread_test.cc)

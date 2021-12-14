@@ -32,8 +32,8 @@ bool ParseProcMemInfo(const std::string& data, SystemMemoryInfo* mem_info) {
         // The HugePages_* entries only have numbers and no suffix. Hence there may not be exactly
         // 3 tokens all the time
         if (tokens.size() <= 1) {
-            LOGGING(base::DEBUG) << "Memory info: tokens: " << tokens.size()
-                                 << ". Malformed: " << line;
+            LOGGING(base::INFO) << "Memory info: tokens: " << tokens.size()
+                                << ". Malformed: " << line;
             continue;
         }
 

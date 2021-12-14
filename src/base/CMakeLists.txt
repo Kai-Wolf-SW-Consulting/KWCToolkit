@@ -12,16 +12,12 @@ add_library(kwc_base
   callback_types.h
   check.cc
   check.h
-  cmdline.cc
-  cmdline.h
   cmdline_flags.cc
   cmdline_flags.h
   compiler.h
   error.h
   error_trace.cc
   error_trace.h
-  feature_list.cc
-  feature_list.h
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:for_each_argument.h>
   for_each_argument.h
   integral_types.h
@@ -61,7 +57,6 @@ if(BUILD_TESTING)
     array_size_test.cc
     callback_test.cc
     cmdline_flags_test.cc
-    cmdline_test.cc
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:for_each_argument_test.cc>
     ref_count_test.cc
     result_test.cc
