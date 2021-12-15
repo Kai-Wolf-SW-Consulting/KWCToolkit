@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+#include <stdexcept>
 #include <string>
 
 namespace kwc {

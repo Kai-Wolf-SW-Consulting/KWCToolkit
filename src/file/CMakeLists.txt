@@ -22,6 +22,9 @@ target_include_directories(kwc_file
   $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
   $<INSTALL_INTERFACE:include>)
 
+target_link_libraries(kwc_file
+  PUBLIC kwc::system)
+
 install(TARGETS kwc_file
   EXPORT ${PROJECT_NAME}Targets
   ARCHIVE DESTINATION ${INSTALL_ARCHIVE_DIR}
@@ -38,6 +41,6 @@ if(BUILD_TESTING)
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:file_test.cc>)
 
   target_link_libraries(kwc_file_test
-    PRIVATE kwc::base kwc::system kwc::file GTest::gtest_main GTest::gtest)
+    PRIVATE kwc::base kwc::file GTest::gtest_main GTest::gtest)
   gtest_discover_tests(kwc_file_test)
 endif()

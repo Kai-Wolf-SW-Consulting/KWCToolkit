@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+#include <stdexcept>
 #include <cstring>
 #include <string>
 
@@ -39,7 +40,9 @@ class AddressIPv6 {
     static AddressIPv6 fromString(const char* str) {
         AddressIPv6 tmp;
 
-        ASSERT(inet_pton(AF_INET6, str, &tmp.address_) == 1 && "Unknown ip address format");
+        if (inet_pton(AF_INET, str, &tmp.address_) != 1) {
+            throw std::runtime_error("Unknown ip address format");
+        }
 
         return tmp;
     }
