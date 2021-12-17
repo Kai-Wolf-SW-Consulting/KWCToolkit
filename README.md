@@ -22,3 +22,23 @@ design rationale here is to go a more basic route of simply copying everything t
 needed in place as outlined before. Furthermore, everything that gets implemented here
 should also serve as a best-practice in terms of software design and build systems as
 for whatever the current year and state-of-the-art is currently.
+
+## Architecture
+The phyiscal structure of this repository consists of several folders. Each folder defines a
+module. Each module consists of several header/source implementations called a component.
+All component are supposed to be finely graduated granular solutions for a specific problem.
+For instance for the base module the logical structure looks as follows:
+
+![Base module](doc/base_module.png)
+
+It is allowed that components in the _same_ module depend on one another but should not depend
+on other modules (at least in the case of the base module).
+
+### Modules
+The design rationale is that modules  are composable and can be stacked on one another in a
+hierarchical manner. Higher level modules  can depend on lower level modules but not the other
+way around:
+
+![Modules](doc/module_architecture.png)
+
+Each module on a physical level is a distinct releasable unit (e.g. shared library).
