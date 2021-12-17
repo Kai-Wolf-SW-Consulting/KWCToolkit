@@ -2,6 +2,8 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
+configure_file(build_flags_internal.h.in ${CMAKE_CURRENT_BINARY_DIR}/build_flags_internal.h)
+
 add_library(kwc_base
   array_copy.h
   array_size.h
@@ -12,6 +14,7 @@ add_library(kwc_base
   callback_types.h
   check.cc
   check.h
+  checked_integer.h
   cmdline_flags.cc
   cmdline_flags.h
   compiler.h
@@ -40,7 +43,8 @@ add_library(kwc::base ALIAS kwc_base)
 target_include_directories(kwc_base
   PUBLIC
     $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
-    $<INSTALL_INTERFACE:include>)
+    $<BUILD_INTERFACE:${KWCToolkit_BINARY_DIR}/src>
+  $<INSTALL_INTERFACE:include>)
 
 install(TARGETS kwc_base
   EXPORT ${PROJECT_NAME}Targets
@@ -56,6 +60,7 @@ if(BUILD_TESTING)
     array_copy_test.cc
     array_size_test.cc
     callback_test.cc
+    checked_integer_test.cc
     cmdline_flags_test.cc
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:for_each_argument_test.cc>
     ref_count_test.cc

@@ -40,7 +40,7 @@ class AddressIPv6 {
     static AddressIPv6 fromString(const char* str) {
         AddressIPv6 tmp;
 
-        if (inet_pton(AF_INET, str, &tmp.address_) != 1) {
+        if (inet_pton(AF_INET6, str, &tmp.address_) != 1) {
             throw std::runtime_error("Unknown ip address format");
         }
 

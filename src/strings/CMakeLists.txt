@@ -19,7 +19,7 @@ target_include_directories(kwc_strings
     $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(kwc_strings
-  PUBLIC third_party::icu)
+  PUBLIC kwc::base third_party::icu)
 
 install(TARGETS kwc_strings
   EXPORT ${PROJECT_NAME}Targets

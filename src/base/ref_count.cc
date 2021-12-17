@@ -39,8 +39,7 @@ uint64 RefCount::getRefCountPayload() const {
 void RefCount::reference() {
     ASSERT((refcount_ & ~kPayloadMask) != 0);
 
-    // See explanation above for why relaxed memory order is sufficient
-    // here.
+    // See explanation above for why relaxed memory order is sufficient here.
     // The reasoning behind this is also explained in the Boost
     // documentation:
     //   https://www.boost.org/doc/libs/1_72_0/doc/html/atomic/usage_examples.html

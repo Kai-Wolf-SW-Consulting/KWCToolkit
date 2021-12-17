@@ -6,6 +6,7 @@
 #define KWCTOOLKIT_BASE_ASSERT_H_
 
 #include "base/compiler.h"
+#include "base/build_flags_internal.h"
 
 // These Assert should always be used in favor of the regular C stdlib
 // style assert() function. In a debug build ASSERT (cond) will
@@ -22,7 +23,7 @@
     #define ASSERT_LOOP_CONDITION (0)
 #endif
 
-#if defined(ENABLE_ASSERTS)
+#if BUILD_FLAG(ENABLE_ASSERTS)
     #define ASSERT_HELPER(file, func, line, condition)             \
         do {                                                       \
             if (!(condition)) {                                    \
