@@ -11,7 +11,7 @@
 
 namespace kwc {
 
-enum class InternalErrorType : uint32 { OutOfMemory, Internal };
+enum class InternalErrorType : uint32 { OutOfMemory, UnknownFormat, Internal };
 
 #define MAKE_ERROR(TYPE, MESSAGE) \
     base::ErrorTrace::Create(TYPE, MESSAGE, __FILE__, __func__, __LINE__)
