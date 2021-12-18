@@ -3,6 +3,7 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 include(GoogleTest)
+
 add_executable(kwc_unittests
   unittests_main.cc)
 
@@ -24,4 +25,26 @@ target_link_libraries(kwc_unittests
     kwc::utils
     GTest::gtest_main GTest::gtest GTest::gmock)
 
+set(assets_path ${CMAKE_CURRENT_SOURCE_DIR}/test_data)
+configure_file(assets.h.in ${CMAKE_CURRENT_BINARY_DIR}/assets.h @ONLY)
+
+add_executable(kwc_integrationtests
+  integrationtests_main.cc
+  integrationtests/decode_png_images_test.cc)
+
+target_include_directories(kwc_integrationtests
+  PRIVATE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${KWCToolkit_BINARY_DIR}/src>)
+
+target_link_libraries(kwc_integrationtests
+  PRIVATE
+    kwc::base
+    kwc::strings
+    kwc::file
+    kwc::image
+    GTest::gtest_main GTest::gtest)
+
 gtest_discover_tests(kwc_unittests)
+gtest_discover_tests(kwc_integrationtests)
