@@ -28,13 +28,8 @@ install(FILES ${PUBLIC_NET_HEADER}
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
-  include(GoogleTest)
-  add_executable(kwc_net_test
+  target_sources(kwc_unittests PUBLIC
     address_ipv4_test.cc
     address_ipv6_test.cc
     address_test.cc)
-
-  target_link_libraries(kwc_net_test
-    PRIVATE kwc::net GTest::gtest_main GTest::gtest)
-  gtest_discover_tests(kwc_net_test)
 endif()

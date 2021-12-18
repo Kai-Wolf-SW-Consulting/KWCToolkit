@@ -55,20 +55,18 @@ install(FILES ${PUBLIC_BASE_HEADER}
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
-  include(GoogleTest)
-  add_executable(kwc_base_test
+  target_sources(kwc_unittests PUBLIC
     array_copy_test.cc
     array_size_test.cc
     callback_test.cc
     checked_integer_test.cc
     cmdline_flags_test.cc
-    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:for_each_argument_test.cc>
     ref_count_test.cc
     result_test.cc
-    scope_guard_test.cc
-    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:utils_test.cc>)
-
-  target_link_libraries(kwc_base_test
-    PRIVATE kwc::base kwc::strings kwc::file GTest::gtest_main GTest::gtest)
-  gtest_discover_tests(kwc_base_test)
+    scope_guard_test.cc)
+  if(NOT MSVC)
+    target_sources(kwc_unittests PUBLIC
+      for_each_argument_test.cc
+      utils_test.cc)
+  endif()
 endif()

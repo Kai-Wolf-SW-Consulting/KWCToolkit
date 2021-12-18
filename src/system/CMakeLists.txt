@@ -76,15 +76,10 @@ install(FILES ${PUBLIC_system_HEADER}
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
-  include(GoogleTest)
-  add_executable(kwc_system_test
+  target_sources(kwc_unittests PUBLIC
     aligned_alloc_test.cc
     cmdline_test.cc
     environment_test.cc
     system_info_test.cc
     thread_test.cc)
-
-  target_link_libraries(kwc_system_test
-    PRIVATE kwc::system GTest::gtest_main GTest::gtest)
-  gtest_discover_tests(kwc_system_test)
 endif()

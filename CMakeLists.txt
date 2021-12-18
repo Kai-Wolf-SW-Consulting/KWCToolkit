@@ -33,5 +33,10 @@ include(StaticAnalyzer)
 ## Automatically creates a BUILD_TESTING option (default ON)
 include(CTest)
 
+if(BUILD_TESTING)
+  enable_testing()
+  add_subdirectory(tests)
+endif()
+
 add_subdirectory(third_party)
 add_subdirectory(src)

@@ -30,12 +30,7 @@ install(FILES ${PUBLIC_strings_HEADER}
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
-  include(GoogleTest)
-  add_executable(kwc_strings_test
+  target_sources(kwc_unittests PUBLIC
     string_split_test.cc
     string_switch_test.cc)
-
-  target_link_libraries(kwc_strings_test
-    PRIVATE kwc::strings GTest::gtest_main GTest::gtest)
-  gtest_discover_tests(kwc_strings_test)
 endif()

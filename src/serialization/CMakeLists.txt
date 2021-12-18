@@ -30,12 +30,7 @@ install(FILES ${PUBLIC_SERIALIZATION_HEADER}
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
-  include(GoogleTest)
-  add_executable(kwc_serialization_test
+  target_sources(kwc_unittests PUBLIC
     data_reader_test.cc
     data_writer_test.cc)
-
-  target_link_libraries(kwc_serialization_test
-    PRIVATE kwc::base kwc::serialization GTest::gtest_main GTest::gtest GTest::gmock)
-  gtest_discover_tests(kwc_serialization_test)
 endif()

@@ -4,6 +4,10 @@
 
 option(EMIT_PERF_DIAGNOSTICS "Enable performance diagnostics" OFF)
 
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Common compiler warnings used throughout the codebase
 set(MSVC_WARNINGS_AND_OPTIONS
   /DWIN32            # Preprocessor flag

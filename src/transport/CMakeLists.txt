@@ -32,12 +32,6 @@ install(FILES ${PUBLIC_TRANSPORT_HEADER}
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
-  include(GoogleTest)
-  add_executable(kwc_transport_test
+  target_sources(kwc_unittests PUBLIC
     http_transaction_test.cc)
-
-  target_link_libraries(kwc_transport_test
-    PRIVATE kwc::transport kwc::serialization kwc::system
-      GTest::gtest_main GTest::gtest)
-  gtest_discover_tests(kwc_transport_test)
 endif()

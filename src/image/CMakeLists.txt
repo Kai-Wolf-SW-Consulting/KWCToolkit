@@ -30,12 +30,3 @@ install(FILES ${PUBLIC_IMAGE_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/image)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
-#if(BUILD_TESTING)
-#  include(GoogleTest)
-#  add_executable(kwc_image_test
-#    )
-#
-#  target_link_libraries(kwc_image_test
-#    PRIVATE kwc::image GTest::gtest_main GTest::gtest)
-#  gtest_discover_tests(kwc_image_test)
-#endif()
