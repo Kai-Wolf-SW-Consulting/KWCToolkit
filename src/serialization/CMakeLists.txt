@@ -28,9 +28,3 @@ install(TARGETS kwc_serialization
 install(FILES ${PUBLIC_SERIALIZATION_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/serialization)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
-
-if(BUILD_TESTING)
-  target_sources(kwc_unittests PUBLIC
-    DataReaderTest.cc
-    DataWriterTest.cc)
-endif()

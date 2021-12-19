@@ -28,9 +28,3 @@ install(TARGETS kwc_strings
 install(FILES ${PUBLIC_strings_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/strings)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
-
-if(BUILD_TESTING)
-  target_sources(kwc_unittests PUBLIC
-    StringSplitTest.cc
-    StringSwitchTest.cc)
-endif()

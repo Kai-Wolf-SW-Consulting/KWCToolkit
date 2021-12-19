@@ -74,12 +74,3 @@ install(TARGETS kwc_system
 install(FILES ${PUBLIC_system_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/system)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
-
-if(BUILD_TESTING)
-  target_sources(kwc_unittests PUBLIC
-    AlignedAllocTest.cc
-    CmdlineTest.cc
-    EnvironmentTest.cc
-    SystemInfoTest.cc
-    ThreadTest.cc)
-endif()

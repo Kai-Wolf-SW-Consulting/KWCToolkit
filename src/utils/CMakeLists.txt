@@ -30,11 +30,3 @@ install(TARGETS kwc_utils
 install(FILES ${PUBLIC_UTILS_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/utils)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
-
-if(BUILD_TESTING)
-  target_sources(kwc_unittests PUBLIC
-    Base64Test.cc
-    LevenshteinTest.cc
-    RegexTest.cc
-    ZipTest.cc)
-endif()

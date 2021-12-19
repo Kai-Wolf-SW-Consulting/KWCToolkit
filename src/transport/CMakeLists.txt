@@ -30,8 +30,3 @@ install(TARGETS kwc_transport
 install(FILES ${PUBLIC_TRANSPORT_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/transport)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
-
-if(BUILD_TESTING)
-  target_sources(kwc_unittests PUBLIC
-    HttpTransactionTest.cc)
-endif()

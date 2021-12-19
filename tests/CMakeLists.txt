@@ -5,7 +5,42 @@
 include(GoogleTest)
 
 add_executable(kwc_unittests
-  UnittestsMain.cc)
+  UnittestsMain.cc
+  unittests/AddressIpv4Test.cc
+  unittests/AddressIpv6Test.cc
+  unittests/AddressTest.cc
+  unittests/AlignedAllocTest.cc
+  unittests/AppTest.cc
+  unittests/ArrayCopyTest.cc
+  unittests/ArraySizeTest.cc
+  unittests/Base64Test.cc
+  unittests/CallbackTest.cc
+  unittests/CheckedIntegerTest.cc
+  unittests/CmdlineFlagsTest.cc
+  unittests/CmdlineTest.cc
+  unittests/DataReaderTest.cc
+  unittests/DataWriterTest.cc
+  unittests/EnvironmentTest.cc
+  unittests/FilePathTest.cc
+  unittests/HttpTransactionTest.cc
+  unittests/LevenshteinTest.cc
+  unittests/RefCountTest.cc
+  unittests/RegexTest.cc
+  unittests/ResultTest.cc
+  unittests/ScopeGuardTest.cc
+  unittests/StringSplitTest.cc
+  unittests/StringSwitchTest.cc
+  unittests/SystemInfoTest.cc
+  unittests/ThreadTest.cc
+  unittests/ZipTest.cc)
+
+if(NOT MSVC)
+  target_sources(kwc_unittests PUBLIC
+    unittests/FileEnumeratorTest.cc
+    unittests/FileTest.cc
+    unittests/ForEachArgumentTest.cc
+    unittests/UtilsTest.cc)
+endif()
 
 target_include_directories(kwc_unittests
   PRIVATE
@@ -23,7 +58,7 @@ target_link_libraries(kwc_unittests
     kwc::system
     kwc::transport
     kwc::utils
-    GTest::gtest_main GTest::gtest GTest::gmock)
+    GTest::gtest GTest::gmock)
 
 set(assets_path ${CMAKE_CURRENT_SOURCE_DIR}/test_data)
 configure_file(Assets.h.in ${CMAKE_CURRENT_BINARY_DIR}/Assets.h @ONLY)
@@ -44,7 +79,7 @@ target_link_libraries(kwc_integrationtests
     kwc::strings
     kwc::file
     kwc::image
-    GTest::gtest_main GTest::gtest)
+    GTest::gtest)
 
 gtest_discover_tests(kwc_unittests)
 gtest_discover_tests(kwc_integrationtests)

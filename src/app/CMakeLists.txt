@@ -21,8 +21,3 @@ install(TARGETS kwc_app
   ARCHIVE DESTINATION ${INSTALL_ARCHIVE_DIR}
   LIBRARY DESTINATION ${INSTALL_LIBRARY_DIR})
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
-
-if(BUILD_TESTING)
-  target_sources(kwc_unittests PUBLIC
-    AppTest.cc)
-endif()

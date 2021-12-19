@@ -32,13 +32,3 @@ install(TARGETS kwc_file
 install(FILES ${PUBLIC_file_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/file)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
-
-if(BUILD_TESTING)
-  target_sources(kwc_unittests PUBLIC
-    FilePathTest.cc)
-  if(NOT MSVC)
-    target_sources(kwc_unittests PUBLIC
-      FileEnumeratorTest.cc
-      FileTest.cc)
-  endif()
-endif()
