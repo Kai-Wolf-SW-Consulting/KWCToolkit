@@ -3,13 +3,13 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 add_library(kwc_serialization
-  data_reader.cc
-  data_reader.h
-  data_writer.cc
-  data_writer.h
-  in_memory_data_reader.cc
-  istream_data_reader.cc
-  string_data_writer.cc)
+  DataReader.cc
+  DataReader.h
+  DataWriter.cc
+  DataWriter.h
+  InMemoryDataReader.cc
+  IstreamDataReader.cc
+  StringDataWriter.cc)
 
 add_library(kwc::serialization ALIAS kwc_serialization)
 
@@ -31,6 +31,6 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
   target_sources(kwc_unittests PUBLIC
-    data_reader_test.cc
-    data_writer_test.cc)
+    DataReaderTest.cc
+    DataWriterTest.cc)
 endif()
