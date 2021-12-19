@@ -394,10 +394,10 @@ if __name__ == "__main__":
                         default=3,
                         help="Number of callback types to generate")
     parser.add_argument("--cb-types-filename",
-                        default="callback_types.h",
+                        default="CallbackTypes.h",
                         help="Name of the cb_types header file")
     parser.add_argument("--cb-impl-filename",
-                        default="callback_impl.h",
+                        default="CallbackImpl.h",
                         help="Name of the cb implementation header file")
     args = parser.parse_args()
 

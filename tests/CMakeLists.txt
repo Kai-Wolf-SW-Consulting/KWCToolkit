@@ -5,7 +5,7 @@
 include(GoogleTest)
 
 add_executable(kwc_unittests
-  unittests_main.cc)
+  UnittestsMain.cc)
 
 target_include_directories(kwc_unittests
   PRIVATE
@@ -26,11 +26,11 @@ target_link_libraries(kwc_unittests
     GTest::gtest_main GTest::gtest GTest::gmock)
 
 set(assets_path ${CMAKE_CURRENT_SOURCE_DIR}/test_data)
-configure_file(assets.h.in ${CMAKE_CURRENT_BINARY_DIR}/assets.h @ONLY)
+configure_file(Assets.h.in ${CMAKE_CURRENT_BINARY_DIR}/Assets.h @ONLY)
 
 add_executable(kwc_integrationtests
-  integrationtests_main.cc
-  integrationtests/decode_png_images_test.cc)
+  IntegrationtestsMain.cc
+  integrationtests/DecodePngImagesTest.cc)
 
 target_include_directories(kwc_integrationtests
   PRIVATE

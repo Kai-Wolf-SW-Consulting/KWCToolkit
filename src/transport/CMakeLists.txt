@@ -3,15 +3,15 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 add_library(kwc_transport
-  http_request.cc
-  http_request.h
-  http_response.cc
-  http_response.h
-  http_transaction.cc
-  http_transaction.h
-  http_types.h
-  simple_http_transaction.cc
-  simple_http_transaction.h)
+  HttpRequest.cc
+  HttpRequest.h
+  HttpResponse.cc
+  HttpResponse.h
+  HttpTransaction.cc
+  HttpTransaction.h
+  HttpTypes.h
+  SimpleHttpTransaction.cc
+  SimpleHttpTransaction.h)
 
 add_library(kwc::transport ALIAS kwc_transport)
 
@@ -33,5 +33,5 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
   target_sources(kwc_unittests PUBLIC
-    http_transaction_test.cc)
+    HttpTransactionTest.cc)
 endif()
