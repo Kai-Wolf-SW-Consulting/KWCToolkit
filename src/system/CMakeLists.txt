@@ -27,6 +27,7 @@ add_library(kwc_system
   SystemMemoryInfo.h
   Thread.cc
   Thread.h
+  ThreadHelper.h
   ThreadTypes.cc
   ThreadTypes.h
   Timer.h)

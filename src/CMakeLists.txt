@@ -3,6 +3,7 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 add_subdirectory(base)
+add_subdirectory(audio)
 add_subdirectory(file)
 add_subdirectory(image)
 add_subdirectory(net)
