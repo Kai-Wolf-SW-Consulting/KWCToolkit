@@ -41,7 +41,7 @@ class HttpResponse {
 
     void addHeader(const std::string& name, const std::string& value) {
         std::string lname(name);
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
         std::transform(lname.begin(), lname.end(), lname.begin(), tolower);
 #else
         std::transform(lname.begin(), lname.end(), lname.begin(), ::tolower);

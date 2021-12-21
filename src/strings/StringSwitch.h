@@ -58,7 +58,7 @@ class StringSwitch {
     }
 
     operator R() {
-        ASSERT(result_.valid && "Fell of the end of string switch");
+        KWC_ASSERT(result_.valid && "Fell of the end of string switch");
         return std::move(*result_);
     }
 

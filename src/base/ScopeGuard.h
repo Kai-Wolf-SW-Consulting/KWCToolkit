@@ -65,16 +65,16 @@ ScopeGuard<Func> operator+(ScopeGuardOnExit, Func&& fn) {
 // shouldn't clash with any other variable in the current scope. This variable
 // gets initialized with |ScopeGuardOnExit| plus an unfinished lambda
 // function. Note that we're not interested in |ScopeGuardOnExit| itself, but
-// only need its type. If |SCOPE_EXIT| is used, the user finishes it with {}
+// only need its type. If |KWC_SCOPE_EXIT| is used, the user finishes it with {}
 // and inserts the code, which gets executed when the current scope is left.
 // Example usage:
 //     void fun() {
 //         char name[] = "/tmp/deleteme.XXXXXX";
 //         auto fd = mkstemp(name);
-//         SCOPE_EXIT { fclose(fd); unlink(name); };
+//         KWC_SCOPE_EXIT { fclose(fd); unlink(name); };
 //         // .. use fd here ..
 //     }
-#define SCOPE_EXIT \
-    auto ANONYMOUS_VARIABLE(SCOPE_EXIT_STATE) = kwc::base::internal::ScopeGuardOnExit() + [&]()
+#define KWC_SCOPE_EXIT \
+    auto ANONYMOUS_VARIABLE(KWC_SCOPE_EXIT_STATE) = kwc::base::internal::ScopeGuardOnExit() + [&]()
 
 #endif  // KWCTOOLKIT_BASE_SCOPE_GUARD_H_

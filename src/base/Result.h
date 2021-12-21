@@ -62,12 +62,12 @@ class Result<void, E> {
     Result(Result<void, E>&& other) : error_(std::move(other.error_)) {}
 
     Result<void, E>& operator=(Result<void, E>&& other) {
-        ASSERT(error_ == nullptr);
+        KWC_ASSERT(error_ == nullptr);
         error_ = std::move(other.error_);
         return *this;
     }
 
-    ~Result() { ASSERT(error_ == nullptr); }
+    ~Result() { KWC_ASSERT(error_ == nullptr); }
 
     bool isError() const { return error_ != nullptr; }
 
@@ -97,13 +97,13 @@ Payload getPayload(intptr_t payload);
 
 template <typename T>
 static T* getSuccessFromPayload(intptr_t payload) {
-    ASSERT(getPayload(payload) == Success);
+    KWC_ASSERT(getPayload(payload) == Success);
     return reinterpret_cast<T*>(payload);
 }
 
 template <typename E>
 static E* getErrorFromPayload(intptr_t payload) {
-    ASSERT(getPayload(payload) == Error);
+    KWC_ASSERT(getPayload(payload) == Error);
     return reinterpret_cast<E*>(payload ^ 1);
 }
 
@@ -133,14 +133,14 @@ class Result<T*, E> {
 
     template <typename TChild>
     Result<T*, E>& operator=(Result<TChild*, E>&& other) {
-        ASSERT(payload_ == internal::kEmptyPayload);
+        KWC_ASSERT(payload_ == internal::kEmptyPayload);
         static_assert(std::is_same<T, TChild>::value || std::is_base_of<T, TChild>::value, "");
         payload_ = other.payload_;
         other.payload_ = internal::kEmptyPayload;
         return *this;
     }
 
-    ~Result() { ASSERT(payload_ == internal::kEmptyPayload); }
+    ~Result() { KWC_ASSERT(payload_ == internal::kEmptyPayload); }
 
     bool isError() const { return internal::getPayload(payload_) == internal::Error; }
 
@@ -183,13 +183,13 @@ class Result<const T*, E> {
     }
 
     Result<const T*, E>& operator=(Result<const T*, E>&& other) {
-        ASSERT(payload_ == internal::kEmptyPayload);
+        KWC_ASSERT(payload_ == internal::kEmptyPayload);
         payload_ = other.payload_;
         other.payload_ = internal::kEmptyPayload;
         return *this;
     }
 
-    ~Result() { ASSERT(payload_ == internal::kEmptyPayload); }
+    ~Result() { KWC_ASSERT(payload_ == internal::kEmptyPayload); }
 
     bool isError() const { return internal::getPayload(payload_) == internal::Error; }
 
@@ -237,27 +237,27 @@ class Result<Ref<T>, E> {
     template <typename U>
     Result<Ref<U>, E>& operator=(Result<Ref<U>, E>&& other) {
         static_assert(std::is_convertible<U*, T*>::value, "");
-        ASSERT(payload_ == internal::kEmptyPayload);
+        KWC_ASSERT(payload_ == internal::kEmptyPayload);
         payload_ = other.payload_;
         other.payload_ = internal::kEmptyPayload;
         return *this;
     }
 
-    ~Result() { ASSERT(payload_ == internal::kEmptyPayload); }
+    ~Result() { KWC_ASSERT(payload_ == internal::kEmptyPayload); }
 
     bool isError() const { return internal::getPayload(payload_) == internal::Error; }
 
     bool isSuccess() const { return internal::getPayload(payload_) == internal::Success; }
 
     Ref<T> getSuccess() {
-        ASSERT(isSuccess());
+        KWC_ASSERT(isSuccess());
         auto success = acquireRef(internal::getSuccessFromPayload<T>(payload_));
         payload_ = internal::kEmptyPayload;
         return success;
     }
 
     std::unique_ptr<E> getError() {
-        ASSERT(isError());
+        KWC_ASSERT(isError());
         std::unique_ptr<E> error(internal::getErrorFromPayload<E>(payload_));
         payload_ = internal::kEmptyPayload;
         return std::move(error);
@@ -290,20 +290,20 @@ class Result {
         return *this;
     }
 
-    ~Result() { ASSERT(type_ == Received); }
+    ~Result() { KWC_ASSERT(type_ == Received); }
 
     bool isError() const { return type_ == Error; }
 
     bool isSuccess() const { return type_ == Success; }
 
     T&& getSuccess() {
-        ASSERT(type_ == Success);
+        KWC_ASSERT(type_ == Success);
         type_ = Received;
         return std::move(success_);
     }
 
     std::unique_ptr<E> getError() {
-        ASSERT(type_ = Error);
+        KWC_ASSERT(type_ = Error);
         type_ = Received;
         return std::move(error_);
     }

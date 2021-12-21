@@ -19,7 +19,7 @@ static constexpr uint64 kPayloadMask = (uint64(1) << kPayloadBits) - 1;
 static constexpr uint64 kRefCountIncrement = (uint64(1) << kPayloadBits);
 
 RefCount::RefCount(uint64 payload) : refcount_(kRefCountIncrement + payload) {
-    ASSERT((payload & kPayloadMask) == payload);
+    KWC_ASSERT((payload & kPayloadMask) == payload);
 }
 
 RefCount::~RefCount() = default;
@@ -37,7 +37,7 @@ uint64 RefCount::getRefCountPayload() const {
 }
 
 void RefCount::reference() {
-    ASSERT((refcount_ & ~kPayloadMask) != 0);
+    KWC_ASSERT((refcount_ & ~kPayloadMask) != 0);
 
     // See explanation above for why relaxed memory order is sufficient here.
     // The reasoning behind this is also explained in the Boost
@@ -47,7 +47,7 @@ void RefCount::reference() {
 }
 
 void RefCount::release() {
-    ASSERT((refcount_ & kPayloadMask) != 0);
+    KWC_ASSERT((refcount_ & kPayloadMask) != 0);
 
     // The reasoning behind the following is again very well explained in
     // the Boost documentation referenced above.

@@ -73,8 +73,9 @@ ForEachMacros:
   - foreach
   - Q_FOREACH
   - BOOST_FOREACH
-  - SCOPE_EXIT
-  - UNLIKELY
+  - KWC_SCOPE_EXIT
+  - KWC_LIKELY
+  - KWC_UNLIKELY
 IncludeBlocks:   Regroup
 IncludeCategories:
   - Regex:           '^<third_party/.*\.h>'

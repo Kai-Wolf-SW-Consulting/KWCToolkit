@@ -17,7 +17,7 @@ uint32 GetBE32(const uint8 buffer[]) {
 }
 
 ResultOrError<Image> FailedReader(const std::vector<uint8>&, ColorMode) {
-    return UNKNOWN_FORMAT_ERROR("Format unknown");
+    return KWC_UNKNOWN_FORMAT_ERROR("Format unknown");
 }
 }  // namespace
 

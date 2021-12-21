@@ -12,7 +12,7 @@
 #include "base/ArraySize.h"
 #include "base/Compiler.h"
 
-#if defined(ARCH_CPU_X86_FAMILY) && defined(COMPILER_MSVC)
+#if defined(KWC_ARCH_CPU_X86_FAMILY) && defined(KWC_COMPILER_MSVC)
     #include <immintrin.h>  // for _xgetbv()
     #include <intrin.h>
 #endif
@@ -22,8 +22,8 @@ namespace system {
 
 namespace {
 
-#if defined(ARCH_CPU_X86_FAMILY)
-    #if !defined(COMPILER_MSVC)
+#if defined(KWC_ARCH_CPU_X86_FAMILY)
+    #if !defined(KWC_COMPILER_MSVC)
 
         #if defined(__pic__) && defined(__i386__)
 
@@ -54,8 +54,8 @@ uint64_t _xgetbv(uint32_t xcr) {
     return (static_cast<uint64_t>(edx) << 32) | eax;
 }
 
-    #endif  // !defined(COMPILER_MSVC)
-#endif      // defined(ARCH_CPU_X86_FAMILY)
+    #endif  // !defined(KWC_COMPILER_MSVC)
+#endif      // defined(KWC_ARCH_CPU_X86_FAMILY)
 
 }  // namespace
 
@@ -96,7 +96,7 @@ void CPU::Initialize() {
     int num_ids = cpu_info[0];
     std::swap(cpu_info[2], cpu_info[3]);
     static constexpr std::size_t kVendorNameSize = 3 * sizeof(cpu_info[1]);
-    COMPILE_ASSERT(kVendorNameSize < arraysize(cpu_string), "cpu_string too small");
+    KWC_COMPILE_ASSERT(kVendorNameSize < arraysize(cpu_string), "cpu_string too small");
     std::memcpy(cpu_string, &cpu_info[1], kVendorNameSize);
     cpu_string[kVendorNameSize] = '\0';
     cpu_vendor_ = cpu_string;
@@ -139,8 +139,8 @@ void CPU::Initialize() {
         static constexpr int kParameterStart = 0x80000002;
         static constexpr int kParameterEnd = 0x80000004;
         static constexpr int kParameterSize = kParameterEnd - kParameterStart + 1;
-        COMPILE_ASSERT(kParameterSize * sizeof(cpu_info) + 1 == arraysize(cpu_string),
-                       "cpu_string has wrong size");
+        KWC_COMPILE_ASSERT(kParameterSize * sizeof(cpu_info) + 1 == arraysize(cpu_string),
+                           "cpu_string has wrong size");
 
         if (max_parameter >= kParameterEnd) {
             size_t i = 0;

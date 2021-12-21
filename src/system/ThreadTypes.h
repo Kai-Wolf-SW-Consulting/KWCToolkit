@@ -7,26 +7,26 @@
 
 #include "base/Platform.h"
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     // The inclusion of winsock2.h before windows.h is necessary here in order
     // to maintain consistency with win32 specifics
     #define _WINSOCKAPI_
     #include <windows.h>
     #include <winsock2.h>
-#elif defined(OS_POSIX)
+#elif defined(KWC_OS_POSIX)
     #include <pthread.h>
     #include <unistd.h>
-    #if defined(OS_MACOS)
+    #if defined(KWC_OS_MACOS)
         #include <pthread_spis.h>
     #endif
 #endif
 
 namespace kwc {
 namespace system {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
 using PlatformThreadId = DWORD;
 using PlatformThreadRef = DWORD;
-#elif defined(OS_POSIX)
+#elif defined(KWC_OS_POSIX)
 using PlatformThreadId = pid_t;
 using PlatformThreadRef = pthread_t;
 #endif

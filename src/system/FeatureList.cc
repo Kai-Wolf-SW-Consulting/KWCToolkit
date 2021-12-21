@@ -24,7 +24,7 @@ std::vector<std::string> SplitFeatureListString(const std::string& input) {
 
 void FeatureList::initializeFromCommandLine(const std::string& enabled_features,
                                             const std::string& disabled_features) {
-    CHECK(!initialized_);
+    KWC_CHECK(!initialized_);
     for (const auto& feature_name : SplitFeatureListString(disabled_features)) {
         overrides_.insert(std::make_pair(feature_name, OVERRIDE_DISABLE_FEATURE));
     }
@@ -61,13 +61,13 @@ FeatureList* FeatureList::getInstance() {
 }
 
 void FeatureList::setInstance(std::unique_ptr<FeatureList> instance) {
-    CHECK(!g_feature_list_instance);
+    KWC_CHECK(!g_feature_list_instance);
     instance->finalizeInitialization();
     g_feature_list_instance = instance.release();
 }
 
 bool FeatureList::isFeatureEnabled(const Feature& feature) {
-    CHECK(initialized_);
+    KWC_CHECK(initialized_);
     auto it = overrides_.find(feature.name);
     if (it != overrides_.end()) {
         const auto& state = it->second;
@@ -79,7 +79,7 @@ bool FeatureList::isFeatureEnabled(const Feature& feature) {
 }
 
 void FeatureList::finalizeInitialization() {
-    CHECK(!g_feature_list_instance);
+    KWC_CHECK(!g_feature_list_instance);
     initialized_ = true;
 }
 

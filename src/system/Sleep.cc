@@ -9,13 +9,13 @@
 
 #include "base/Platform.h"
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     #include <Windows.h>
 #endif
 
 namespace kwc {
 namespace system {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
 // Windows takes milliseconds argument
 void SleepForMilliseconds(int millis) {
     Sleep(millis);

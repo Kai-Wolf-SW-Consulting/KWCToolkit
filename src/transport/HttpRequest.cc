@@ -105,7 +105,7 @@ void HttpRequestState::setCallback(HttpRequest* request, HttpRequestCallback* ca
 base::Status HttpRequest::execute() {
     auto* state = getResponse()->getModifiableRequestState();
     if (state->getStateCode() != HttpRequestState::QUEUED) {
-        CHECK_EQ(HttpRequestState::UNSENT, state->getStateCode())
+        KWC_CHECK_EQ(HttpRequestState::UNSENT, state->getStateCode())
             << "Must call clear() before reusing";
     }
 
@@ -116,7 +116,8 @@ base::Status HttpRequest::execute() {
 
 void HttpRequest::executeAsync(HttpRequestCallback* callback) {
     auto* state = getResponse()->getModifiableRequestState();
-    CHECK_EQ(HttpRequestState::UNSENT, state->getStateCode()) << "Must call clear() before reusing";
+    KWC_CHECK_EQ(HttpRequestState::UNSENT, state->getStateCode())
+        << "Must call clear() before reusing";
     if (callback != nullptr) {
         setCallback(callback);
     }

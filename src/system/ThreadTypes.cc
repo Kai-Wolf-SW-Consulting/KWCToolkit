@@ -6,7 +6,7 @@
 
 #include "base/Platform.h"
 
-#if defined(OS_LINUX)
+#if defined(KWC_OS_LINUX)
     #include <sys/prctl.h>
     #include <sys/syscall.h>
 #endif
@@ -15,14 +15,14 @@ namespace kwc {
 namespace system {
 
 PlatformThreadId currentThreadId() {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     return GetCurrentThreadId();
-#elif defined(OS_POSIX)
-    #if defined(OS_MACOS)
+#elif defined(KWC_OS_POSIX)
+    #if defined(KWC_OS_MACOS)
     return pthread_mach_thread_np(pthread_self());
-    #elif defined(OS_ANDROID)
+    #elif defined(KWC_OS_ANDROID)
     return gettid();
-    #elif defined(OS_LINUX)
+    #elif defined(KWC_OS_LINUX)
     return syscall(__NR_gettid);
     #else
     return reinterpret_cast < PlatformThreadId(pthread_self());
@@ -31,23 +31,23 @@ PlatformThreadId currentThreadId() {
 }
 
 PlatformThreadRef currentThreadRef() {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     return GetCurrentThreadId();
-#elif defined(OS_POSIX)
+#elif defined(KWC_OS_POSIX)
     return pthread_self();
 #endif
 }
 
 bool isThreadRefEqual(const PlatformThreadRef& a, const PlatformThreadRef& b) {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     return a == b;
-#elif defined(OS_POSIX)
+#elif defined(KWC_OS_POSIX)
     return pthread_equal(a, b);
 #endif
 }
 
 void setCurrentThreadName(const char* name) {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     // Yes, we are serious. This is the officially documented way to set a thread name in Windows.
     // See the following link for more info on this:
     // http://docs.microsoft.com/en-us/visualstudio/debugger/how-to-set-a-thread-name-in-native-code
@@ -67,9 +67,9 @@ void setCurrentThreadName(const char* name) {
                          reinterpret_cast<ULONG_PTR*>(&threadname_info));
     } __except (EXCEPTION_EXECUTE_HANDLER) {}
     #pragma warning(pop)
-#elif defined(OS_LINUX) || defined(OS_ANDROID)
+#elif defined(KWC_OS_LINUX) || defined(KWC_OS_ANDROID)
     prctl(PR_SET_NAME, reinterpret_cast<unsigned long>(name));
-#elif defined(OS_MACOS)
+#elif defined(KWC_OS_MACOS)
     pthread_setname_np(name);
 #endif
 }

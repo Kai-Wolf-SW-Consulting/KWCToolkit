@@ -15,7 +15,7 @@ int64 SystemInfo::getAmountOfPhysicalMemoryImpl() {
     const auto pages = sysconf(_SC_PHYS_PAGES);
     const auto page_size = sysconf(_SC_PAGESIZE);
     if (pages == -1 || page_size == -1) {
-        UNREACHABLE();
+        KWC_UNREACHABLE();
         return 0;
     }
     return static_cast<int64>(pages) * page_size;

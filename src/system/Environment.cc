@@ -9,7 +9,7 @@
 #include "base/Platform.h"
 #include "strings/StringUtils.h"
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     #include <windows.h>
 #endif
 
@@ -48,14 +48,14 @@ class EnvironmentImpl : public Environment {
 
   private:
     bool GetEnvVarImpl(const std::string& var_name, std::string* result) {
-#if defined(OS_MACOS) || defined(OS_LINUX)
+#if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
         const char* env_value = getenv(var_name.data());
         if (!env_value)
             return false;
         if (result)
             *result = env_value;
         return true;
-#elif defined(OS_WINDOWS)
+#elif defined(KWC_OS_WINDOWS)
         std::unique_ptr<char[]> value(new char[32767]);
         DWORD value_length = ::GetEnvironmentVariableA(var_name.c_str(), value.get(), 32767);
         if (value_length == 0) {
@@ -71,20 +71,20 @@ class EnvironmentImpl : public Environment {
     }
 
     bool SetEnvVarImpl(const std::string& var_name, const std::string& new_value) {
-#if defined(OS_MACOS) || defined(OS_LINUX)
+#if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
         // On success, zero is returned
         return !setenv(var_name.data(), new_value.c_str(), 1);
-#elif defined(OS_WINDOWS)
+#elif defined(KWC_OS_WINDOWS)
         // On success, a nonzero value is returned
         return !!SetEnvironmentVariableA(var_name.c_str(), new_value.c_str());
 #endif
     }
 
     bool UnsetEnvVarImpl(const std::string& var_name) {
-#if defined(OS_MACOS) || defined(OS_LINUX)
+#if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
         // On success, zero is returned
         return !unsetenv(var_name.data());
-#elif defined(OS_WINDOWS)
+#elif defined(KWC_OS_WINDOWS)
         // On success, a nonzero value is returned
         return !!SetEnvironmentVariableA(var_name.c_str(), nullptr);
 #endif

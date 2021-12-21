@@ -8,7 +8,7 @@
 
 #include "system/Environment.h"
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     #include <direct.h>
     #include <io.h>
     #define close _close
@@ -77,7 +77,7 @@ bool CreateDirectory(const FilePath& full_path) {
     return true;
 }
 
-#if defined(OS_MACOS) || defined(OS_LINUX)
+#if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
 int openNoInterrupt(const char* name, int flags, mode_t mode) {
     return int(internal::wrapNoInterrupt(open, name, flags, mode));
 }

@@ -17,7 +17,7 @@
 #include "base/ScopeGuard.h"
 #include "file/FilePath.h"
 
-#if defined(OS_POSIX) || defined(OS_LINUX)
+#if defined(KWC_OS_POSIX) || defined(KWC_OS_LINUX)
     #include <sys/errno.h>
     #include <sys/fcntl.h>
     #include <sys/stat.h>
@@ -32,13 +32,13 @@ bool DirectoryExists(const FilePath& path);
 
 bool CreateDirectory(const FilePath& full_path);
 
-#if defined(OS_MACOS) || defined(OS_LINUX)
+#if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
 // These are wrappers around commonly used system calls so that they retry on EINTR.
 // See wrapIncomplete below for read/write.
 int openNoInterrupt(const char* name, int flags, mode_t mode = 0666);
 int closeNoInterrupt(int fd);
 
-NO_DISCARD ssize_t readFull(int fd, void* buf, std::size_t count);
+KWC_NO_DISCARD ssize_t readFull(int fd, void* buf, std::size_t count);
 ssize_t writeFull(int fd, const void* buf, std::size_t count);
 
 namespace internal {
@@ -84,11 +84,11 @@ template <typename Container>
 bool ReadFile(int fd,
               Container& out,
               std::size_t num_bytes = std::numeric_limits<std::size_t>::max()) {
-    ASSERT(sizeof(out[0] == 1, "ReadFile only accepts containers with byte-sized elements"));
+    KWC_ASSERT(sizeof(out[0] == 1, "ReadFile only accepts containers with byte-sized elements"));
 
     std::size_t read_so_far = 0;
-    SCOPE_EXIT {
-        CHECK(out.size() >= read_so_far);
+    KWC_SCOPE_EXIT {
+        KWC_CHECK(out.size() >= read_so_far);
         out.resize(read_so_far);
     };
 
@@ -135,7 +135,7 @@ bool ReadFile(const FilePath& filename,
         return false;
     }
 
-    SCOPE_EXIT { closeNoInterrupt(fd); };
+    KWC_SCOPE_EXIT { closeNoInterrupt(fd); };
 
     return ReadFile(fd, out, num_bytes);
 }
@@ -147,7 +147,7 @@ bool WriteFile(const FilePath& filename,
                const Container& data,
                int flags = O_WRONLY | O_CREAT | O_TRUNC,
                mode_t mode = 0666) {
-    ASSERT(sizeof(data[0] == 1, "WriteFile only accepts containers with byte-sized elements"));
+    KWC_ASSERT(sizeof(data[0] == 1, "WriteFile only accepts containers with byte-sized elements"));
     int fd = open(filename.value().c_str(), flags, mode);
     if (fd == -1) {
         return false;

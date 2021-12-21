@@ -21,7 +21,7 @@ int64 getAmountOfMemory(DWORDLONG MEMORYSTATUSEX::*memoryField) {
     MEMORYSTATUSEX mem_info;
     mem_info.dwLength = sizeof(mem_info);
     if (!GlobalMemoryStatusEx(&mem_info)) {
-        UNREACHABLE();
+        KWC_UNREACHABLE();
         return 0;
     }
 

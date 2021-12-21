@@ -36,7 +36,7 @@ void HttpResponse::setBodyReader(serialization::DataReader* reader) {
 
 const std::string* HttpResponse::findHeaderValue(const std::string& name) const {
     std::string lname(name);
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     std::transform(lname.begin(), lname.end(), lname.begin(), tolower);
 #else
     std::transform(lname.begin(), lname.end(), lname.begin(), ::tolower);

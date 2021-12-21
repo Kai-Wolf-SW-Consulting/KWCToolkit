@@ -8,7 +8,7 @@
 #include "base/Macros.h"
 #include "base/Platform.h"
 
-#if defined(OS_POSIX)
+#if defined(KWC_OS_POSIX)
     #include <pthread.h>
 #endif
 #include <string>
@@ -21,7 +21,7 @@ namespace system {
 using ThreadRunFunction = void (*)(void*);
 
 enum ThreadPriority {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     LOW_PRIORITY = THREAD_PRIORITY_BELOW_NORMAL,
     NORMAL_PRIORITY = THREAD_PRIORITY_NORMAL,
     HIGH_PRIORITY = THREAD_PRIORITY_ABOVE_NORMAL,
@@ -82,7 +82,7 @@ class Thread {
     void* const obj_;
     const std::string name_;
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     static DWORD WINAPI startThread(void* param);
     HANDLE thread_ = nullptr;
     DWORD thread_id_ = 0;

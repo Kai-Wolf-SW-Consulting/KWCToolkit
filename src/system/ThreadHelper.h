@@ -34,7 +34,7 @@ bool IsReady(const std::future<R>& f, int timeoutMillis = 0) {
     return f.wait_for(std::chrono::milliseconds(timeoutMillis)) == std::future_status::ready;
 }
 
-#if defined(OS_ANDROID)
+#if defined(KWC_OS_ANDROID)
 
 // Set the thread affinity for the current thread to cpuIDs_
 //

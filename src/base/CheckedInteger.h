@@ -84,7 +84,7 @@ class alignas(T) CheckedIntegerImpl {
 
     // Increment / decrement operators for for-loop iteration
     constexpr CheckedIntegerImpl& operator++() {
-        ASSERT(this->value_ < std::numeric_limits<T>::max());
+        KWC_ASSERT(this->value_ < std::numeric_limits<T>::max());
         ++this->value_;
         return *this;
     }
@@ -92,13 +92,13 @@ class alignas(T) CheckedIntegerImpl {
     constexpr CheckedIntegerImpl operator++(int) {
         CheckedIntegerImpl ret = *this;
 
-        ASSERT(this->value_ < std::numeric_limits<T>::max());
+        KWC_ASSERT(this->value_ < std::numeric_limits<T>::max());
         ++this->value_;
         return ret;
     }
 
     constexpr CheckedIntegerImpl& operator--() {
-        ASSERT(this->value_ > std::numeric_limits<T>::min());
+        KWC_ASSERT(this->value_ > std::numeric_limits<T>::min());
         --this->value_;
         return *this;
     }
@@ -106,7 +106,7 @@ class alignas(T) CheckedIntegerImpl {
     constexpr CheckedIntegerImpl operator--(int) {
         CheckedIntegerImpl ret = *this;
 
-        ASSERT(this->value_ > std::numeric_limits<T>::min());
+        KWC_ASSERT(this->value_ > std::numeric_limits<T>::min());
         --this->value_;
         return ret;
     }
@@ -115,7 +115,7 @@ class alignas(T) CheckedIntegerImpl {
     constexpr enable_if_t<std::is_signed<T2>::value, CheckedIntegerImpl> operator-() const {
         static_assert(std::is_same<T, T2>::value, "");
         // The negation of the most negative value cannot be represented.
-        ASSERT(this->value_ != std::numeric_limits<T>::min());
+        KWC_ASSERT(this->value_ != std::numeric_limits<T>::min());
         return CheckedIntegerImpl(-this->value_);
     }
 
@@ -124,7 +124,7 @@ class alignas(T) CheckedIntegerImpl {
         CheckedIntegerImpl rhs) const {
         static_assert(std::is_same<T, T2>::value, "");
         // Overflow would wrap around
-        ASSERT(this->value_ + rhs.value_ >= this->value_);
+        KWC_ASSERT(this->value_ + rhs.value_ >= this->value_);
 
         return CheckedIntegerImpl(this->value_ + rhs.value_);
     }
@@ -134,7 +134,7 @@ class alignas(T) CheckedIntegerImpl {
         CheckedIntegerImpl rhs) const {
         static_assert(std::is_same<T, T2>::value, "");
         // Overflow would wrap around
-        ASSERT(this->value_ - rhs.value_ <= this->value_);
+        KWC_ASSERT(this->value_ - rhs.value_ <= this->value_);
         return CheckedIntegerImpl(this->value_ - rhs.value_);
     }
 
@@ -143,9 +143,9 @@ class alignas(T) CheckedIntegerImpl {
         CheckedIntegerImpl rhs) const {
         static_assert(std::is_same<T, T2>::value, "");
         if (this->value_ > 0) {
-            ASSERT(rhs.value_ <= std::numeric_limits<T>::max() - this->value_);
+            KWC_ASSERT(rhs.value_ <= std::numeric_limits<T>::max() - this->value_);
         } else {
-            ASSERT(rhs.value_ >= std::numeric_limits<T>::min() - this->value_);
+            KWC_ASSERT(rhs.value_ >= std::numeric_limits<T>::min() - this->value_);
         }
         return CheckedIntegerImpl(this->value_ + rhs.value_);
     }
@@ -155,9 +155,9 @@ class alignas(T) CheckedIntegerImpl {
         CheckedIntegerImpl rhs) const {
         static_assert(std::is_same<T, T2>::value, "");
         if (this->value_ > 0) {
-            ASSERT(rhs.value_ >= this->value_ - std::numeric_limits<T>::max());
+            KWC_ASSERT(rhs.value_ >= this->value_ - std::numeric_limits<T>::max());
         } else {
-            ASSERT(rhs.value_ <= this->value_ - std::numeric_limits<T>::min());
+            KWC_ASSERT(rhs.value_ <= this->value_ - std::numeric_limits<T>::min());
         }
         return CheckedIntegerImpl(this->value_ - rhs.value_);
     }

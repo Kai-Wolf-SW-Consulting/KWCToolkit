@@ -65,7 +65,7 @@ int64 DataReader::readIntoBuffer(int64 max_bytes, char* storage) {
     int64 total_read = 0;
     while (total_read < max_bytes && !isDone()) {
         auto read = doReadIntoBuffer(max_bytes - total_read, storage + total_read);
-        CHECK_LE(0, read);
+        KWC_CHECK_LE(0, read);
         if (read < 0) {
             setStatus(base::Status(base::error::UNKNOWN, "Internal error"));
             return 0;
@@ -100,7 +100,7 @@ int64 DataReader::readIntoString(int64 max_bytes, std::string* into) {
     while (total_read < max_bytes && !isDone()) {
         const int64 bytes_to_read = std::min(kDefaultBufferSize, max_bytes - total_read);
         auto read = doReadIntoBuffer(bytes_to_read, storage);
-        CHECK_LE(0, read);
+        KWC_CHECK_LE(0, read);
         if (read < 0) {
             setStatus(base::Status(base::error::UNKNOWN, "Internal error"));
             return 0;

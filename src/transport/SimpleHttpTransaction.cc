@@ -16,13 +16,13 @@
 #include "base/Check.h"
 #include "base/Macros.h"
 #include "serialization/DataWriter.h"
+#include "strings/StringUtils.h"
 #include "transport/HttpRequest.h"
 #include "transport/HttpResponse.h"
 #include "transport/HttpTransaction.h"
 #include "transport/HttpTypes.h"
-#include "strings/StringUtils.h"
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     #define _WINSOCK_DEPRECATED_NO_WARNINGS
     #define vsnprintf _vsnprintf
     #define _stricmp strcasecmp
@@ -63,7 +63,7 @@ bool DataAwaiting(int socket) {
 
     struct timeval tv = {4, 0};
     auto r = select(socket + 1, &fds, nullptr, nullptr, &tv);
-    CHECK(r >= 0) << "select() call failed";
+    KWC_CHECK(r >= 0) << "select() call failed";
 
     return FD_ISSET(socket, &fds) != 0;
 }
@@ -127,8 +127,10 @@ class SimpleHttpProcessor {
         return msg;
     }
 
-    int processDataChunked(serialization::DataWriter* body_writer, std::string::iterator data, int count) {
-        CHECK(chunked_response_) << "processDataChunked() called with no chunk";
+    int processDataChunked(serialization::DataWriter* body_writer,
+                           std::string::iterator data,
+                           int count) {
+        KWC_CHECK(chunked_response_) << "processDataChunked() called with no chunk";
         auto n = count;
         if (n > chunk_bytes_left_) {
             n = chunk_bytes_left_;
@@ -138,7 +140,7 @@ class SimpleHttpProcessor {
 
         chunk_bytes_read_ += n;
         chunk_bytes_left_ -= n;
-        CHECK_GE(chunk_bytes_left_, 0);
+        KWC_CHECK_GE(chunk_bytes_left_, 0);
         if (chunk_bytes_left_ == 0) {
             // chunk completed. Soaking up trailing CRLF before next chunk
             response_state_ = CHUNK_END;
@@ -173,7 +175,7 @@ class SimpleHttpProcessor {
 
     void parseResponse(serialization::DataWriter* body_writer) {
         std::string received_data = recv();
-        CHECK(!received_data.empty()) << "recv() call failed";
+        KWC_CHECK(!received_data.empty()) << "recv() call failed";
         auto count = received_data.size();
         std::string line_buffer;
 
@@ -189,7 +191,7 @@ class SimpleHttpProcessor {
                             case FOOTERS: processFooterLine(line_buffer); break;
                             case CHUNK_LEN: processChunkLengthLine(line_buffer); break;
                             case CHUNK_END:
-                                CHECK(chunked_response_) << "No chunked response";
+                                KWC_CHECK(chunked_response_) << "No chunked response";
                                 response_state_ = CHUNK_LEN;
                                 break;
                             default: break;
@@ -224,7 +226,7 @@ class SimpleHttpProcessor {
     }
 
     std::string recv() const {
-        CHECK(socket_ > 0) << "Outstanding request but no connection";
+        KWC_CHECK(socket_ > 0) << "Outstanding request but no connection";
         if (!DataAwaiting(socket_)) {
             return std::string("");
         }
@@ -234,7 +236,7 @@ class SimpleHttpProcessor {
         size_t ret;
         char data[1 << 12];
         while ((ret = ::recv(socket_, data, arraysize(data), 0)) != 0) {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
             auto err = WSAGetLastError();
             if (err != 0 && (err == WSAEWOULDBLOCK))
                 break;
@@ -283,7 +285,7 @@ class SimpleHttpProcessor {
         }
 
         http_code_ = std::atoi(status.c_str());
-        CHECK(HttpStatusCode::IsValidError(http_code_)) << "Bad status line";
+        KWC_CHECK(HttpStatusCode::IsValidError(http_code_)) << "Bad status line";
 
         response_state_ = HEADERS;
     }
@@ -300,7 +302,7 @@ class SimpleHttpProcessor {
             }
         } else {
             auto colon = line.find(':');
-            CHECK_NE(std::string::npos, colon) << "Header=[" << line << "]";
+            KWC_CHECK_NE(std::string::npos, colon) << "Header=[" << line << "]";
             auto value = line.substr(colon + 1);
             value = strings::TrimString(value, " ", strings::TRIM_ALL);
             response_->addHeader(line.substr(0, colon), value);
@@ -345,13 +347,13 @@ class SimpleHttpProcessor {
     }
 
     void connect() {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
         WSADATA wsaData;
-        CHECK(WSAStartup(MAKEWORD(2, 2), &wsaData) == 0) << "WSAStartup failed";
+        KWC_CHECK(WSAStartup(MAKEWORD(2, 2), &wsaData) == 0) << "WSAStartup failed";
 #endif
 
         auto addr = GetAddressFromString(host_.c_str());
-        CHECK(addr) << "Invalid network address " << host_;
+        KWC_CHECK(addr) << "Invalid network address " << host_;
 
         sockaddr_in address;
         memset(reinterpret_cast<char*>(&address), 0, sizeof(address));
@@ -360,16 +362,16 @@ class SimpleHttpProcessor {
         address.sin_addr.s_addr = addr->s_addr;
 
         socket_ = socket(AF_INET, SOCK_STREAM, 0);
-        CHECK(socket_ >= 0) << "socket() call failed";
-        CHECK(::connect(socket_, (sockaddr const*)&address, sizeof(address)) >= 0)
+        KWC_CHECK(socket_ >= 0) << "socket() call failed";
+        KWC_CHECK(::connect(socket_, (sockaddr const*)&address, sizeof(address)) >= 0)
             << "connect() call failed";
 
 // set non-blocking socket
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
         unsigned long non_blocking = 1;
-        CHECK(ioctlsocket(socket_, FIONBIO, &non_blocking) == 0) << "ioctlsocket() call failed";
+        KWC_CHECK(ioctlsocket(socket_, FIONBIO, &non_blocking) == 0) << "ioctlsocket() call failed";
 #else
-        CHECK(fcntl(socket_, F_SETFL, fcntl(socket_, F_GETFL, 0) | O_NONBLOCK) == 0)
+        KWC_CHECK(fcntl(socket_, F_SETFL, fcntl(socket_, F_GETFL, 0) | O_NONBLOCK) == 0)
             << "fcntl() call failed";
 #endif
     }
@@ -381,12 +383,12 @@ class SimpleHttpProcessor {
 
         while (num_bytes > 0) {
             size_t n;
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
             n = ::send(socket_, (const char*)buffer, num_bytes, 0);
 #else
             n = ::send(socket_, buffer, num_bytes, 0);
 #endif
-            CHECK(n >= 0) << "send() call failed";
+            KWC_CHECK(n >= 0) << "send() call failed";
             num_bytes -= n;
             buffer += n;
         }
@@ -394,7 +396,7 @@ class SimpleHttpProcessor {
 
     void close() {
         if (socket_ >= 0) {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
             shutdown(socket_, SD_SEND);
             ::closesocket(socket_);
 #else
@@ -425,7 +427,7 @@ SimpleHttpRequest::SimpleHttpRequest(HttpRequest::HttpMethod method,
     : HttpRequest(method, transaction) {}
 
 SimpleHttpRequest::~SimpleHttpRequest() {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     WSACleanup();
 #endif
 }

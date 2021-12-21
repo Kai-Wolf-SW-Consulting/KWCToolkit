@@ -10,7 +10,7 @@ namespace internal {
 
 intptr_t createPayload(const void* ptr, Payload type) {
     auto payload = reinterpret_cast<intptr_t>(ptr);
-    ASSERT((payload & 3) == 0);
+    KWC_ASSERT((payload & 3) == 0);
     return payload | type;
 }
 

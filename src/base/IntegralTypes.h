@@ -16,7 +16,7 @@ namespace kwc {
 using int8 = signed char;
 using int16 = short;
 using int32 = int;
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
 typedef __int64 int64;
 #else
 using int64 = long long;
@@ -26,7 +26,7 @@ using int64 = long long;
 using uint8 = unsigned char;
 using uint16 = unsigned short;
 using uint32 = unsigned int;
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
 typedef unsigned __int64 uint64;
 #else
 using uint64 = unsigned long long;
@@ -38,7 +38,7 @@ using uint64 = unsigned long long;
 #undef GG_ULONGLONG
 #undef GG_LL_FORMAT
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     // long long suffixes for MSVC
     #define GG_LONGLONG(x) x##I64
     #define GG_ULONGLONG(x) x##UI64

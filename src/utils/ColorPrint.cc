@@ -10,7 +10,7 @@
 #include "base/CmdlineFlags.h"
 #include "base/Platform.h"  // IWYU pragma: keep
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     #include <Windows.h>
 #endif
 
@@ -19,14 +19,14 @@ DECLARE_bool(color_print);
 namespace kwc {
 namespace utils {
 namespace {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
 using PlatformColorCode = WORD;
 #else
 using PlatformColorCode = const char*;
 #endif
 
 PlatformColorCode GetPlatformColorCode(LogColor color) {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     switch (color) {
         case COLOR_RED: return FOREGROUND_RED;
         case COLOR_GREEN: return FOREGROUND_GREEN;
@@ -63,7 +63,7 @@ void ColorPrint(LogColor color, const char* format, ...) {
         return;
     }
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     auto stdout_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
     // Get the current text color

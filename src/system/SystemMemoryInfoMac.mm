@@ -25,7 +25,7 @@ bool GetSystemMemoryInfo(SystemMemoryInfo *mem_info) {
     // Handle Mach ports, since they are ref counted and need to get back to kernel space
     // once we are done with it
     auto host = mach_host_self ();
-    SCOPE_EXIT
+    KWC_SCOPE_EXIT
     {
         mach_port_deallocate (mach_task_self (), host);
     };
@@ -37,7 +37,7 @@ bool GetSystemMemoryInfo(SystemMemoryInfo *mem_info) {
         return false;
     }
 
-    ASSERT (HOST_BASIC_INFO_COUNT == count);
+    KWC_ASSERT (HOST_BASIC_INFO_COUNT == count);
     mem_info->total = static_cast<int> (host_basic_info.max_mem / 1024);
 
     vm_statistics64_data_t vmInfo;
@@ -48,8 +48,8 @@ bool GetSystemMemoryInfo(SystemMemoryInfo *mem_info) {
     {
         return false;
     }
-    ASSERT (HOST_VM_INFO64_COUNT == count);
-    ASSERT (PAGE_SIZE % 1024 == 0 && "Invalid page size");
+    KWC_ASSERT (HOST_VM_INFO64_COUNT == count);
+    KWC_ASSERT (PAGE_SIZE % 1024 == 0 && "Invalid page size");
 
     mem_info->free = static_cast<int> (PAGE_SIZE / 1024 *
         (vmInfo.free_count - vmInfo.speculative_count));

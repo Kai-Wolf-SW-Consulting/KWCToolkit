@@ -43,15 +43,15 @@ int64 SystemInfo::getAmountOfPhysicalMemoryImpl() {
     // Handle Mach port that names a send right, since they are ref counted and need to get back
     // to kernel space one we are done with it
     auto host = mach_host_self();
-    SCOPE_EXIT { mach_port_deallocate(mach_task_self(), host); };
+    KWC_SCOPE_EXIT { mach_port_deallocate(mach_task_self(), host); };
 
     int result = host_info(host, HOST_BASIC_INFO, reinterpret_cast<host_info_t>(&hostInfo), &count);
     if (result != KERN_SUCCESS) {
-        UNREACHABLE();
+        KWC_UNREACHABLE();
         return 0;
     }
 
-    ASSERT(HOST_BASIC_INFO_COUNT == count);
+    KWC_ASSERT(HOST_BASIC_INFO_COUNT == count);
     return static_cast<int64>(hostInfo.max_mem);
 }
 

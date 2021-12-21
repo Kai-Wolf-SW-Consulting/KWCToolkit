@@ -28,29 +28,29 @@ int SystemInfo::getNumberOfCPUs() {
     // optimization on some low end devices.
     const auto result = sysconf(_SC_NPROCESSORS_CONF);
     if (result == -1) {
-        UNREACHABLE();
+        KWC_UNREACHABLE();
         return 1;
     }
 
     return static_cast<int>(result);
 }
 
-#if !defined(OS_MACOS) && !defined(OS_ANDROID)
+#if !defined(KWC_OS_MACOS) && !defined(KWC_OS_ANDROID)
 std::string SystemInfo::getOSName() {
     struct utsname info;
     if (uname(&info) < 0) {
-        UNREACHABLE();
+        KWC_UNREACHABLE();
         return std::string();
     }
     return std::string(info.sysname);
 }
 #endif
 
-#if !defined(OS_MACOS) && !defined(OS_ANDROID)
+#if !defined(KWC_OS_MACOS) && !defined(KWC_OS_ANDROID)
 std::string SystemInfo::getOSVersion() {
     struct utsname info;
     if (uname(&info) < 0) {
-        UNREACHABLE();
+        KWC_UNREACHABLE();
         return std::string();
     }
     return std::string(info.release);
@@ -60,7 +60,7 @@ std::string SystemInfo::getOSVersion() {
 std::string SystemInfo::getOSArch() {
     struct utsname info;
     if (uname(&info) < 0) {
-        UNREACHABLE();
+        KWC_UNREACHABLE();
         return std::string();
     }
 
@@ -79,7 +79,7 @@ int64 SystemInfo::getAmountOfVirtualMemory() {
     struct rlimit limit;
     int result = getrlimit(RLIMIT_DATA, &limit);
     if (result != 0) {
-        UNREACHABLE();
+        KWC_UNREACHABLE();
         return 0;
     }
     return limit.rlim_cur == RLIM_INFINITY ? 0 : limit.rlim_cur;

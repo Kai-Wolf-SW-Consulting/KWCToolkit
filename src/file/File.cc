@@ -11,7 +11,7 @@
 
 #include "file/FilePath.h"
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     #include <direct.h>
     #include <io.h>
     #define close _close

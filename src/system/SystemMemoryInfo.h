@@ -16,29 +16,29 @@ struct SystemMemoryInfo {
     SystemMemoryInfo(const SystemMemoryInfo& other) = default;
 
     int total{0};
-#if !defined(OS_WINDOWS)
+#if !defined(KWC_OS_WINDOWS)
     int free{0};
 #endif
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     // the amount of physical memory that can be immediately reused without having to write its
     // content to disk first.
     // See: https://docs.microsoft.com/en-us/windows/win32/api/winbase/ns-winbase-memorystatus
     int avail_phys{0};
 #endif
 
-#if defined(OS_LINUX) || defined(OS_ANDROID)
+#if defined(KWC_OS_LINUX) || defined(KWC_OS_ANDROID)
     // Provides an estimate of available memory
     // See: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=34e431b0ae
     int available{0};
 #endif
 
-#if !defined(OS_MACOS)
+#if !defined(KWC_OS_MACOS)
     int swap_total{0};
     int swap_free{0};
 #endif
 
-#if defined(OS_ANDROID) || defined(OS_LINUX)
+#if defined(KWC_OS_ANDROID) || defined(KWC_OS_LINUX)
     int buffers{0};
     int cached{0};
     int active_anon{0};
@@ -49,7 +49,7 @@ struct SystemMemoryInfo {
     int reclaimable{0};
 #endif
 
-#if defined(OS_MACOS)
+#if defined(KWC_OS_MACOS)
     int speculative{0};
     int file_backed{0};
     int purgeable{0};

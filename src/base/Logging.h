@@ -9,7 +9,7 @@
 
 #include "base/Platform.h"  // IWYU pragma: keep
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     #undef ERROR
 #endif
 

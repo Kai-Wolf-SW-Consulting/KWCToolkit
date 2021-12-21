@@ -11,7 +11,7 @@
 #include "base/Logging.h"
 #include "base/Platform.h"
 
-#if defined(OS_MACOS) || defined(OS_LINUX)
+#if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
     #include <execinfo.h>
 
     #include <csignal>

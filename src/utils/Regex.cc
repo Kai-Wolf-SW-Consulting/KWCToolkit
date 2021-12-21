@@ -80,7 +80,7 @@ Regex& Regex::alternative(const std::string& value) {
             last_stat_ = RegexStatus::STANDARD;
             reg_ += "|(" + value + ")";
             break;
-        default: UNREACHABLE(); break;
+        default: KWC_UNREACHABLE(); break;
     }
 
     reg_stat_ = RegexStatus::STANDARD;

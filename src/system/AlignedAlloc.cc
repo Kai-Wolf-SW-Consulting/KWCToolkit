@@ -12,7 +12,7 @@ namespace kwc {
 namespace system {
 
 void* alignedAlloc(std::ptrdiff_t num_bytes, std::size_t alignment) {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     return _aligned_malloc(num_bytes, alignment);
 #else
     void* ptr;
@@ -24,7 +24,7 @@ void* alignedAlloc(std::ptrdiff_t num_bytes, std::size_t alignment) {
 }
 
 void alignedFree(void* ptr) {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     _aligned_free(ptr);
 #else
     free(ptr);

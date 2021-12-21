@@ -8,7 +8,7 @@
 #include <string>
 
 #include "base/IntegralTypes.h"
-#include "base/Platform.h"              // IWYU pragma: keep
+#include "base/Platform.h"            // IWYU pragma: keep
 #include "system/SystemMemoryInfo.h"  // IWYU pragma: keep
 
 namespace kwc {
@@ -49,7 +49,7 @@ class SystemInfo {
     static int64 getAmountOfPhysicalMemoryImpl();
     static int64 getAmountOfAvailablePhysicalMemoryImpl();
 
-#if defined(OS_LINUX)
+#if defined(KWC_OS_LINUX)
     static int64 getAmountOfAvailablePhysicalMemory(const SystemMemoryInfo& mem_info);
 #endif
 };

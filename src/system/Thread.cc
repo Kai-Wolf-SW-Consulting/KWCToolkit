@@ -9,7 +9,7 @@
 #include "base/Assert.h"
 #include "base/Platform.h"  // IWYU pragma: keep
 
-#if !defined(OS_WINDOWS)
+#if !defined(KWC_OS_WINDOWS)
     #include <pthread.h>
     #include <sched.h>
 #endif
@@ -17,7 +17,7 @@
 namespace kwc {
 namespace system {
 namespace {
-#if !defined(OS_WINDOWS)
+#if !defined(KWC_OS_WINDOWS)
 struct ThreadAttributes {
     ThreadAttributes() { pthread_attr_init(&attr); }
 
@@ -32,15 +32,15 @@ struct ThreadAttributes {
 
 Thread::Thread(ThreadRunFunction func, void* obj, const char* threadName, ThreadPriority priority)
     : run_function_(func), priority_(priority), obj_(obj), name_(threadName) {
-    ASSERT(func);
-    ASSERT(!name_.empty());
-    ASSERT(name_.length() < 64 && "Thread name too long");
+    KWC_ASSERT(func);
+    KWC_ASSERT(!name_.empty());
+    KWC_ASSERT(name_.length() < 64 && "Thread name too long");
 }
 
 Thread::~Thread() {
-#if defined(OS_WINDOWS)
-    ASSERT(!thread_);
-    ASSERT(!thread_id_);
+#if defined(KWC_OS_WINDOWS)
+    KWC_ASSERT(!thread_);
+    KWC_ASSERT(!thread_id_);
 #endif
 }
 
@@ -49,23 +49,24 @@ const std::string& Thread::name() const {
 }
 
 void Thread::start() {
-    ASSERT(!thread_ && "Thread already started");
-#if defined(OS_WINDOWS)
+    KWC_ASSERT(!thread_ && "Thread already started");
+#if defined(KWC_OS_WINDOWS)
     // Set the reserved stack size to 1M, which is default on Windows/Linux
     thread_ = ::CreateThread(nullptr, 1024 * 1024, &startThread, this,
                              STACK_SIZE_PARAM_IS_A_RESERVATION, &thread_id_);
-    ASSERT(thread_ && "Thread creation failed");
-    ASSERT(thread_id_);
+    KWC_ASSERT(thread_ && "Thread creation failed");
+    KWC_ASSERT(thread_id_);
 #else
     ThreadAttributes attr;
     // Set the stack size to 1M
     pthread_attr_setstacksize(&attr, 1024 * 1024);
-    ASSERT(pthread_create(&thread_, &attr, &startThread, this) == 0 && "Thread creation failed");
+    KWC_ASSERT(pthread_create(&thread_, &attr, &startThread, this) == 0 &&
+               "Thread creation failed");
 #endif
 }
 
 bool Thread::isRunning() const {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     return thread_ != nullptr;
 #else
     return thread_ != 0;
@@ -73,7 +74,7 @@ bool Thread::isRunning() const {
 }
 
 PlatformThreadRef Thread::getThreadRef() const {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     return thread_id_;
 #else
     return thread_;
@@ -85,13 +86,13 @@ void Thread::stop() {
         return;
     }
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     WaitForSingleObject(thread_, INFINITE);
     CloseHandle(thread_);
     thread_ = nullptr;
     thread_id_ = 0;
 #else
-    ASSERT(pthread_join(thread_, nullptr) == 0);
+    KWC_ASSERT(pthread_join(thread_, nullptr) == 0);
     thread_ = 0;
 #endif
 }
@@ -103,7 +104,7 @@ void Thread::run() {
 }
 
 bool Thread::setPriority(ThreadPriority priority) {
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
     return SetThreadPriority(thread_, priority) != FALSE;
 #else
     const int policy = SCHED_FIFO;
@@ -131,7 +132,7 @@ bool Thread::setPriority(ThreadPriority priority) {
 #endif
 }
 
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
 DWORD WINAPI Thread::startThread(void* param) {
     ::SetLastError(ERROR_SUCCESS);
     static_cast<Thread*>(param)->run();

@@ -13,7 +13,7 @@ namespace kwc {
 namespace base {
 namespace internal {
 
-// This gets constructed for every failing CHECK macro down below.
+// This gets constructed for every failing KWC_CHECK macro down below.
 // CheckHandler will log information about the failure and abort in its destructor
 class CheckHandler {
   public:
@@ -30,20 +30,20 @@ class CheckHandler {
 };
 
 #ifndef NDEBUG
-    #define CHECK(b)                                           \
+    #define KWC_CHECK(b)                                       \
         ((b) ? ::kwc::base::internal::GetNullLoggingInstance() \
              : ::kwc::base::internal::CheckHandler(#b, __FILE__, __func__, __LINE__).GetLog())
 #else
-    #define CHECK(b) ::kwc::base::internal::GetNullLoggingInstance()
+    #define KWC_CHECK(b) ::kwc::base::internal::GetNullLoggingInstance()
 #endif
 
-#define CHECK_LT(x, y) CHECK((x) < (y))
-#define CHECK_GT(x, y) CHECK((x) > (y))
-#define CHECK_LE(x, y) CHECK((x) <= (y))
-#define CHECK_GE(x, y) CHECK((x) >= (y))
-#define CHECK_EQ(x, y) CHECK((x) == (y))
-#define CHECK_NE(x, y) CHECK((x) != (y))
-#define CHECK_NOTNULL(x) CHECK((x) != nullptr)
+#define KWC_CHECK_LT(x, y) KWC_CHECK((x) < (y))
+#define KWC_CHECK_GT(x, y) KWC_CHECK((x) > (y))
+#define KWC_CHECK_LE(x, y) KWC_CHECK((x) <= (y))
+#define KWC_CHECK_GE(x, y) KWC_CHECK((x) >= (y))
+#define KWC_CHECK_EQ(x, y) KWC_CHECK((x) == (y))
+#define KWC_CHECK_NE(x, y) KWC_CHECK((x) != (y))
+#define KWC_CHECK_NOTNULL(x) KWC_CHECK((x) != nullptr)
 
 }  // namespace internal
 }  // namespace base

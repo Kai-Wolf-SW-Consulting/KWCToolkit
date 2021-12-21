@@ -13,11 +13,11 @@ namespace kwc {
 
 enum class InternalErrorType : uint32 { OutOfMemory, UnknownFormat, Internal };
 
-#define MAKE_ERROR(TYPE, MESSAGE) \
+#define KWC_MAKE_ERROR(TYPE, MESSAGE) \
     base::ErrorTrace::Create(TYPE, MESSAGE, __FILE__, __func__, __LINE__)
 
-#define INTERNAL_ERROR(MESSAGE) MAKE_ERROR(InternalErrorType::Internal, MESSAGE)
-#define UNKNOWN_FORMAT_ERROR(MESSAGE) MAKE_ERROR(InternalErrorType::UnknownFormat, MESSAGE)
+#define KWC_INTERNAL_ERROR(MESSAGE) KWC_MAKE_ERROR(InternalErrorType::Internal, MESSAGE)
+#define KWC_UNKNOWN_FORMAT_ERROR(MESSAGE) KWC_MAKE_ERROR(InternalErrorType::UnknownFormat, MESSAGE)
 
 }  // namespace kwc
 

@@ -17,7 +17,7 @@ enum class InternalErrorType : uint32;
 
 namespace base {
 
-class NO_DISCARD ErrorTrace {
+class KWC_NO_DISCARD ErrorTrace {
   public:
     static std::unique_ptr<ErrorTrace> Create(InternalErrorType type,
                                               const std::string& message,
@@ -32,9 +32,9 @@ class NO_DISCARD ErrorTrace {
         int line;
     };
     void AppendBacktrace(const char* file, const char* function, int line);
-    NO_DISCARD InternalErrorType GetType() const;
-    NO_DISCARD const std::string& GetMessage() const;
-    NO_DISCARD const std::vector<BacktraceRecord>& GetBacktrace() const;
+    KWC_NO_DISCARD InternalErrorType GetType() const;
+    KWC_NO_DISCARD const std::string& GetMessage() const;
+    KWC_NO_DISCARD const std::vector<BacktraceRecord>& GetBacktrace() const;
 
   private:
     InternalErrorType type_;

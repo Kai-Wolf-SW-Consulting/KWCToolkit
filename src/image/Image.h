@@ -66,10 +66,10 @@ class Image {
     Image(uint32 width, uint32 height, uint32 num_channels, const float* data, long data_len);
     ~Image() = default;
 
-    NO_DISCARD uint32 width() const;
-    NO_DISCARD uint32 height() const;
-    NO_DISCARD uint32 numChannels() const;
-    NO_DISCARD uint32 rowBytes() const;
+    KWC_NO_DISCARD uint32 width() const;
+    KWC_NO_DISCARD uint32 height() const;
+    KWC_NO_DISCARD uint32 numChannels() const;
+    KWC_NO_DISCARD uint32 rowBytes() const;
 
     std::vector<uint8>& buffer();
 

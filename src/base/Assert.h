@@ -9,7 +9,7 @@
 #include "base/build_flags_internal.h"
 
 // These Assert should always be used in favor of the regular C stdlib
-// style assert() function. In a debug build ASSERT (cond) will
+// style assert() function. In a debug build KWC_ASSERT (cond) will
 // trigger an error, whereas on a release build it will do nothing (at runtime)
 // These assert feature:
 //   - Logging of the error file together with line and function information
@@ -17,55 +17,55 @@
 //     See: https://clang.llvm.org/docs/LanguageExtensions.html for more info.
 
 // Prevent MSVC warning trigger when compiling with /W4
-#if defined(COMPILER_MSVC)
-    #define ASSERT_LOOP_CONDITION (0, 0)
+#if defined(KWC_COMPILER_MSVC)
+    #define KWC_ASSERT_LOOP_CONDITION (0, 0)
 #else
-    #define ASSERT_LOOP_CONDITION (0)
+    #define KWC_ASSERT_LOOP_CONDITION (0)
 #endif
 
 #if BUILD_FLAG(ENABLE_ASSERTS)
-    #define ASSERT_HELPER(file, func, line, condition)             \
+    #define KWC_ASSERT_HELPER(file, func, line, condition)         \
         do {                                                       \
             if (!(condition)) {                                    \
                 handleAssertFailure(file, func, line, #condition); \
             }                                                      \
-        } while (ASSERT_LOOP_CONDITION)
+        } while (KWC_ASSERT_LOOP_CONDITION)
 #else
-    #if defined(COMPILER_MSVC)
-        #define ASSERT_HELPER(file, func, line, condition) __assume(condition)
-    #elif defined(COMPILER_CLANG) && defined(__builtin_assume)
-        #define ASSERT_HELPER(file, func, line, condition) __builtin_assume(condition)
+    #if defined(KWC_COMPILER_MSVC)
+        #define KWC_ASSERT_HELPER(file, func, line, condition) __assume(condition)
+    #elif defined(KWC_COMPILER_CLANG) && defined(__builtin_assume)
+        #define KWC_ASSERT_HELPER(file, func, line, condition) __builtin_assume(condition)
     #else
         #if defined(ABORT_ON_ASSERT)
-            #define ASSERT_HELPER(file, func, line, condition) \
-                do {                                           \
-                    if (!(condition)) {                        \
-                        ERROR(#condition);                     \
-                        std::abort();                          \
-                    }                                          \
-                } while (ASSERT_LOOP_CONDITION)
+            #define KWC_ASSERT_HELPER(file, func, line, condition) \
+                do {                                               \
+                    if (!(condition)) {                            \
+                        ERROR(#condition);                         \
+                        std::abort();                              \
+                    }                                              \
+                } while (KWC_ASSERT_LOOP_CONDITION)
         #else
-            #define ASSERT_HELPER(file, func, line, condition) \
-                do {                                           \
-                    UNUSED((condition));                       \
-                } while (ASSERT_LOOP_CONDITION)
+            #define KWC_ASSERT_HELPER(file, func, line, condition) \
+                do {                                               \
+                    KWC_UNUSED((condition));                       \
+                } while (KWC_ASSERT_LOOP_CONDITION)
         #endif
     #endif
 #endif
 
-#define ASSERT(condition) ASSERT_HELPER(__FILE__, __func__, __LINE__, condition)
+#define KWC_ASSERT(condition) KWC_ASSERT_HELPER(__FILE__, __func__, __LINE__, condition)
 
 #define KWC_FAIL(msg) \
     do {              \
         ERROR(msg);   \
         std::abort(); \
-    } while (ASSERT_LOOP_CONDITION)
+    } while (KWC_ASSERT_LOOP_CONDITION)
 
-#define UNREACHABLE()                                            \
-    do {                                                         \
-        ASSERT(ASSERT_LOOP_CONDITION && "Unreachable code hit"); \
-        BUILTIN_UNREACHABLE();                                   \
-    } while (ASSERT_LOOP_CONDITION)
+#define KWC_UNREACHABLE()                                                \
+    do {                                                                 \
+        KWC_ASSERT(KWC_ASSERT_LOOP_CONDITION && "Unreachable code hit"); \
+        KWC_BUILTIN_UNREACHABLE();                                       \
+    } while (KWC_ASSERT_LOOP_CONDITION)
 
 void handleAssertFailure(const char* file, const char* fn, int line, const char* condition);
 

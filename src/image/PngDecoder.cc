@@ -106,8 +106,8 @@ void StringWriter(png_structp png_ptr, png_bytep data, png_size_t length) {
 void StringWriterFlush(png_structp png_ptr) {}
 
 bool DecodeInit(std::vector<uint8> data, int num_channels, int channel_depth, PNGContext* context) {
-    CHECK(channel_depth == 8 || channel_depth == 16) << "Channel depth: " << channel_depth;
-    CHECK(0 <= num_channels && num_channels <= 4) << "Num channels: " << num_channels;
+    KWC_CHECK(channel_depth == 8 || channel_depth == 16) << "Channel depth: " << channel_depth;
+    KWC_CHECK(0 <= num_channels && num_channels <= 4) << "Num channels: " << num_channels;
     context->error_condition = false;
     context->channels = num_channels;
     context->png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, context, ErrorFunc, WarnFunc);
@@ -217,7 +217,7 @@ bool DecodeInit(std::vector<uint8> data, int num_channels, int channel_depth, PN
 }
 
 bool DecodeFinish(png_bytep data, int row_bytes, PNGContext* context) {
-    CHECK(data != nullptr);
+    KWC_CHECK(data != nullptr);
 
     // Need to reset the jump pointer so that we trap errors here instead of DecodeInit
     if (setjmp(png_jmpbuf(context->png_ptr))) {
@@ -254,13 +254,13 @@ ResultOrError<Image> ReadPNG(const std::vector<uint8>& data, ColorMode mode) {
     PNGContext context;
     // TODO(kai): Use mode
     if (!DecodeInit(data, 3, 8, &context)) {
-        return INTERNAL_ERROR("Error PNG decode initialization");
+        return KWC_INTERNAL_ERROR("Error PNG decode initialization");
     }
 
     Image img(context.width, context.height, context.channels);
     char* image_buffer = new char[3 * context.width * context.height];
     if (!DecodeFinish(reinterpret_cast<png_byte*>(image_buffer), 3 * context.width, &context)) {
-        return INTERNAL_ERROR("Error PNG decode finalization");
+        return KWC_INTERNAL_ERROR("Error PNG decode finalization");
     }
 
     auto& buffer = img.buffer();

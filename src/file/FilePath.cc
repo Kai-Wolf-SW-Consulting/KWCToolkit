@@ -11,7 +11,7 @@ namespace file {
 
 constexpr auto kStringTerminator = '\0';
 constexpr FilePath::CharType kCurrentDirectory[] = ".";
-#if defined(OS_WINDOWS)
+#if defined(KWC_OS_WINDOWS)
 constexpr FilePath::CharType kPathSeparator[] = "\\/";
 constexpr auto kPathSepLength = 3;
 #else
