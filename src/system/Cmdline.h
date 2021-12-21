@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWCTOOLKIT_BASE_CMDLINE_H_
-#define KWCTOOLKIT_BASE_CMDLINE_H_
+#ifndef KWCTOOLKIT_SYSTEM_CMDLINE_H_
+#define KWCTOOLKIT_SYSTEM_CMDLINE_H_
 
 #include <cstddef>
 #include <map>

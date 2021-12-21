@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWCTOOLKIT_AUDIO_SINEGENERATOR_H_
-#define KWCTOOLKIT_AUDIO_SINEGENERATOR_H_
+#ifndef KWCTOOLKIT_AUDIO_SINE_GENERATOR_H_
+#define KWCTOOLKIT_AUDIO_SINE_GENERATOR_H_
 
 #include <cmath>
 #include <cstdint>

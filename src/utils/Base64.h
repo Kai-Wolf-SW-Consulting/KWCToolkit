@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWCTOOLKIT_UTILS_BASE_64_H_
-#define KWCTOOLKIT_UTILS_BASE_64_H_
+#ifndef KWCTOOLKIT_UTILS_BASE64_H_
+#define KWCTOOLKIT_UTILS_BASE64_H_
 
 #include <string>
 

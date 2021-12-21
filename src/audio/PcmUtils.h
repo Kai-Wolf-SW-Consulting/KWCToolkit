@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWCTOOLKIT_AUDIO_PCM_U_TILS_H_
-#define KWCTOOLKIT_AUDIO_PCM_U_TILS_H_
+#ifndef KWCTOOLKIT_AUDIO_PCM_UTILS_H_
+#define KWCTOOLKIT_AUDIO_PCM_UTILS_H_
 
 #include <sys/types.h>
 #include <unistd.h>

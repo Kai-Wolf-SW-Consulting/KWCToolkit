@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWCTOOLKIT_BASE_FEATURE_LIST_H_
-#define KWCTOOLKIT_BASE_FEATURE_LIST_H_
+#ifndef KWCTOOLKIT_SYSTEM_FEATURE_LIST_H_
+#define KWCTOOLKIT_SYSTEM_FEATURE_LIST_H_
 
 #include <functional>
 #include <map>

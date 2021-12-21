@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWCTOOLKIT_BASE_CHECKEDINTEGER_H_
-#define KWCTOOLKIT_BASE_CHECKEDINTEGER_H_
+#ifndef KWCTOOLKIT_BASE_CHECKED_INTEGER_H_
+#define KWCTOOLKIT_BASE_CHECKED_INTEGER_H_
 
 #include <limits>
 #include <type_traits>

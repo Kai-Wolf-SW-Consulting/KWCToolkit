@@ -2,8 +2,8 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#ifndef KWCTOOLKIT_UTILS_LEVENNSHTEIN_H_
-#define KWCTOOLKIT_UTILS_LEVENNSHTEIN_H_
+#ifndef KWCTOOLKIT_UTILS_LEVENSHTEIN_H_
+#define KWCTOOLKIT_UTILS_LEVENSHTEIN_H_
 
 #include <algorithm>
 #include <numeric>
