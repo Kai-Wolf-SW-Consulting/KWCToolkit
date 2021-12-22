@@ -6,7 +6,7 @@
 
 #include <vector>
 
-#include <kwctoolkit/system/Environment.h>
+#include "kwctoolkit/system/Environment.h"
 
 #if defined(KWC_OS_WINDOWS)
     #include <direct.h>

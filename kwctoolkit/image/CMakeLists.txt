@@ -16,7 +16,7 @@ add_library(kwc::image ALIAS kwc_image)
 
 target_include_directories(kwc_image
   PUBLIC
-    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(kwc_image

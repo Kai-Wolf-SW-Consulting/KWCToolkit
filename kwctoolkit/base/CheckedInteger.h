@@ -8,7 +8,7 @@
 #include <limits>
 #include <type_traits>
 
-#include <kwctoolkit/base/Assert.h>
+#include "kwctoolkit/base/Assert.h"
 
 namespace kwc {
 namespace base {

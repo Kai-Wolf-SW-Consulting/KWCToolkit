@@ -9,7 +9,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <kwctoolkit/system/SystemMemoryInfo.h>
+#include "kwctoolkit/system/SystemMemoryInfo.h"
 
 namespace kwc {
 namespace system {

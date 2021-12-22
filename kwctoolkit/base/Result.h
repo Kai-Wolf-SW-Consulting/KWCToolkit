@@ -10,8 +10,8 @@
 #include <type_traits>
 #include <utility>  // IWYU pragma: keep
 
-#include <kwctoolkit/base/Assert.h>
-#include <kwctoolkit/base/RefCount.h>
+#include "kwctoolkit/base/Assert.h"
+#include "kwctoolkit/base/RefCount.h"
 
 namespace kwc {
 namespace base {

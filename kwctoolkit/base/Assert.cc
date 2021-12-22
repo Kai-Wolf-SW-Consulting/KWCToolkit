@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <ostream>
 
-#include <kwctoolkit/base/Logging.h>
+#include "kwctoolkit/base/Logging.h"
 
 void handleAssertFailure(const char* file, const char* fn, int line, const char* condition) {
     using namespace kwc::base;

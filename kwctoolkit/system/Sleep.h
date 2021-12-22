@@ -5,7 +5,7 @@
 #ifndef KWCTOOLKIT_SYSTEM_SLEEP_H_
 #define KWCTOOLKIT_SYSTEM_SLEEP_H_
 
-#include <kwctoolkit/base/IntegralTypes.h>
+#include "kwctoolkit/base/IntegralTypes.h"
 
 namespace kwc {
 namespace system {

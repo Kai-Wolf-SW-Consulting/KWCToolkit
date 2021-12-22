@@ -4,14 +4,14 @@
 
 #include "kwctoolkit/serialization/DataReader.h"
 
+#include <stdint.h>
+
 #include <algorithm>
 #include <cstdlib>
 #include <memory>
 
-#include <stdint.h>
-
-#include <kwctoolkit/base/Callback.h>
-#include <kwctoolkit/base/Check.h>
+#include "kwctoolkit/base/Callback.h"
+#include "kwctoolkit/base/Check.h"
 
 namespace kwc {
 namespace serialization {

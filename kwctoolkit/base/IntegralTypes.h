@@ -5,7 +5,7 @@
 #ifndef KWCTOOLKIT_BASE_INTEGRAL_TYPES_H_
 #define KWCTOOLKIT_BASE_INTEGRAL_TYPES_H_
 
-#include <kwctoolkit/base/Platform.h>
+#include "kwctoolkit/base/Platform.h"
 
 namespace kwc {
 

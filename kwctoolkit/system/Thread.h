@@ -5,15 +5,15 @@
 #ifndef KWCTOOLKIT_SYSTEM_THREAD_H_
 #define KWCTOOLKIT_SYSTEM_THREAD_H_
 
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/base/Platform.h>
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/base/Platform.h"
 
 #if defined(KWC_OS_POSIX)
     #include <pthread.h>
 #endif
 #include <string>
 
-#include <kwctoolkit/system/ThreadTypes.h>
+#include "kwctoolkit/system/ThreadTypes.h"
 
 namespace kwc {
 namespace system {

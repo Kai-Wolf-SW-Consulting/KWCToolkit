@@ -8,7 +8,7 @@
 #include <errno.h>
 #include <fnmatch.h>
 
-#include <kwctoolkit/file/FilePathConstants.h>
+#include "kwctoolkit/file/FilePathConstants.h"
 
 namespace kwc {
 namespace file {

@@ -5,7 +5,7 @@
 #ifndef KWCTOOLKIT_SYSTEM_THREAD_TYPES_H_
 #define KWCTOOLKIT_SYSTEM_THREAD_TYPES_H_
 
-#include <kwctoolkit/base/Platform.h>
+#include "kwctoolkit/base/Platform.h"
 
 #if defined(KWC_OS_WINDOWS)
     // The inclusion of winsock2.h before windows.h is necessary here in order

@@ -6,9 +6,9 @@
 
 #include <utility>
 
-#include <kwctoolkit/base/ArraySize.h>
-#include <kwctoolkit/file/FilePath.h>
-#include <kwctoolkit/strings/StringUtils.h>
+#include "kwctoolkit/base/ArraySize.h"
+#include "kwctoolkit/file/FilePath.h"
+#include "kwctoolkit/strings/StringUtils.h"
 
 using kwc::file::FilePath;
 

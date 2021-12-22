@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include <kwctoolkit/base/IntegralTypes.h>
+#include "kwctoolkit/base/IntegralTypes.h"
 
 namespace kwc {
 // Macro for referencing flags

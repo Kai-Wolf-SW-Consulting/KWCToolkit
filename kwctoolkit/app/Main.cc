@@ -6,10 +6,10 @@
 #include <cstdlib>
 #include <ostream>
 
-#include <kwctoolkit/app/App.h>
-#include <kwctoolkit/base/CmdlineFlags.h>
-#include <kwctoolkit/base/Logging.h>
-#include <kwctoolkit/base/Platform.h>
+#include "kwctoolkit/app/App.h"
+#include "kwctoolkit/base/CmdlineFlags.h"
+#include "kwctoolkit/base/Logging.h"
+#include "kwctoolkit/base/Platform.h"
 
 #if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
     #include <execinfo.h>

@@ -3,4 +3,3 @@
 // list of contributors see the AUTHORS file in the same directory.
 
 #include "kwctoolkit/net/AddressIpv6.h"
-

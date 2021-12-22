@@ -417,7 +417,7 @@ if __name__ == "__main__":
         write_copyright_header(f)
         f.write("#ifndef KWCTOOLKIT_BASE_CALLBACK_IMPL_H_\n"
                 "#define KWCTOOLKIT_BASE_CALLBACK_IMPL_H_\n\n"
-                "#include <type_traits>\n#include \<kwctoolkit/base/%s>\n\n" %
+                "#include <type_traits>\n#include \"kwctoolkit/base/%s\"\n\n" %
                 args.cb_types_filename)
         f.write("namespace kwc {\nnamespace internal {\n\n"
                 "template <typename T> struct ConstRef {\n"

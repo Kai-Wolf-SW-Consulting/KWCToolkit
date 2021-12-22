@@ -4,7 +4,7 @@
 
 #include "kwctoolkit/system/ThreadTypes.h"
 
-#include <kwctoolkit/base/Platform.h>
+#include "kwctoolkit/base/Platform.h"
 
 #if defined(KWC_OS_LINUX)
     #include <sys/prctl.h>

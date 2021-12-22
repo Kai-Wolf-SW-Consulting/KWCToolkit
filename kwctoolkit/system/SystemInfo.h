@@ -7,9 +7,9 @@
 
 #include <string>
 
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/base/Platform.h>            // IWYU pragma: keep
-#include <kwctoolkit/system/SystemMemoryInfo.h>  // IWYU pragma: keep
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/base/Platform.h"            // IWYU pragma: keep
+#include "kwctoolkit/system/SystemMemoryInfo.h"  // IWYU pragma: keep
 
 namespace kwc {
 namespace system {

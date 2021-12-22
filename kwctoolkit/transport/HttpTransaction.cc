@@ -4,7 +4,7 @@
 
 #include "kwctoolkit/transport/HttpTransaction.h"
 
-#include <kwctoolkit/system/Executor.h>
+#include "kwctoolkit/system/Executor.h"
 
 namespace kwc {
 namespace transport {

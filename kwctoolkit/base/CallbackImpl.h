@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#include <kwctoolkit/base/CallbackTypes.h>
+#include "kwctoolkit/base/CallbackTypes.h"
 
 namespace kwc {
 namespace internal {

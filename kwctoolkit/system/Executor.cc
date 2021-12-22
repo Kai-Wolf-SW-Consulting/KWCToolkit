@@ -6,7 +6,7 @@
 
 #include <mutex>
 
-#include <kwctoolkit/base/Callback.h>
+#include "kwctoolkit/base/Callback.h"
 
 namespace kwc {
 namespace {

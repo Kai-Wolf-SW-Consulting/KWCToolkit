@@ -4,13 +4,14 @@
 
 #include "kwctoolkit/strings/UtfStringConversion.h"
 
-#include <icu_utf.h>
+#include <stdint.h>
 
 #include <cstddef>
 #include <string>
-#include <stdint.h>
 
-#include <kwctoolkit/strings/StringUtils.h>
+#include <icu_utf.h>
+
+#include "kwctoolkit/strings/StringUtils.h"
 
 namespace kwc {
 namespace strings {

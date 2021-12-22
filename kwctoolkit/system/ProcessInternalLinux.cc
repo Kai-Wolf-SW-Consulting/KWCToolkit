@@ -11,10 +11,10 @@
 #include <string>
 #include <vector>
 
-#include <kwctoolkit/file/FilePath.h>
-#include <kwctoolkit/file/FileUtils.h>
-#include <kwctoolkit/strings/StringSplit.h>
-#include <kwctoolkit/strings/StringUtils.h>
+#include "kwctoolkit/file/FilePath.h"
+#include "kwctoolkit/file/FileUtils.h"
+#include "kwctoolkit/strings/StringSplit.h"
+#include "kwctoolkit/strings/StringUtils.h"
 
 namespace kwc {
 namespace system {

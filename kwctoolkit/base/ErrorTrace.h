@@ -9,8 +9,8 @@
 #include <string>
 #include <vector>
 
-#include <kwctoolkit/base/Compiler.h>
-#include <kwctoolkit/base/IntegralTypes.h>
+#include "kwctoolkit/base/Compiler.h"
+#include "kwctoolkit/base/IntegralTypes.h"
 
 namespace kwc {
 enum class InternalErrorType : uint32;

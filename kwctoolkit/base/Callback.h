@@ -60,7 +60,7 @@
 //     == MakeCallback(foo, &Foo::bar, 10, 1.7) --> run();        // 2 + 0
 //     == foo->bar(23, 1.7);
 
-#include <kwctoolkit/base/CallbackImpl.h>
+#include "kwctoolkit/base/CallbackImpl.h"
 
 namespace kwc {
 class Callback;

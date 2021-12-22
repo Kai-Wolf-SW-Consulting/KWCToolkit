@@ -10,10 +10,10 @@
 #include <mutex>
 #include <string>
 
-#include <kwctoolkit/base/Callback.h>
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/base/Status.h>
+#include "kwctoolkit/base/Callback.h"
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/base/Status.h"
 
 namespace kwc {
 namespace transport {

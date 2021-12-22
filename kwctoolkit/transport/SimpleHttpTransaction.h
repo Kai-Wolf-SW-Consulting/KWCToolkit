@@ -8,8 +8,8 @@
 #include <memory>
 #include <vector>
 
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/transport/HttpTransaction.h>
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/transport/HttpTransaction.h"
 
 namespace kwc {
 namespace transport {

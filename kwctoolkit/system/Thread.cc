@@ -6,8 +6,8 @@
 
 #include <algorithm>
 
-#include <kwctoolkit/base/Assert.h>
-#include <kwctoolkit/base/Platform.h>  // IWYU pragma: keep
+#include "kwctoolkit/base/Assert.h"
+#include "kwctoolkit/base/Platform.h"  // IWYU pragma: keep
 
 #if !defined(KWC_OS_WINDOWS)
     #include <pthread.h>

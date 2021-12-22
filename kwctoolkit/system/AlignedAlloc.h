@@ -7,7 +7,7 @@
 
 #include <cstddef>
 
-#include <kwctoolkit/base/Compiler.h>
+#include "kwctoolkit/base/Compiler.h"
 
 namespace kwc {
 namespace system {

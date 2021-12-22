@@ -7,9 +7,9 @@
 
 #include <vector>
 
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/file/FilePath.h>
-#include <kwctoolkit/image/Image.h>
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/file/FilePath.h"
+#include "kwctoolkit/image/Image.h"
 
 namespace kwc {
 namespace image {

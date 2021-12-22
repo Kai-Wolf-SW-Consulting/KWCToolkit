@@ -4,10 +4,10 @@
 
 #include "kwctoolkit/image/ImageDecoder.h"
 
-#include <kwctoolkit/base/Error.h>
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/image/Image.h>
-#include <kwctoolkit/image/PngDecoder.h>
+#include "kwctoolkit/base/Error.h"
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/image/Image.h"
+#include "kwctoolkit/image/PngDecoder.h"
 
 namespace kwc {
 namespace image {

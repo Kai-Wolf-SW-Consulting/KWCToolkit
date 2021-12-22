@@ -12,15 +12,15 @@
 #include <ostream>
 #include <string>
 
-#include <kwctoolkit/base/ArraySize.h>
-#include <kwctoolkit/base/Check.h>
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/serialization/DataWriter.h>
-#include <kwctoolkit/strings/StringUtils.h>
-#include <kwctoolkit/transport/HttpRequest.h>
-#include <kwctoolkit/transport/HttpResponse.h>
-#include <kwctoolkit/transport/HttpTransaction.h>
-#include <kwctoolkit/transport/HttpTypes.h>
+#include "kwctoolkit/base/ArraySize.h"
+#include "kwctoolkit/base/Check.h"
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/serialization/DataWriter.h"
+#include "kwctoolkit/strings/StringUtils.h"
+#include "kwctoolkit/transport/HttpRequest.h"
+#include "kwctoolkit/transport/HttpResponse.h"
+#include "kwctoolkit/transport/HttpTransaction.h"
+#include "kwctoolkit/transport/HttpTypes.h"
 
 #if defined(KWC_OS_WINDOWS)
     #define _WINSOCK_DEPRECATED_NO_WARNINGS

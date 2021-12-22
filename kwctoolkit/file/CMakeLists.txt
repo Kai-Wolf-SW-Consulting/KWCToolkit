@@ -19,7 +19,7 @@ add_library(kwc::file ALIAS kwc_file)
 
 target_include_directories(kwc_file
   PUBLIC
-  $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
+  $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}>
   $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(kwc_file
@@ -32,3 +32,13 @@ install(TARGETS kwc_file
 install(FILES ${PUBLIC_file_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/file)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
+
+if(BUILD_TESTING)
+  target_sources(kwc_unittests PUBLIC
+    FilePathTest.cc)
+  if(NOT MSVC)
+    target_sources(kwc_unittests PUBLIC
+      FileEnumeratorTest.cc
+      FileTest.cc)
+  endif()
+endif()

@@ -5,7 +5,7 @@
 #ifndef KWCTOOLKIT_SYSTEM_SYSTEM_MEMORY_INFO_H_
 #define KWCTOOLKIT_SYSTEM_SYSTEM_MEMORY_INFO_H_
 
-#include <kwctoolkit/base/Platform.h>
+#include "kwctoolkit/base/Platform.h"
 
 namespace kwc {
 namespace system {

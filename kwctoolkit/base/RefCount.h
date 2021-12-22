@@ -8,7 +8,7 @@
 #include <atomic>
 #include <type_traits>
 
-#include <kwctoolkit/base/IntegralTypes.h>
+#include "kwctoolkit/base/IntegralTypes.h"
 
 namespace kwc {
 namespace base {

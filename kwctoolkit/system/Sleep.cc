@@ -7,7 +7,7 @@
 #include <cerrno>
 #include <ctime>
 
-#include <kwctoolkit/base/Platform.h>
+#include "kwctoolkit/base/Platform.h"
 
 #if defined(KWC_OS_WINDOWS)
     #include <Windows.h>

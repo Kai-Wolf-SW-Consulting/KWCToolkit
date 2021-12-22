@@ -6,8 +6,8 @@
 
 #include <cstdlib>
 
-#include <kwctoolkit/base/Platform.h>
-#include <kwctoolkit/strings/StringUtils.h>
+#include "kwctoolkit/base/Platform.h"
+#include "kwctoolkit/strings/StringUtils.h"
 
 #if defined(KWC_OS_WINDOWS)
     #include <windows.h>

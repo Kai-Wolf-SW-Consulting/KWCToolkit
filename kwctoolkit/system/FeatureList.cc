@@ -7,8 +7,8 @@
 #include <utility>
 #include <vector>
 
-#include <kwctoolkit/base/Check.h>
-#include <kwctoolkit/strings/StringSplit.h>
+#include "kwctoolkit/base/Check.h"
+#include "kwctoolkit/strings/StringSplit.h"
 
 namespace kwc {
 namespace base {

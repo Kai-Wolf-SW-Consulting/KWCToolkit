@@ -7,11 +7,11 @@
 
 #include <vector>
 
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/file/FilePath.h>
-#include <kwctoolkit/file/FileUtils.h>
-#include <kwctoolkit/image/Image.h>
-#include <kwctoolkit/image/ImageDecoder.h>
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/file/FilePath.h"
+#include "kwctoolkit/file/FileUtils.h"
+#include "kwctoolkit/image/Image.h"
+#include "kwctoolkit/image/ImageDecoder.h"
 
 using namespace kwc;
 

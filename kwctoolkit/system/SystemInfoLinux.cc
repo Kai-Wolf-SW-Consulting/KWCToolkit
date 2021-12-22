@@ -4,9 +4,9 @@
 
 #include <unistd.h>
 
-#include <kwctoolkit/base/Assert.h>
+#include "kwctoolkit/base/Assert.h"
 #include "kwctoolkit/system/SystemInfo.h"
-#include <kwctoolkit/system/SystemMemoryInfo.h>
+#include "kwctoolkit/system/SystemMemoryInfo.h"
 
 namespace kwc {
 namespace system {

@@ -5,8 +5,8 @@
 #ifndef KWCTOOLKIT_BASE_ASSERT_H_
 #define KWCTOOLKIT_BASE_ASSERT_H_
 
-#include <kwctoolkit/base/Compiler.h>
-#include <kwctoolkit/base/BuildFlagsInternal.h>
+#include "kwctoolkit/base/BuildFlagsInternal.h"
+#include "kwctoolkit/base/Compiler.h"
 
 // These Assert should always be used in favor of the regular C stdlib
 // style assert() function. In a debug build KWC_ASSERT (cond) will

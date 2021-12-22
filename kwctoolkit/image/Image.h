@@ -9,10 +9,10 @@
 #include <variant>
 #include <vector>
 
-#include <kwctoolkit/base/ErrorTrace.h>
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/base/Result.h>
+#include "kwctoolkit/base/ErrorTrace.h"
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/base/Result.h"
 
 namespace kwc {
 namespace image {

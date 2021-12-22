@@ -10,12 +10,12 @@
 #include <limits>
 #include <memory>
 
-#include <kwctoolkit/base/Assert.h>
-#include <kwctoolkit/base/Check.h>
-#include <kwctoolkit/base/Compiler.h>
-#include <kwctoolkit/base/Platform.h>
-#include <kwctoolkit/base/ScopeGuard.h>
-#include <kwctoolkit/file/FilePath.h>
+#include "kwctoolkit/base/Assert.h"
+#include "kwctoolkit/base/Check.h"
+#include "kwctoolkit/base/Compiler.h"
+#include "kwctoolkit/base/Platform.h"
+#include "kwctoolkit/base/ScopeGuard.h"
+#include "kwctoolkit/file/FilePath.h"
 
 #if defined(KWC_OS_POSIX) || defined(KWC_OS_LINUX)
     #include <sys/errno.h>

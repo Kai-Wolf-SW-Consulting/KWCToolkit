@@ -39,27 +39,17 @@ cc_library(
         "ScopeGuard.h",
         "Status.h",
         "Utils.h",
+        ":BuildFlagsInternal_h",
     ],
-    copts = ["-Isrc"],
 )
 
-cc_test(
-    name = "base_test",
-    size = "small",
+genrule(
+    name = "BuildFlagsInternal_h",
     srcs = [
-        "ArrayCopyTest.cc",
-        "ArraySizeTest.cc",
-        "CallbackTest.cc",
-        "CmdlineFlagsTest.cc",
-        "ForEachArgumentTest.cc",
-        "RefCountTest.cc",
-        "ResultTest.cc",
-        "ScopeGuardTest.cc",
-        "UtilsTest.cc",
+        "BuildFlagsInternal.h.in",
     ],
-    copts = ["-Isrc"],
-    deps = [
-        ":base",
-        "@com_google_googletest//:gtest_main",
+    outs = [
+        "BuildFlagsInternal.h",
     ],
+    cmd = "awk '{ gsub(/\\$${ENABLE_ASSERTS}/, 0); print; }' $(<) > $(@)",
 )

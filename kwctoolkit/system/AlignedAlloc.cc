@@ -6,7 +6,7 @@
 
 #include <cstdlib>
 
-#include <kwctoolkit/base/Platform.h>  // IWYU pragma: keep
+#include "kwctoolkit/base/Platform.h"  // IWYU pragma: keep
 
 namespace kwc {
 namespace system {

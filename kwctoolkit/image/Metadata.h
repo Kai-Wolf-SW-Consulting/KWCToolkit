@@ -9,7 +9,7 @@
 #include <string>
 #include <tuple>
 
-#include <kwctoolkit/base/IntegralTypes.h>
+#include "kwctoolkit/base/IntegralTypes.h"
 
 namespace kwc {
 namespace image {

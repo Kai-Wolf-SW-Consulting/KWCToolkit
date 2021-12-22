@@ -8,8 +8,8 @@
 #include <memory>
 #include <ostream>
 
-#include <kwctoolkit/base/Logging.h>
-#include <kwctoolkit/serialization/DataReader.h>
+#include "kwctoolkit/base/Logging.h"
+#include "kwctoolkit/serialization/DataReader.h"
 
 namespace kwc {
 class Callback;

@@ -2,10 +2,10 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include <kwctoolkit/base/Assert.h>
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/system/SystemInfo.h>
-#include <kwctoolkit/system/SystemMemoryInfo.h>
+#include "kwctoolkit/base/Assert.h"
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/system/SystemInfo.h"
+#include "kwctoolkit/system/SystemMemoryInfo.h"
 
 #define NOMINMAX
 #include <windows.h>

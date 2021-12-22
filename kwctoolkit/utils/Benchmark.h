@@ -13,7 +13,7 @@
 #include <sstream>
 #include <vector>
 
-#include <kwctoolkit/base/IntegralTypes.h>
+#include "kwctoolkit/base/IntegralTypes.h"
 
 namespace kwc {
 namespace utils {

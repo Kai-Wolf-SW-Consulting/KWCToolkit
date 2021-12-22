@@ -7,7 +7,7 @@
 
 #include <sys/stat.h>
 
-#include <kwctoolkit/file/FilePath.h>
+#include "kwctoolkit/file/FilePath.h"
 
 namespace kwc {
 namespace file {

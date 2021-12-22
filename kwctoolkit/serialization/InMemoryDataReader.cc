@@ -7,9 +7,9 @@
 #include <string>
 #include <utility>
 
-#include <kwctoolkit/base/Callback.h>
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/serialization/DataReader.h>
+#include "kwctoolkit/base/Callback.h"
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/serialization/DataReader.h"
 
 namespace kwc {
 namespace serialization {

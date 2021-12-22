@@ -6,7 +6,7 @@
 
 #include <cstddef>
 
-#include <kwctoolkit/strings/StringUtils.h>
+#include "kwctoolkit/strings/StringUtils.h"
 
 namespace kwc {
 namespace strings {

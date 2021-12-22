@@ -7,8 +7,8 @@
 #include <cstdarg>
 #include <cstdio>
 
-#include <kwctoolkit/base/CmdlineFlags.h>
-#include <kwctoolkit/base/Platform.h>  // IWYU pragma: keep
+#include "kwctoolkit/base/CmdlineFlags.h"
+#include "kwctoolkit/base/Platform.h"  // IWYU pragma: keep
 
 #if defined(KWC_OS_WINDOWS)
     #include <Windows.h>

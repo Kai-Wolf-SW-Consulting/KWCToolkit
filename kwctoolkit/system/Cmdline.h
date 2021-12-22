@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include <kwctoolkit/base/Macros.h>
+#include "kwctoolkit/base/Macros.h"
 
 namespace kwc {
 namespace file {

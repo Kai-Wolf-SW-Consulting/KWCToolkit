@@ -2,9 +2,9 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include <kwctoolkit/base/Assert.h>
-#include <kwctoolkit/base/ScopeGuard.h>
-#include <kwctoolkit/system/SystemMemoryInfo.h>
+#include "kwctoolkit/base/Assert.h"
+#include "kwctoolkit/base/ScopeGuard.h"
+#include "kwctoolkit/system/SystemMemoryInfo.h"
 
 #include <mach/host_info.h>
 #include <mach/i386/vm_param.h>

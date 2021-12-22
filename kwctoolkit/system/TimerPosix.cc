@@ -5,8 +5,8 @@
 #include <cstdint>
 #include <ctime>
 
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/system/Timer.h>
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/system/Timer.h"
 
 namespace kwc {
 namespace system {

@@ -5,7 +5,7 @@
 #ifndef KWCTOOLKIT_SYSTEM_EXECUTOR_H_
 #define KWCTOOLKIT_SYSTEM_EXECUTOR_H_
 
-#include <kwctoolkit/base/Macros.h>
+#include "kwctoolkit/base/Macros.h"
 
 namespace kwc {
 class Callback;

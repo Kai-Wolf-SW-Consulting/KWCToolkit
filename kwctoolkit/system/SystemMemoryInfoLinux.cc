@@ -4,12 +4,12 @@
 
 #include <string>
 
-#include <kwctoolkit/base/Logging.h>
-#include <kwctoolkit/file/FilePath.h>
-#include <kwctoolkit/file/FileUtils.h>
-#include <kwctoolkit/strings/StringSplit.h>
-#include <kwctoolkit/strings/StringUtils.h>
-#include <kwctoolkit/system/SystemMemoryInfo.h>
+#include "kwctoolkit/base/Logging.h"
+#include "kwctoolkit/file/FilePath.h"
+#include "kwctoolkit/file/FileUtils.h"
+#include "kwctoolkit/strings/StringSplit.h"
+#include "kwctoolkit/strings/StringUtils.h"
+#include "kwctoolkit/system/SystemMemoryInfo.h"
 
 namespace kwc {
 namespace system {

@@ -5,7 +5,5 @@
 #include "kwctoolkit/image/Metadata.h"
 
 namespace kwc {
-namespace image {
-
-}  // namespace image
+namespace image {}  // namespace image
 }  // namespace kwc

@@ -11,11 +11,11 @@
 #include <string>
 #include <utility>
 
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/base/Status.h>
-#include <kwctoolkit/serialization/DataReader.h>
-#include <kwctoolkit/serialization/DataWriter.h>
-#include <kwctoolkit/transport/HttpTypes.h>
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/base/Status.h"
+#include "kwctoolkit/serialization/DataReader.h"
+#include "kwctoolkit/serialization/DataWriter.h"
+#include "kwctoolkit/transport/HttpTypes.h"
 
 namespace kwc {
 namespace transport {

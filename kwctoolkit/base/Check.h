@@ -7,7 +7,7 @@
 
 #include <ostream>
 
-#include <kwctoolkit/base/Logging.h>  // IWYU pragma: keep
+#include "kwctoolkit/base/Logging.h"  // IWYU pragma: keep
 
 namespace kwc {
 namespace base {

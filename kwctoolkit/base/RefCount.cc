@@ -6,7 +6,7 @@
 
 #include <cstddef>
 
-#include <kwctoolkit/base/Assert.h>
+#include "kwctoolkit/base/Assert.h"
 
 namespace kwc {
 namespace base {

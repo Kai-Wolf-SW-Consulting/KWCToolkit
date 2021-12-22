@@ -13,7 +13,7 @@ add_library(kwc::net ALIAS kwc_net)
 
 target_include_directories(kwc_net
   PUBLIC
-    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(kwc_net
@@ -26,3 +26,10 @@ install(TARGETS kwc_net
 install(FILES ${PUBLIC_NET_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/net)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
+
+if(BUILD_TESTING)
+  target_sources(kwc_unittests PUBLIC
+    AddressIpv4Test.cc
+    AddressIpv6Test.cc
+    AddressTest.cc)
+endif()

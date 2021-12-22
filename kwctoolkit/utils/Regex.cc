@@ -4,8 +4,8 @@
 
 #include "kwctoolkit/utils/Regex.h"
 
-#include <kwctoolkit/base/Assert.h>
-#include <kwctoolkit/strings/StringUtils.h>
+#include "kwctoolkit/base/Assert.h"
+#include "kwctoolkit/strings/StringUtils.h"
 
 namespace kwc {
 namespace utils {

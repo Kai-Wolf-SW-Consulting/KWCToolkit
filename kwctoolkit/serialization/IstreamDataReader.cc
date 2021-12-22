@@ -5,10 +5,10 @@
 #include <iostream>
 #include <string>
 
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/base/Status.h>
-#include <kwctoolkit/serialization/DataReader.h>
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/base/Status.h"
+#include "kwctoolkit/serialization/DataReader.h"
 
 namespace kwc {
 class Callback;

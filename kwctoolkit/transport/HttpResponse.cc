@@ -7,7 +7,7 @@
 #include <map>
 #include <ostream>
 
-#include <kwctoolkit/base/Logging.h>
+#include "kwctoolkit/base/Logging.h"
 
 namespace kwc {
 namespace transport {

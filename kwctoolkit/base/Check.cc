@@ -4,7 +4,7 @@
 
 #include "kwctoolkit/base/Check.h"
 
-#include <kwctoolkit/base/Logging.h>
+#include "kwctoolkit/base/Logging.h"
 
 namespace kwc {
 namespace base {

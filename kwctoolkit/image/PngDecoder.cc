@@ -12,13 +12,13 @@
 #include <string>
 #include <vector>
 
-#include <kwctoolkit/base/Check.h>
-#include <kwctoolkit/base/Error.h>
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/base/Logging.h>
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/file/FileUtils.h>
-#include <kwctoolkit/image/Image.h>
+#include "kwctoolkit/base/Check.h"
+#include "kwctoolkit/base/Error.h"
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/base/Logging.h"
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/file/FileUtils.h"
+#include "kwctoolkit/image/Image.h"
 
 // Byte order defines provided by gcc. MSVC doesn't define those so
 // we define them here.

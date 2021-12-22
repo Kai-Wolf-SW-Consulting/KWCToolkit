@@ -9,8 +9,8 @@
 #include <cstring>
 #include <type_traits>
 
-#include <kwctoolkit/base/ArraySize.h>
-#include <kwctoolkit/base/Compiler.h>
+#include "kwctoolkit/base/ArraySize.h"
+#include "kwctoolkit/base/Compiler.h"
 
 #if defined(KWC_ARCH_CPU_X86_FAMILY) && defined(KWC_COMPILER_MSVC)
     #include <immintrin.h>  // for _xgetbv()

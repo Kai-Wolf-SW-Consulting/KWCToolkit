@@ -8,9 +8,9 @@
 #include <istream>
 #include <string>
 
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/base/Status.h>
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/base/Status.h"
 
 namespace kwc {
 class Callback;

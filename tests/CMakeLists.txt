@@ -5,47 +5,12 @@
 include(GoogleTest)
 
 add_executable(kwc_unittests
-  UnittestsMain.cc
-  unittests/AddressIpv4Test.cc
-  unittests/AddressIpv6Test.cc
-  unittests/AddressTest.cc
-  unittests/AlignedAllocTest.cc
-  unittests/AppTest.cc
-  unittests/ArrayCopyTest.cc
-  unittests/ArraySizeTest.cc
-  unittests/Base64Test.cc
-  unittests/CallbackTest.cc
-  unittests/CheckedIntegerTest.cc
-  unittests/CmdlineFlagsTest.cc
-  unittests/CmdlineTest.cc
-  unittests/DataReaderTest.cc
-  unittests/DataWriterTest.cc
-  unittests/EnvironmentTest.cc
-  unittests/FilePathTest.cc
-  unittests/HttpTransactionTest.cc
-  unittests/LevenshteinTest.cc
-  unittests/RefCountTest.cc
-  unittests/RegexTest.cc
-  unittests/ResultTest.cc
-  unittests/ScopeGuardTest.cc
-  unittests/StringSplitTest.cc
-  unittests/StringSwitchTest.cc
-  unittests/SystemInfoTest.cc
-  unittests/ThreadTest.cc
-  unittests/ZipTest.cc)
-
-if(NOT MSVC)
-  target_sources(kwc_unittests PUBLIC
-    unittests/FileEnumeratorTest.cc
-    unittests/FileTest.cc
-    unittests/ForEachArgumentTest.cc
-    unittests/UtilsTest.cc)
-endif()
+  UnittestsMain.cc)
 
 target_include_directories(kwc_unittests
   PRIVATE
-    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
-    $<BUILD_INTERFACE:${KWCToolkit_BINARY_DIR}/src>)
+    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${KWCToolkit_BINARY_DIR}>)
 
 target_link_libraries(kwc_unittests
   PRIVATE
@@ -70,8 +35,8 @@ add_executable(kwc_integrationtests
 target_include_directories(kwc_integrationtests
   PRIVATE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
-    $<BUILD_INTERFACE:${KWCToolkit_BINARY_DIR}/src>)
+    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${KWCToolkit_BINARY_DIR}>)
 
 target_link_libraries(kwc_integrationtests
   PRIVATE

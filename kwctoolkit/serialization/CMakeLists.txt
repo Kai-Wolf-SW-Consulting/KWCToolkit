@@ -15,7 +15,7 @@ add_library(kwc::serialization ALIAS kwc_serialization)
 
 target_include_directories(kwc_serialization
   PUBLIC
-    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(kwc_serialization
@@ -28,3 +28,9 @@ install(TARGETS kwc_serialization
 install(FILES ${PUBLIC_SERIALIZATION_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/serialization)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
+
+if(BUILD_TESTING)
+  target_sources(kwc_unittests PUBLIC
+    DataReaderTest.cc
+    DataWriterTest.cc)
+endif()

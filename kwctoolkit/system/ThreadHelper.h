@@ -13,8 +13,8 @@
 #include <utility>
 #include <vector>
 
-#include <kwctoolkit/base/Logging.h>
-#include <kwctoolkit/base/Platform.h>
+#include "kwctoolkit/base/Logging.h"
+#include "kwctoolkit/base/Platform.h"
 
 namespace kwc {
 namespace system {

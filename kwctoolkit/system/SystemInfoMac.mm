@@ -13,11 +13,11 @@
 #include <sstream>
 #include <string>
 
-#include <kwctoolkit/base/Assert.h>
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/base/ScopeGuard.h>
-#include <kwctoolkit/system/SystemInfo.h>
-#include <kwctoolkit/system/SystemMemoryInfo.h>
+#include "kwctoolkit/base/Assert.h"
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/base/ScopeGuard.h"
+#include "kwctoolkit/system/SystemInfo.h"
+#include "kwctoolkit/system/SystemMemoryInfo.h"
 
 namespace kwc {
 namespace system {

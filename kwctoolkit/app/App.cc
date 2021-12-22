@@ -6,8 +6,8 @@
 
 #include <string>
 
-#include <kwctoolkit/app/AppInfo.h>
-#include <kwctoolkit/strings/StringUtils.h>
+#include "kwctoolkit/app/AppInfo.h"
+#include "kwctoolkit/strings/StringUtils.h"
 
 namespace kwc {
 namespace app {

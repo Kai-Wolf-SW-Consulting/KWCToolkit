@@ -53,3 +53,20 @@ install(TARGETS kwc_base
 install(FILES ${PUBLIC_BASE_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/base)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
+
+if(BUILD_TESTING)
+  target_sources(kwc_unittests PUBLIC
+    ArrayCopyTest.cc
+    ArraySizeTest.cc
+    CallbackTest.cc
+    CheckedIntegerTest.cc
+    CmdlineFlagsTest.cc
+    RefCountTest.cc
+    ResultTest.cc
+    ScopeGuardTest.cc)
+  if(NOT MSVC)
+    target_sources(kwc_unittests PUBLIC
+      ForEachArgumentTest.cc
+      UtilsTest.cc)
+  endif()
+endif()

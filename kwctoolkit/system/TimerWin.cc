@@ -4,7 +4,7 @@
 
 #include <windows.h>
 
-#include <kwctoolkit/system/Timer.h>
+#include "kwctoolkit/system/Timer.h"
 
 namespace kwc {
 namespace system {

@@ -8,9 +8,9 @@
 #include <optional>
 #include <vector>
 
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/image/Image.h>
-#include <kwctoolkit/image/Metadata.h>
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/image/Image.h"
+#include "kwctoolkit/image/Metadata.h"
 
 namespace kwc {
 namespace image {

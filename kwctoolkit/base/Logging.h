@@ -7,7 +7,7 @@
 
 #include <ostream>
 
-#include <kwctoolkit/base/Platform.h>  // IWYU pragma: keep
+#include "kwctoolkit/base/Platform.h"  // IWYU pragma: keep
 
 #if defined(KWC_OS_WINDOWS)
     #undef ERROR

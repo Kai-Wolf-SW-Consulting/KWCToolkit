@@ -8,7 +8,7 @@
 #include <cmath>
 #include <cstdint>
 
-#include <kwctoolkit/base/IntegralTypes.h>
+#include "kwctoolkit/base/IntegralTypes.h"
 
 namespace kwc {
 namespace audio {

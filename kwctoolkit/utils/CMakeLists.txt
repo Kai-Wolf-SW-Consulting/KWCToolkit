@@ -17,7 +17,7 @@ add_library(kwc::utils ALIAS kwc_utils)
 
 target_include_directories(kwc_utils
   PUBLIC
-    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${KWCToolkit_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(kwc_utils
@@ -30,3 +30,11 @@ install(TARGETS kwc_utils
 install(FILES ${PUBLIC_UTILS_HEADER}
   DESTINATION ${INSTALL_INCLUDE_DIR}/kwctoolkit/utils)
 install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
+
+if(BUILD_TESTING)
+  target_sources(kwc_unittests PUBLIC
+    Base64Test.cc
+    LevenshteinTest.cc
+    RegexTest.cc
+    ZipTest.cc)
+endif()

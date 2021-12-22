@@ -5,8 +5,8 @@
 #ifndef KWCTOOLKIT_NET_ADDRESS_H_
 #define KWCTOOLKIT_NET_ADDRESS_H_
 
-#include <kwctoolkit/net/AddressIpv4.h>
-#include <kwctoolkit/net/AddressIpv6.h>
+#include "kwctoolkit/net/AddressIpv4.h"
+#include "kwctoolkit/net/AddressIpv6.h"
 
 namespace kwc {
 namespace net {

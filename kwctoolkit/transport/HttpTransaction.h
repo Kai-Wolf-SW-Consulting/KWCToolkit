@@ -8,10 +8,10 @@
 #include <memory>
 #include <string>
 
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/base/Macros.h>
-#include <kwctoolkit/transport/HttpRequest.h>
-#include <kwctoolkit/transport/HttpTypes.h>
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/base/Macros.h"
+#include "kwctoolkit/transport/HttpRequest.h"
+#include "kwctoolkit/transport/HttpTypes.h"
 
 namespace kwc {
 namespace system {

@@ -8,9 +8,9 @@
 #include <ostream>
 #include <utility>
 
-#include <kwctoolkit/base/Check.h>
-#include <kwctoolkit/serialization/DataReader.h>
-#include <kwctoolkit/transport/HttpTransaction.h>
+#include "kwctoolkit/base/Check.h"
+#include "kwctoolkit/serialization/DataReader.h"
+#include "kwctoolkit/transport/HttpTransaction.h"
 
 namespace kwc {
 namespace transport {

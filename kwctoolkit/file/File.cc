@@ -9,7 +9,7 @@
 
 #include <cstdio>
 
-#include <kwctoolkit/file/FilePath.h>
+#include "kwctoolkit/file/FilePath.h"
 
 #if defined(KWC_OS_WINDOWS)
     #include <direct.h>

@@ -8,10 +8,10 @@
 
 #include <string>
 
-#include <kwctoolkit/base/Assert.h>
-#include <kwctoolkit/base/IntegralTypes.h>
-#include <kwctoolkit/base/Platform.h>
-#include <kwctoolkit/system/SystemInfo.h>
+#include "kwctoolkit/base/Assert.h"
+#include "kwctoolkit/base/IntegralTypes.h"
+#include "kwctoolkit/base/Platform.h"
+#include "kwctoolkit/system/SystemInfo.h"
 
 namespace kwc {
 namespace system {
