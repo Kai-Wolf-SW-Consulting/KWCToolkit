@@ -77,23 +77,20 @@ ForEachMacros:
   - KWC_LIKELY
   - KWC_UNLIKELY
 IncludeBlocks:   Regroup
+# 0. Related header
+# 1. C system headers
+# 2. C++ standard library headers
+# 3. other libraries' headers
+# 4. project headers.
 IncludeCategories:
-  - Regex:           '^<third_party/.*\.h>'
-    Priority:        2
-    SortPriority:    0
-    CaseSensitive:   false
-  - Regex:           '^<.*\.h>'
-    Priority:        1
-    SortPriority:    0
-    CaseSensitive:   false
-  - Regex:           '^<.*'
-    Priority:        2
-    SortPriority:    0
-    CaseSensitive:   false
-  - Regex:           '.*'
-    Priority:        3
-    SortPriority:    0
-    CaseSensitive:   false
+  - Regex: '^<kwctoolkit/'
+    Priority: 4
+  - Regex: '<(icu_utf)\.h>'
+    Priority: 3
+  - Regex: '^<.*\.h>'
+    Priority: 1
+  - Regex: '^<.*'
+    Priority: 2
 IncludeIsMainRegex: '([-_](Test|Unittest))?$'
 IncludeIsMainSourceRegex: ''
 IndentAccessModifiers: false

@@ -2,9 +2,9 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "system/Thread.h"
-
 #include <gtest/gtest.h>
+
+#include <kwctoolkit/system/Thread.h>
 
 using namespace kwc::system;
 

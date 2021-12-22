@@ -2,8 +2,6 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "serialization/DataWriter.h"
-
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -11,10 +9,11 @@
 #include <string>
 #include <type_traits>
 
-#include "base/Callback.h"
-#include "base/IntegralTypes.h"
-#include "base/Status.h"
-#include "serialization/DataReader.h"
+#include <kwctoolkit/base/Callback.h>
+#include <kwctoolkit/base/IntegralTypes.h>
+#include <kwctoolkit/base/Status.h>
+#include <kwctoolkit/serialization/DataReader.h>
+#include <kwctoolkit/serialization/DataWriter.h>
 
 using namespace kwc;
 using kwc::Callback;

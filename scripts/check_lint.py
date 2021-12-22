@@ -19,7 +19,7 @@ spectre_dir = abspath(dirname("__file__"))
 
 # Inclusion guards should start with 'KWCTOOLKIT_', maybe continue with 'SRC' or 'INC'
 # and then match the actual path to the filename
-matcher_guard = "KWCTOOLKIT_(?:SRC_|INCLUDE_)?)([a-zA-z0-9]+)"
+matcher_guard = "KWCTOOLKIT_([a-zA-z0-9]+)"
 header_guard_regex = reg_compile(r"(#ifndef %s\n(#define %s" % (matcher_guard, matcher_guard))
 copyright_regex = reg_compile(r"Copyright \([cC]\) \d{4}(-\d{4})?, Kai Wolf - SW Consulting")
 
@@ -41,7 +41,7 @@ def check_header_guard(current_file):
         return
 
     suffix = relpath(current_file, spectre_dir)
-    parts = sub(r"\.", "/", sub(r"(src|include)/", "", suffix)).split('/')
+    parts = sub(r"\.", "/", sub(r"kwctoolkit/", "", suffix)).split('/')
     guard = '_'.join(map(str.upper, [sub(r'(?<!^)(?=[A-Z])', '_', w) for w in parts])) + '_'
     repl = "\\1%s\n\\3%s" % (guard, guard)
     with open(current_file, 'r+', encoding='utf-8') as src_file:
@@ -60,7 +60,7 @@ def check_header_guard(current_file):
 def main():
     valid_endings = ["cc", "h"]
     exclude = []
-    for target_dir in ["src", "include"]:
+    for target_dir in ["kwctoolkit"]:
         for current_path, dirs, files in walk(join(spectre_dir, target_dir)):
             dirs[:] = [d for d in dirs if d not in exclude]
             for afile in files:

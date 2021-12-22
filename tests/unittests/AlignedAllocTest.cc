@@ -2,9 +2,9 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "system/AlignedAlloc.h"
-
 #include <gtest/gtest.h>
+
+#include <kwctoolkit/system/AlignedAlloc.h>
 
 using namespace kwc::system;
 

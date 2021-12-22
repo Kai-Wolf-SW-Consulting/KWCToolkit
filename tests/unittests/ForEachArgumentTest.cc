@@ -2,12 +2,12 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "base/ForEachArgument.h"
-
 #include <gtest/gtest.h>
 
 #include <iostream>
 #include <sstream>
+
+#include <kwctoolkit/base/ForEachArgument.h>
 
 namespace {
 void PrintFloat(float f) {

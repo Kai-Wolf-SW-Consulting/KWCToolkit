@@ -2,11 +2,11 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "utils/Zip.h"
-
 #include <gtest/gtest.h>
 
 #include <vector>
+
+#include <kwctoolkit/utils/Zip.h>
 
 using namespace kwc::utils;
 

@@ -2,11 +2,10 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "base/CheckedInteger.h"
-
 #include <gtest/gtest.h>
 
-#include "base/IntegralTypes.h"
+#include <kwctoolkit/base/CheckedInteger.h>
+#include <kwctoolkit/base/IntegralTypes.h>
 
 using namespace kwc;
 

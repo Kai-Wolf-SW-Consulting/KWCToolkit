@@ -2,11 +2,11 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "strings/StringSwitch.h"
-
 #include <gtest/gtest.h>
 
 #include <cstring>
+
+#include <kwctoolkit/strings/StringSwitch.h>
 
 using namespace kwc::strings;
 
@@ -21,10 +21,7 @@ TEST(StringSwitchTest, TestWithStdString) {
 
 TEST(StringSwitchTest, TestWithConstChar) {
     const auto result =
-        StringSwitch<const char*>("value")
-            .Case("value", "17")
-            .Case("other", "23")
-            .Default("42");
+        StringSwitch<const char*>("value").Case("value", "17").Case("other", "23").Default("42");
     ASSERT_TRUE(strncmp("17", result, 2) == 0);
 }
 

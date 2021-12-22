@@ -2,13 +2,12 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "base/RefCount.h"
-
 #include <gtest/gtest.h>
 
 #include <thread>
 
-#include "base/IntegralTypes.h"
+#include <kwctoolkit/base/IntegralTypes.h>
+#include <kwctoolkit/base/RefCount.h>
 
 using namespace kwc;
 using namespace kwc::base;

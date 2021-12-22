@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-#include "base/ScopeGuard.h"
+#include <kwctoolkit/base/ScopeGuard.h>
 
 TEST(ScopeGuardTest, ExecuteScopeGuardAfterScope) {
     using namespace kwc::base;

@@ -2,12 +2,12 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "utils/Regex.h"
-
 #include <gtest/gtest.h>
 
 #include <regex>
 #include <string>
+
+#include <kwctoolkit/utils/Regex.h>
 
 using namespace kwc::utils;
 

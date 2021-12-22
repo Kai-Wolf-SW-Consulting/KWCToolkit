@@ -2,12 +2,11 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "app/App.h"
-
 #include <gtest/gtest.h>
 
-#include "app/app_info.h"
-#include "strings/StringUtils.h"
+#include <kwctoolkit/app/App.h>
+#include <kwctoolkit/app/AppInfo.h>
+#include <kwctoolkit/strings/StringUtils.h>
 
 using namespace kwc;
 

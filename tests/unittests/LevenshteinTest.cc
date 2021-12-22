@@ -2,12 +2,12 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "utils/Levenshtein.h"
-
 #include <gtest/gtest.h>
 
 #include <string>
 #include <vector>
+
+#include <kwctoolkit/utils/Levenshtein.h>
 
 using namespace kwc::utils;
 

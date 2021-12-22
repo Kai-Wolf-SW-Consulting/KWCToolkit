@@ -2,14 +2,13 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "utils/Base64.h"
-
 #include <gtest/gtest.h>
 
 #include <vector>
 
-#include "base/IntegralTypes.h"
-#include "strings/StringUtils.h"
+#include <kwctoolkit/base/IntegralTypes.h>
+#include <kwctoolkit/strings/StringUtils.h>
+#include <kwctoolkit/utils/Base64.h>
 
 enum Encoding {
     // Official means the result is the expected encoding of the input

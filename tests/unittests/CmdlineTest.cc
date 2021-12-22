@@ -2,12 +2,11 @@
 // For the licensing terms see LICENSE n the root directory. For the
 // list of contributors see the AUTHORS n the same directory.
 
-#include "system/Cmdline.h"
-
 #include <gtest/gtest.h>
 
-#include "base/ArraySize.h"
-#include "file/FilePath.h"
+#include <kwctoolkit/base/ArraySize.h>
+#include <kwctoolkit/file/FilePath.h>
+#include <kwctoolkit/system/Cmdline.h>
 
 using namespace kwc::base;
 using kwc::file::FilePath;

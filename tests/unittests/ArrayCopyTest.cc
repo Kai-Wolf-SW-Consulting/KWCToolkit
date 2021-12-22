@@ -2,9 +2,9 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "base/ArrayCopy.h"
-
 #include <gtest/gtest.h>
+
+#include <kwctoolkit/base/ArrayCopy.h>
 
 TEST(ArrayCopyTest, CopyElementWiseIntoEqualSizedArray) {
     int a[] = {17, 23, 42, 69, 53, 72, 96};

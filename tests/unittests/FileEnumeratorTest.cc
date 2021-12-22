@@ -2,15 +2,14 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "file/FileEnumerator.h"
-
 #include <gtest/gtest.h>
 
 #include <fstream>
 #include <set>
 
-#include "file/File.h"
-#include "file/FileUtils.h"
+#include <kwctoolkit/file/File.h>
+#include <kwctoolkit/file/FileEnumerator.h>
+#include <kwctoolkit/file/FileUtils.h>
 
 using namespace kwc::file;
 

@@ -2,13 +2,13 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "strings/StringSplit.h"
-
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <string>
 #include <vector>
+
+#include <kwctoolkit/strings/StringSplit.h>
 
 using namespace kwc::strings;
 using ::testing::ElementsAre;

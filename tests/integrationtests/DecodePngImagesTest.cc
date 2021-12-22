@@ -2,16 +2,16 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
+#include <Assets.h>
 #include <gtest/gtest.h>
 
 #include <vector>
 
-#include "Assets.h"
-#include "base/IntegralTypes.h"
-#include "file/FilePath.h"
-#include "file/FileUtils.h"
-#include "image/Image.h"
-#include "image/ImageDecoder.h"
+#include <kwctoolkit/base/IntegralTypes.h>
+#include <kwctoolkit/file/FilePath.h>
+#include <kwctoolkit/file/FileUtils.h>
+#include <kwctoolkit/image/Image.h>
+#include <kwctoolkit/image/ImageDecoder.h>
 
 using namespace kwc;
 

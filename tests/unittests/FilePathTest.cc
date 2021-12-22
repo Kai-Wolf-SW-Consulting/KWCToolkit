@@ -2,12 +2,11 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "file/FilePath.h"
-
 #include <gtest/gtest.h>
 #include <stddef.h>
 
-#include "base/ArraySize.h"
+#include <kwctoolkit/base/ArraySize.h>
+#include <kwctoolkit/file/FilePath.h>
 
 using namespace kwc::file;
 

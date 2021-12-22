@@ -2,9 +2,9 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "base/ArraySize.h"
-
 #include <gtest/gtest.h>
+
+#include <kwctoolkit/base/ArraySize.h>
 
 TEST(ArraySizeTest, GetCompileTimeArraySize) {
     int foobar[] = {2, 3, 5, 7, 9, 11};

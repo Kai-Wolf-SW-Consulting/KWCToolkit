@@ -2,20 +2,18 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "transport/HttpTransaction.h"
-
 #include <gtest/gtest.h>
 
 #include <memory>
 #include <string>
 
-#include "base/Status.h"
-#include "serialization/DataReader.h"
-#include "serialization/DataWriter.h"
-#include "transport/HttpRequest.h"
-#include "transport/HttpResponse.h"
-#include "transport/HttpTransaction.h"
-#include "transport/SimpleHttpTransaction.h"
+#include <kwctoolkit/base/Status.h>
+#include <kwctoolkit/serialization/DataReader.h>
+#include <kwctoolkit/serialization/DataWriter.h>
+#include <kwctoolkit/transport/HttpRequest.h>
+#include <kwctoolkit/transport/HttpResponse.h>
+#include <kwctoolkit/transport/HttpTransaction.h>
+#include <kwctoolkit/transport/SimpleHttpTransaction.h>
 
 using kwc::serialization::CreateStringDataWriter;
 using kwc::transport::HttpRequest;

@@ -2,11 +2,10 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "base/Callback.h"
-
 #include <gtest/gtest.h>
 
-#include "base/CallbackTypes.h"
+#include <kwctoolkit/base/Callback.h>
+#include <kwctoolkit/base/CallbackTypes.h>
 
 namespace {
 int value = 0;

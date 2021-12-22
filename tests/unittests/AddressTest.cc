@@ -2,9 +2,9 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "net/Address.h"
-
 #include <gtest/gtest.h>
+
+#include <kwctoolkit/net/Address.h>
 
 using kwc::net::Address;
 using kwc::net::AddressIPv4;

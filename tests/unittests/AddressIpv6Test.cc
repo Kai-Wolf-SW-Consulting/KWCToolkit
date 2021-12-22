@@ -2,9 +2,9 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "net/AddressIpv6.h"
-
 #include <gtest/gtest.h>
+
+#include <kwctoolkit/net/AddressIpv6.h>
 
 using kwc::net::AddressIPv6;
 

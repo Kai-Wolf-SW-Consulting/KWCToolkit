@@ -2,17 +2,16 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "file/File.h"
-
 #include <gtest/gtest.h>
 
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "file/FilePathConstants.h"
-#include "file/FileUtils.h"
-#include "strings/StringUtils.h"
+#include <kwctoolkit/file/File.h>
+#include <kwctoolkit/file/FilePathConstants.h>
+#include <kwctoolkit/file/FileUtils.h>
+#include <kwctoolkit/strings/StringUtils.h>
 
 using namespace kwc;
 using namespace kwc::file;
