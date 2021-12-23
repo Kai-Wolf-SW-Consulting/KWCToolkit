@@ -18,8 +18,6 @@ add_library(kwc_system
   Executor.h
   FeatureList.cc
   FeatureList.h
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:ProcessInternalLinux.cc>
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:ProcessInternalLinux.h>
   Sleep.cc
   Sleep.h
   SystemInfo.cc
@@ -43,21 +41,19 @@ elseif(APPLE)
   target_sources(kwc_system
     PRIVATE
       SystemInfoPosix.cc
-    SystemInfoMac.mm
-    SystemMemoryInfoMac.mm
+      SystemInfoMac.mm
+      SystemMemoryInfoMac.mm
       TimerMac.cc)
   target_link_libraries(kwc_system PRIVATE "-framework QuartzCore -framework Foundation")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   target_sources(kwc_system
     PRIVATE
+      ProcessInternalLinux.cc
+      ProcessInternalLinux.h
       SystemInfoLinux.cc
       SystemInfoPosix.cc
-      SystemMemoryInfoLinux.cc)
-elseif(UNIX)
-  target_sources(kwc_system
-    PRIVATE
-      SystemInfoPosix.cc
-      TimerPosix.cc)
+      SystemMemoryInfoLinux.cc
+      TimerLinux.cc)
 endif()
 
 target_include_directories(kwc_system

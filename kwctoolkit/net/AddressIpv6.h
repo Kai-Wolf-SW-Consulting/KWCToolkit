@@ -13,6 +13,8 @@
 #include <string>
 
 #include "kwctoolkit/base/Assert.h"
+#include "kwctoolkit/base/Error.h"
+#include "kwctoolkit/net/AddressTypes.h"
 
 namespace kwc {
 namespace net {
@@ -37,11 +39,11 @@ class AddressIPv6 {
     void setScopeID(unsigned long id) { scope_id_ = id; }
 
     // Create from an IPv6 address string
-    static AddressIPv6 fromString(const char* str) {
+    static AddressOrError<AddressIPv6> fromString(const char* str) {
         AddressIPv6 tmp;
 
         if (inet_pton(AF_INET6, str, &tmp.address_) != 1) {
-            throw std::runtime_error("Unknown ip address format");
+            return KWC_UNKNOWN_FORMAT_ERROR("Unknown IP address format");
         }
 
         return tmp;

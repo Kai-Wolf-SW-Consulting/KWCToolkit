@@ -23,7 +23,7 @@ target_include_directories(kwc_file
   $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(kwc_file
-  PUBLIC kwc::system)
+  PUBLIC kwc::base)
 
 install(TARGETS kwc_file
   EXPORT ${PROJECT_NAME}Targets

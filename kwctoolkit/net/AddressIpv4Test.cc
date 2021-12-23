@@ -9,8 +9,9 @@
 using kwc::net::AddressIPv4;
 
 TEST(AddressIPv4Test, CreateAddress) {
-    AddressIPv4 addr = AddressIPv4::fromString("127.0.0.1");
-    ASSERT_TRUE(addr.toString() == "127.0.0.1");
+    auto addr = AddressIPv4::fromString("127.0.0.1");
+    ASSERT_TRUE(addr.isSuccess());
+    ASSERT_TRUE(addr.getSuccess().toString() == "127.0.0.1");
 }
 
 TEST(AddressIPv4Test, CreateDefaultAddress) {
@@ -19,18 +20,16 @@ TEST(AddressIPv4Test, CreateDefaultAddress) {
 }
 
 TEST(AddressIPv4Test, AssignAddress) {
-    AddressIPv4 addr1 = AddressIPv4::fromString("127.0.0.1");
-    AddressIPv4 addr2 = addr1;
+    auto addr1 = AddressIPv4::fromString("127.0.0.1");
+    ASSERT_TRUE(addr1.isSuccess());
+    auto addr2 = addr1.getSuccess();
     ASSERT_TRUE(addr2.toString() == "127.0.0.1");
 }
 
 TEST(AddressIPv4Test, CompareAddress) {
-    AddressIPv4 addr = AddressIPv4::fromString("192.168.0.1");
-    ASSERT_TRUE(addr == AddressIPv4::fromString("192.168.0.1"));
+    auto addr = AddressIPv4::fromString("192.168.0.1");
+    ASSERT_TRUE(addr.isSuccess());
+    ASSERT_TRUE(addr.getSuccess() == AddressIPv4::fromString("192.168.0.1").getSuccess());
 
-    ASSERT_TRUE(addr != AddressIPv4::fromString("192.168.1.1"));
-}
-
-TEST(AddressIPv4Test, ExceptAddress) {
-    ASSERT_ANY_THROW(AddressIPv4::fromString("128.0.0.XXX"));
+    ASSERT_TRUE(addr.getSuccess() != AddressIPv4::fromString("192.168.1.1").getSuccess());
 }

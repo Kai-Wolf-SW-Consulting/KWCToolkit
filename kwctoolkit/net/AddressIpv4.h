@@ -11,6 +11,9 @@
 #include <stdexcept>
 #include <string>
 
+#include "kwctoolkit/base/Error.h"
+#include "kwctoolkit/net/AddressTypes.h"
+
 namespace kwc {
 namespace net {
 
@@ -29,11 +32,11 @@ class AddressIPv4 {
     }
 
     // Creates an address from an IPv4 address string in dotted decimal form
-    static AddressIPv4 fromString(const char* str) {
+    static AddressOrError<AddressIPv4> fromString(const char* str) {
         AddressIPv4 tmp;
 
         if (inet_pton(AF_INET, str, &tmp.address_) != 1) {
-            throw std::runtime_error("Unknown ip address format");
+            return KWC_UNKNOWN_FORMAT_ERROR("Unknown IP address format");
         }
 
         return tmp;

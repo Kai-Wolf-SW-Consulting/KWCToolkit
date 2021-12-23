@@ -17,3 +17,19 @@ http_archive(
     strip_prefix = "platforms-98939346da932eef0b54cf808622f5bb0928f00b",
     urls = ["https://github.com/bazelbuild/platforms/archive/98939346da932eef0b54cf808622f5bb0928f00b.zip"],
 )
+
+http_archive(
+    name = "zlib",
+    build_file = "//third_party:zlib.BUILD",
+    sha256 = "d7510a8ee1918b7d0cad197a089c0a2cd4d6df05fee22389f67f115e738b178d",
+    strip_prefix = "zlib-1.2.11",
+    url = "file:third_party/zlib/1.2.11/zlib1211.zip",
+)
+
+http_archive(
+    name = "libpng",
+    build_file = "//third_party:libpng.BUILD",
+    sha256 = "3b4b1cbd0bae6822f749d39b1ccadd6297f05e2b85a83dd2ce6ecd7d09eabdf2",
+    strip_prefix = "lpng1637",
+    url = "file:third_party/libpng/1.6.37/lpng1637.zip",
+)

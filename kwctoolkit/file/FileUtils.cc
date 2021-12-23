@@ -6,8 +6,6 @@
 
 #include <vector>
 
-#include "kwctoolkit/system/Environment.h"
-
 #if defined(KWC_OS_WINDOWS)
     #include <direct.h>
     #include <io.h>
@@ -30,9 +28,9 @@ int IgnoreCloseReturn(int r) {
 }  // namespace
 
 FilePath GetTempDir() {
-    std::unique_ptr<system::Environment> env(system::Environment::Create());
-    if (env->HasEnvVar("TMPDIR")) {
-        return FilePath("TMPDIR");
+    const char* tmp = getenv("TMPDIR");
+    if (tmp) {
+        return FilePath(tmp);
     }
 
     return FilePath("/tmp");

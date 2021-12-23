@@ -53,3 +53,22 @@ genrule(
     ],
     cmd = "awk '{ gsub(/\\$${ENABLE_ASSERTS}/, 0); print; }' $(<) > $(@)",
 )
+
+cc_test(
+    name = "base_test",
+    size = "small",
+    srcs = [
+        "ArrayCopyTest.cc",
+        "ArraySizeTest.cc",
+        "CallbackTest.cc",
+        "CmdlineFlagsTest.cc",
+        "RefCountTest.cc",
+        "ResultTest.cc",
+        "ScopeGuardTest.cc",
+        "UtilsTest.cc",
+    ],
+    deps = [
+        ":base",
+        "@com_google_googletest//:gtest_main",
+    ],
+)

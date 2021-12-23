@@ -19,7 +19,7 @@ target_include_directories(kwc_serialization
     $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(kwc_serialization
-  PUBLIC kwc::base third_party::icu)
+  PUBLIC kwc::base)
 
 install(TARGETS kwc_serialization
   EXPORT ${PROJECT_NAME}Targets

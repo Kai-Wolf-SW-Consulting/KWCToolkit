@@ -7,6 +7,7 @@
 
 #include "kwctoolkit/net/AddressIpv4.h"
 #include "kwctoolkit/net/AddressIpv6.h"
+#include "kwctoolkit/net/AddressTypes.h"
 
 namespace kwc {
 namespace net {
@@ -74,19 +75,24 @@ class Address {
     }
 
     // Creates an address from either IPv4 or IPv6 address
-    static Address fromString(const char* str) {
+    static AddressOrError<Address> fromString(const char* str) {
         Address tmp;
 
-        try {
-            tmp.address_ipv4_ = AddressIPv4::fromString(str);
+        auto from_v4 = AddressIPv4::fromString(str);
+        if (from_v4.isSuccess()) {
+            tmp.address_ipv4_ = from_v4.getSuccess();
             tmp.type_ = Type::IPv4;
-
-        } catch (std::exception&) {
-            tmp.address_ipv6_ = AddressIPv6::fromString(str);
-            tmp.type_ = Type::IPv6;
+            return tmp;
         }
 
-        return tmp;
+        auto from_v6 = AddressIPv6::fromString(str);
+        if (from_v6.isSuccess()) {
+            tmp.address_ipv6_ = from_v6.getSuccess();
+            tmp.type_ = Type::IPv6;
+            return tmp;
+        }
+
+        return from_v4.isError() ? from_v4.getError() : from_v6.getError();
     }
 
     friend bool operator==(const Address& a1, const Address& a2) {

@@ -7,7 +7,8 @@ add_library(kwc_net
   AddressIpv4.cc
   AddressIpv4.h
   AddressIpv6.cc
-  AddressIpv6.h)
+  AddressIpv6.h
+  AddressTypes.h)
 
 add_library(kwc::net ALIAS kwc_net)
 

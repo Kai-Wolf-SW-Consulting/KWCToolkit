@@ -17,7 +17,6 @@
 #include "kwctoolkit/base/IntegralTypes.h"
 #include "kwctoolkit/base/ScopeGuard.h"
 #include "kwctoolkit/system/SystemInfo.h"
-#include "kwctoolkit/system/SystemMemoryInfo.h"
 
 namespace kwc {
 namespace system {
