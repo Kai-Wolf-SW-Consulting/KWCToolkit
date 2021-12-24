@@ -2,7 +2,6 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include <Assets.h>
 #include <gtest/gtest.h>
 
 #include <vector>
@@ -19,7 +18,7 @@ TEST(DecodePngTests, ReadPngImage) {
     using namespace kwc::file;
 
     std::vector<uint8> data;
-    ASSERT_TRUE(ReadFile(FilePath(kAssetsPath).append("basket_rgb.png"), data));
+    EXPECT_TRUE(ReadFile(FilePath("tests").append("test_data").append("basket_rgb.png"), data));
 
     const auto reader = image::GuessImageReader(data);
     auto result = reader(data, image::MODE_RGB);
