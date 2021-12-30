@@ -19,7 +19,7 @@ CheckHandler::~CheckHandler() {
     log_ << "\n";
 }
 
-std::ostream& CheckHandler::GetLog() {
+std::ostream& CheckHandler::getLog() {
     return log_;
 }
 

@@ -24,21 +24,21 @@ class HttpTransaction;
 class HttpRequest {
   public:
     using HttpMethod = std::string;
-    static const HttpMethod GET;     // RFC 2616 GET
-    static const HttpMethod PUT;     // RFC 2616 PUT
-    static const HttpMethod POST;    // RFC 2616 POST
-    static const HttpMethod DELETE;  // RFC 2616 DELETE
+    static const HttpMethod kGet;     // RFC 2616 GET
+    static const HttpMethod kPut;     // RFC 2616 PUT
+    static const HttpMethod kPost;    // RFC 2616 POST
+    static const HttpMethod kDelete;  // RFC 2616 DELETE
 
-    static const std::string ContentType_HTML;  // text/html
-    static const std::string ContentType_JSON;  // application/json
-    static const std::string ContentType_TEXT;  // text/plain
+    static const std::string kContentTypeHtml;  // text/html
+    static const std::string kContentTypeJson;  // application/json
+    static const std::string kContentTypeText;  // text/plain
 
-    static const std::string HttpHeader_AUTHORIZATION;      // Authorization
-    static const std::string HttpHeader_CONTENT_LENGTH;     // Content-Length
-    static const std::string HttpHeader_CONTENT_TYPE;       // Content-Type
-    static const std::string HttpHeader_HOST;               // Host
-    static const std::string HttpHeader_TRANSFER_ENCODING;  // Transfer-Encoding
-    static const std::string HttpHeader_USER_AGENT;         // User-Agent
+    static const std::string kHttpHeaderAuthorization;     // Authorization
+    static const std::string kHttpHeaderContentLength;     // Content-Length
+    static const std::string kHttpHeaderContentType;       // Content-Type
+    static const std::string kHttpHeaderHost;              // Host
+    static const std::string kHttpHeaderTransferEncoding;  // Transfer-Encoding
+    static const std::string kHttpHeaderUserAgent;         // User-Agent
 
     virtual ~HttpRequest() = default;
 

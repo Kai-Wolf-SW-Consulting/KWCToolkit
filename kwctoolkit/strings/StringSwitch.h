@@ -34,15 +34,16 @@ struct OptionalResult {
 template <typename T, typename R = T>
 class StringSwitch {
   public:
-    explicit StringSwitch(const std::string& str) : str_(str), result_() {}
+    explicit StringSwitch(std::string str) : str_(std::move(str)), result_() {}
 
     void operator=(StringSwitch&& other) = delete;
 
-    StringSwitch(StringSwitch&& other) : str_(other.str_), result_(std::move(other.result_)) {}
+    StringSwitch(StringSwitch&& other) noexcept
+        : str_(other.str_), result_(std::move(other.result_)) {}
 
     ~StringSwitch() = default;
 
-    StringSwitch& Case(const std::string& str, T value) {
+    StringSwitch& Case(const std::string& str, T value) {  // NOLINT
         if (!result_.valid && str_ == str) {
             result_.value = std::move(value);
             result_.valid = true;
@@ -50,7 +51,7 @@ class StringSwitch {
         return *this;
     }
 
-    R Default(T value) {
+    R Default(T value) {  // NOLINT
         if (result_.valid) {
             return std::move(result_.value);
         }

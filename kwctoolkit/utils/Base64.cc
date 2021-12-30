@@ -9,7 +9,7 @@
 namespace kwc {
 namespace utils {
 namespace {
-const std::string BASE64_CHARS =
+const std::string kBase64Chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "abcdefghijklmnopqrstuvwxyz"
     "0123456789+/";
@@ -35,7 +35,7 @@ std::string Base64Encode(unsigned const char* bytes_to_encode, unsigned int in_l
             char_array_4[3] = char_array_3[2] & 0x3f;
 
             for (i = 0; (i < 4); i++)
-                ret += BASE64_CHARS[char_array_4[i]];
+                ret += kBase64Chars[char_array_4[i]];
             i = 0;
         }
     }
@@ -50,7 +50,7 @@ std::string Base64Encode(unsigned const char* bytes_to_encode, unsigned int in_l
         char_array_4[3] = char_array_3[2] & 0x3f;
 
         for (j = 0; (j < i + 1); j++)
-            ret += BASE64_CHARS[char_array_4[j]];
+            ret += kBase64Chars[char_array_4[j]];
 
         while ((i++ < 3))
             ret += '=';
@@ -63,16 +63,16 @@ std::string Base64Decode(const std::string& encoded_string) {
     int in_len = encoded_string.size();
     int i = 0;
     int j = 0;
-    int in_ = 0;
+    int in = 0;
     unsigned char char_array_4[4], char_array_3[3];
     std::string ret;
 
-    while (in_len-- && (encoded_string[in_] != '=') && IsBase64(encoded_string[in_])) {
-        char_array_4[i++] = encoded_string[in_];
-        in_++;
+    while (in_len-- && (encoded_string[in] != '=') && IsBase64(encoded_string[in])) {
+        char_array_4[i++] = encoded_string[in];
+        in++;
         if (i == 4) {
             for (i = 0; i < 4; i++)
-                char_array_4[i] = BASE64_CHARS.find(char_array_4[i]);
+                char_array_4[i] = kBase64Chars.find(char_array_4[i]);
 
             char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
             char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
@@ -89,7 +89,7 @@ std::string Base64Decode(const std::string& encoded_string) {
             char_array_4[j] = 0;
 
         for (j = 0; j < 4; j++)
-            char_array_4[j] = BASE64_CHARS.find(char_array_4[j]);
+            char_array_4[j] = kBase64Chars.find(char_array_4[j]);
 
         char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
         char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);

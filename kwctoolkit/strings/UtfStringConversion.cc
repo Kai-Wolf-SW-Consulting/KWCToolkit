@@ -4,9 +4,8 @@
 
 #include "kwctoolkit/strings/UtfStringConversion.h"
 
-#include <stdint.h>
-
 #include <cstddef>
+#include <cstdint>
 #include <string>
 
 #include <icu_utf.h>
@@ -49,8 +48,8 @@ void PrepareForUTF16Or32Output(const char* src, std::size_t src_len, String* out
 template void PrepareForUTF16Or32Output(const char*, std::size_t, std::wstring*);
 
 bool IsValidCodepoint(uint32_t code_point) {
-    // Excludes the surrogate code points ([0xD800, 0xDFFF]) and code points larger than 0x10FFFF
-    // (the highest codepoint allowed). Non-characters and unassigned code points are allowed
+    // Excludes the surrogate code_ points ([0xD800, 0xDFFF]) and code_ points larger than 0x10FFFF
+    // (the highest codepoint allowed). Non-characters and unassigned code_ points are allowed
     return code_point < 0xD800u || (code_point >= 0xE000u && code_point <= 0x10FFFFu);
 }
 
@@ -138,7 +137,7 @@ bool WideToUTF8(const wchar_t* src, std::size_t src_len, std::string* output) {
 
 std::string WideToUTF8(const std::wstring& wide) {
     if (IsStringASCII(wide)) {
-        return std::string(wide.data(), wide.data() + wide.length());
+        return {wide.data(), wide.data() + wide.length()};
     }
 
     std::string ret;
@@ -159,7 +158,7 @@ bool UTF8ToWide(const char* src, std::size_t src_len, std::wstring* output) {
 
 std::wstring UTF8ToWide(const std::string& utf8) {
     if (IsStringASCII(utf8)) {
-        return std::wstring(utf8.begin(), utf8.end());
+        return {utf8.begin(), utf8.end()};
     }
 
     std::wstring ret;

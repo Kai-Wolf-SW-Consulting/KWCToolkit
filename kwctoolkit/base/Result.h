@@ -59,9 +59,9 @@ class Result<void, E> {
 
     Result(std::unique_ptr<E> error) : error_(std::move(error)) {}
 
-    Result(Result<void, E>&& other) : error_(std::move(other.error_)) {}
+    Result(Result<void, E>&& other) noexcept : error_(std::move(other.error_)) {}
 
-    Result<void, E>& operator=(Result<void, E>&& other) {
+    Result<void, E>& operator=(Result<void, E>&& other) noexcept {
         KWC_ASSERT(error_ == nullptr);
         error_ = std::move(other.error_);
         return *this;
@@ -92,19 +92,19 @@ enum Payload {
     Empty = 2,
 };
 
-intptr_t createPayload(const void* ptr, Payload type);
-Payload getPayload(intptr_t payload);
+intptr_t CreatePayload(const void* ptr, Payload type);
+Payload GetPayload(intptr_t payload);
 
 template <typename T>
-static T* getSuccessFromPayload(intptr_t payload) {
-    KWC_ASSERT(getPayload(payload) == Success);
-    return reinterpret_cast<T*>(payload);
+static T* GetSuccessFromPayload(intptr_t payload) {
+    KWC_ASSERT(GetPayload(payload) == Success);
+    return reinterpret_cast<T*>(payload);  // NOLINT(performance-no-int-to-ptr)
 }
 
 template <typename E>
-static E* getErrorFromPayload(intptr_t payload) {
-    KWC_ASSERT(getPayload(payload) == Error);
-    return reinterpret_cast<E*>(payload ^ 1);
+static E* GetErrorFromPayload(intptr_t payload) {
+    KWC_ASSERT(GetPayload(payload) == Error);
+    return reinterpret_cast<E*>(payload ^ 1);  // NOLINT(performance-no-int-to-ptr)
 }
 
 constexpr static intptr_t kEmptyPayload = Empty;
@@ -119,12 +119,12 @@ class Result<T*, E> {
     static_assert(std::alignment_of<E>::value >= 4,
                   "Result<T*, E*> needs two bits for tagged pointers");
 
-    Result(T* success) : payload_(internal::createPayload(success, internal::Success)) {}
+    Result(T* success) : payload_(internal::CreatePayload(success, internal::Success)) {}
 
     Result(std::unique_ptr<E> error)
-        : payload_(internal::createPayload(error.release(), internal::Error)) {}
+        : payload_(internal::CreatePayload(error.release(), internal::Error)) {}
 
-    /** Return a Result<T*, E*> from a Result<TChild*, E*> */
+    // Return a Result<T*, E*> from a Result<TChild*, E*>
     template <typename TChild>
     Result(Result<TChild*, E>&& other) : payload_(other.payload_) {
         other.payload_ = internal::kEmptyPayload;
@@ -142,18 +142,18 @@ class Result<T*, E> {
 
     ~Result() { KWC_ASSERT(payload_ == internal::kEmptyPayload); }
 
-    bool isError() const { return internal::getPayload(payload_) == internal::Error; }
+    bool isError() const { return internal::GetPayload(payload_) == internal::Error; }
 
-    bool isSuccess() const { return internal::getPayload(payload_) == internal::Success; }
+    bool isSuccess() const { return internal::GetPayload(payload_) == internal::Success; }
 
     T* getSuccess() {
-        T* success = internal::getSuccessFromPayload<T>(payload_);
+        T* success = internal::GetSuccessFromPayload<T>(payload_);
         payload_ = internal::kEmptyPayload;
         return success;
     }
 
     std::unique_ptr<E> getError() {
-        std::unique_ptr<E> error(internal::getErrorFromPayload<E>(payload_));
+        std::unique_ptr<E> error(internal::GetErrorFromPayload<E>(payload_));
         payload_ = internal::kEmptyPayload;
         return std::move(error);
     }
@@ -173,16 +173,16 @@ class Result<const T*, E> {
     static_assert(std::alignment_of<E>::value >= 4,
                   "Result<T*, E*> needs two bits for tagged pointers");
 
-    Result(const T* success) : payload_(internal::createPayload(success, internal::Success)) {}
+    Result(const T* success) : payload_(internal::CreatePayload(success, internal::Success)) {}
 
     Result(std::unique_ptr<E> error)
-        : payload_(internal::createPayload(error.release(), internal::Error)) {}
+        : payload_(internal::CreatePayload(error.release(), internal::Error)) {}
 
-    Result(Result<const T*, E>&& other) : payload_(other.payload_) {
+    Result(Result<const T*, E>&& other) noexcept : payload_(other.payload_) {
         other.payload_ = internal::kEmptyPayload;
     }
 
-    Result<const T*, E>& operator=(Result<const T*, E>&& other) {
+    Result<const T*, E>& operator=(Result<const T*, E>&& other) noexcept {
         KWC_ASSERT(payload_ == internal::kEmptyPayload);
         payload_ = other.payload_;
         other.payload_ = internal::kEmptyPayload;
@@ -191,18 +191,18 @@ class Result<const T*, E> {
 
     ~Result() { KWC_ASSERT(payload_ == internal::kEmptyPayload); }
 
-    bool isError() const { return internal::getPayload(payload_) == internal::Error; }
+    bool isError() const { return internal::GetPayload(payload_) == internal::Error; }
 
-    bool isSuccess() const { return internal::getPayload(payload_) == internal::Success; }
+    bool isSuccess() const { return internal::GetPayload(payload_) == internal::Success; }
 
     const T* getSuccess() {
-        T* success = internal::getSuccessFromPayload<T>(payload_);
+        T* success = internal::GetSuccessFromPayload<T>(payload_);
         payload_ = internal::kEmptyPayload;
         return success;
     }
 
     std::unique_ptr<E> getError() {
-        std::unique_ptr<E> error(internal::getErrorFromPayload<E>(payload_));
+        std::unique_ptr<E> error(internal::GetErrorFromPayload<E>(payload_));
         payload_ = internal::kEmptyPayload;
         return std::move(error);
     }
@@ -221,12 +221,12 @@ class Result<Ref<T>, E> {
 
     template <typename U>
     Result(Ref<U>&& success)
-        : payload_(internal::createPayload(success.detach(), internal::Success)) {
+        : payload_(internal::CreatePayload(success.detach(), internal::Success)) {
         static_assert(std::is_convertible<U*, T*>::value, "");
     }
 
     Result(std::unique_ptr<E> error)
-        : payload_(internal::createPayload(error.release(), internal::Error)) {}
+        : payload_(internal::CreatePayload(error.release(), internal::Error)) {}
 
     template <typename U>
     Result(Result<Ref<U>, E>&& other) : payload_(other.payload_) {
@@ -245,20 +245,20 @@ class Result<Ref<T>, E> {
 
     ~Result() { KWC_ASSERT(payload_ == internal::kEmptyPayload); }
 
-    bool isError() const { return internal::getPayload(payload_) == internal::Error; }
+    bool isError() const { return internal::GetPayload(payload_) == internal::Error; }
 
-    bool isSuccess() const { return internal::getPayload(payload_) == internal::Success; }
+    bool isSuccess() const { return internal::GetPayload(payload_) == internal::Success; }
 
     Ref<T> getSuccess() {
         KWC_ASSERT(isSuccess());
-        auto success = acquireRef(internal::getSuccessFromPayload<T>(payload_));
+        auto success = AcquireRef(internal::GetSuccessFromPayload<T>(payload_));
         payload_ = internal::kEmptyPayload;
         return success;
     }
 
     std::unique_ptr<E> getError() {
         KWC_ASSERT(isError());
-        std::unique_ptr<E> error(internal::getErrorFromPayload<E>(payload_));
+        std::unique_ptr<E> error(internal::GetErrorFromPayload<E>(payload_));
         payload_ = internal::kEmptyPayload;
         return std::move(error);
     }
@@ -277,12 +277,12 @@ class Result {
 
     Result(std::unique_ptr<E> error) : type_(Error), error_(std::move(error)) {}
 
-    Result(Result<T, E>&& other)
+    Result(Result<T, E>&& other) noexcept
         : type_(other.type_), error_(std::move(other.error_)), success_(std::move(other.success_)) {
         other.type_ = Received;
     }
 
-    Result<T, E>& operator=(Result<T, E>&& other) {
+    Result<T, E>& operator=(Result<T, E>&& other) noexcept {
         type_ = other.type_;
         error_ = std::move(other.error_);
         success_ = std::move(other.success_);

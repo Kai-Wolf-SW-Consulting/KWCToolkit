@@ -9,7 +9,7 @@
 
 #include "kwctoolkit/base/Logging.h"
 
-void handleAssertFailure(const char* file, const char* fn, int line, const char* condition) {
+void HandleAssertFailure(const char* file, const char* fn, int line, const char* condition) {
     using namespace kwc::base;
     LOGGING(ERROR) << "Assert failure at " << file << ":" << line << " (" << fn
                    << "): " << condition;

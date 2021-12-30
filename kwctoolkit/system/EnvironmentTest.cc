@@ -9,56 +9,56 @@
 using namespace kwc::system;
 
 TEST(EnvironmentTest, SetEnvironmentVariable) {
-    std::unique_ptr<Environment> env(Environment::Create());
+    std::unique_ptr<Environment> env(Environment::create());
 
-    const char kFoobarUpper[] = "FOOBAR";
-    const char kFoobarLower[] = "foobar";
-    EXPECT_TRUE(env->SetEnvVar(kFoobarUpper, kFoobarLower));
-    EXPECT_TRUE(env->HasEnvVar(kFoobarUpper));
+    const char foobar_upper[] = "FOOBAR";
+    const char foobar_lower[] = "foobar";
+    EXPECT_TRUE(env->setEnvVar(foobar_upper, foobar_lower));
+    EXPECT_TRUE(env->hasEnvVar(foobar_upper));
 
     std::string value;
-    EXPECT_TRUE(env->GetEnvVar(kFoobarUpper, &value));
-    ASSERT_EQ(value, kFoobarLower);
+    EXPECT_TRUE(env->getEnvVar(foobar_upper, &value));
+    ASSERT_EQ(value, foobar_lower);
 }
 
 TEST(EnvironmentTest, HasEnvironmentVariable) {
-    std::unique_ptr<Environment> env(Environment::Create());
-    ASSERT_TRUE(env->HasEnvVar("PATH"));
+    std::unique_ptr<Environment> env(Environment::create());
+    ASSERT_TRUE(env->hasEnvVar("PATH"));
 }
 
 TEST(EnvironmentTest, UnsetEnvironmentVariable) {
-    std::unique_ptr<Environment> env(Environment::Create());
+    std::unique_ptr<Environment> env(Environment::create());
 
-    const char kFoobarUpper[] = "FOOBAR";
-    const char kFoobarLower[] = "foobar";
+    const char foobar_upper[] = "FOOBAR";
+    const char foobar_lower[] = "foobar";
 
     // first set the environment variable
-    EXPECT_TRUE(env->SetEnvVar(kFoobarUpper, kFoobarLower));
-    EXPECT_TRUE(env->HasEnvVar(kFoobarUpper));
-    EXPECT_TRUE(env->UnsetEnvVar(kFoobarUpper));
-    ASSERT_FALSE(env->HasEnvVar(kFoobarUpper));
+    EXPECT_TRUE(env->setEnvVar(foobar_upper, foobar_lower));
+    EXPECT_TRUE(env->hasEnvVar(foobar_upper));
+    EXPECT_TRUE(env->unsetEnvVar(foobar_upper));
+    ASSERT_FALSE(env->hasEnvVar(foobar_upper));
 }
 
 TEST(EnvironmentTest, GetReverseEnvironmentVariable) {
-    std::unique_ptr<Environment> env(Environment::Create());
-    const char kFoobarUpper[] = "FOOBAR";
-    const char kFoobarLower[] = "foobar";
+    std::unique_ptr<Environment> env(Environment::create());
+    const char foobar_upper[] = "FOOBAR";
+    const char foobar_lower[] = "foobar";
 
     // set variable in UPPER case
-    EXPECT_TRUE(env->SetEnvVar(kFoobarUpper, kFoobarLower));
+    EXPECT_TRUE(env->setEnvVar(foobar_upper, foobar_lower));
 
     // now try to get this variable passing the lower case
     std::string env_value;
-    EXPECT_TRUE(env->GetEnvVar(kFoobarLower, &env_value));
+    EXPECT_TRUE(env->getEnvVar(foobar_lower, &env_value));
 
-    ASSERT_EQ(env_value, kFoobarLower);
-    EXPECT_TRUE(env->UnsetEnvVar(kFoobarUpper));
+    ASSERT_EQ(env_value, foobar_lower);
+    EXPECT_TRUE(env->unsetEnvVar(foobar_upper));
 
-    const char kBar[] = "bar";
+    const char bar[] = "bar";
     // now for the opposite
-    EXPECT_TRUE(env->SetEnvVar(kFoobarLower, kBar));
-    EXPECT_TRUE(env->GetEnvVar(kFoobarUpper, &env_value));
+    EXPECT_TRUE(env->setEnvVar(foobar_lower, bar));
+    EXPECT_TRUE(env->getEnvVar(foobar_upper, &env_value));
 
-    ASSERT_EQ(env_value, kBar);
-    EXPECT_TRUE(env->UnsetEnvVar(kFoobarLower));
+    ASSERT_EQ(env_value, bar);
+    EXPECT_TRUE(env->unsetEnvVar(foobar_lower));
 }

@@ -19,22 +19,22 @@ namespace base {
 
 class KWC_NO_DISCARD ErrorTrace {
   public:
-    static std::unique_ptr<ErrorTrace> Create(InternalErrorType type,
+    static std::unique_ptr<ErrorTrace> create(InternalErrorType type,
                                               const std::string& message,
                                               const char* file,
                                               const char* function,
                                               int line);
-    ErrorTrace(InternalErrorType type, const std::string& message);
+    ErrorTrace(InternalErrorType type, std::string message);
 
     struct BacktraceRecord {
         const char* file;
         const char* function;
         int line;
     };
-    void AppendBacktrace(const char* file, const char* function, int line);
-    KWC_NO_DISCARD InternalErrorType GetType() const;
-    KWC_NO_DISCARD const std::string& GetMessage() const;
-    KWC_NO_DISCARD const std::vector<BacktraceRecord>& GetBacktrace() const;
+    void appendBacktrace(const char* file, const char* function, int line);
+    KWC_NO_DISCARD InternalErrorType getType() const;
+    KWC_NO_DISCARD const std::string& getMessage() const;
+    KWC_NO_DISCARD const std::vector<BacktraceRecord>& getBacktrace() const;
 
   private:
     InternalErrorType type_;

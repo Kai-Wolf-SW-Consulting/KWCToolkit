@@ -5,6 +5,7 @@
 #include "kwctoolkit/file/FilePath.h"
 
 #include <cstddef>
+#include <utility>
 
 namespace kwc {
 namespace file {
@@ -19,9 +20,9 @@ constexpr auto kPathSeparator = "/";
 constexpr auto kPathSepLength = 2;
 #endif
 
-FilePath::FilePath(const FilePath& other) : path_(other.path_) {}
+FilePath::FilePath(const FilePath& other) = default;
 
-FilePath::FilePath(const FilePath::StringType& path) : path_(path) {
+FilePath::FilePath(FilePath::StringType path) : path_(std::move(path)) {
     const auto null_pos = path_.find(kStringTerminator);
     if (null_pos != std::string::npos) {
         path_.erase(null_pos, std::string::npos);

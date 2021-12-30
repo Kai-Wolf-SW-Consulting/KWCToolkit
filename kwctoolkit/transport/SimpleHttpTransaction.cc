@@ -4,13 +4,14 @@
 
 #include "kwctoolkit/transport/SimpleHttpTransaction.h"
 
-#include <errno.h>
 #include <fcntl.h>
 
+#include <cerrno>
 #include <cstdlib>
 #include <cstring>
 #include <ostream>
 #include <string>
+#include <utility>
 
 #include "kwctoolkit/base/ArraySize.h"
 #include "kwctoolkit/base/Check.h"
@@ -116,14 +117,14 @@ class SimpleHttpProcessor {
     };
 
     std::string prepareRequestOptions(SimpleHttpRequest* request) {
-        const std::string kCRLF("\r\n");
+        const std::string crlf("\r\n");
         std::string msg = request->getHttpMethod() + " " + request->getUrl() + " " + "HTTP/1.1";
-        msg += kCRLF;
+        msg += crlf;
         msg += "Host: " + host_;
-        msg += kCRLF;
+        msg += crlf;
         msg += "Accept-Encoding: identify";
-        msg += kCRLF;
-        msg += kCRLF;
+        msg += crlf;
+        msg += crlf;
         return msg;
     }
 
@@ -228,7 +229,7 @@ class SimpleHttpProcessor {
     std::string recv() const {
         KWC_CHECK(socket_ > 0) << "Outstanding request but no connection";
         if (!DataAwaiting(socket_)) {
-            return std::string("");
+            return {""};
         }
 
         std::vector<unsigned char> buffer;
@@ -249,7 +250,7 @@ class SimpleHttpProcessor {
             if (strings::EndsWith(buffer, crlf))
                 break;
         }
-        return std::string(buffer.begin(), buffer.end());
+        return {buffer.begin(), buffer.end()};
     }
 
     void processStatusLine(const std::string& line) {
@@ -269,7 +270,7 @@ class SimpleHttpProcessor {
             ++p;
         }
 
-        // get status code
+        // get status code_
         std::string status;
         while ((*p != 0) && *p != ' ') {
             status += *p++;
@@ -285,7 +286,7 @@ class SimpleHttpProcessor {
         }
 
         http_code_ = std::atoi(status.c_str());
-        KWC_CHECK(HttpStatusCode::IsValidError(http_code_)) << "Bad status line";
+        KWC_CHECK(HttpStatusCode::isValidError(http_code_)) << "Bad status line";
 
         response_state_ = HEADERS;
     }
@@ -296,7 +297,7 @@ class SimpleHttpProcessor {
                 // reset parsing because we expect a new status line
                 response_state_ = STATUSLINE;
             } else {
-                // received all the headers by now. Ready to start on the body
+                // received all the headers by now. Ready to start_ on the body
                 // now
                 beginBody();
             }
@@ -339,7 +340,7 @@ class SimpleHttpProcessor {
         // check for several cases where we expect zero-length body
         if (http_code_ == HttpStatusCode::NO_CONTENT ||
             http_code_ == HttpStatusCode::NOT_MODIFIED ||
-            HttpStatusCode::IsInformational(http_code_)) {
+            HttpStatusCode::isInformational(http_code_)) {
             chunk_length_ = 0;
         }
 
@@ -424,7 +425,7 @@ class SimpleHttpProcessor {
 
 SimpleHttpRequest::SimpleHttpRequest(HttpRequest::HttpMethod method,
                                      SimpleHttpTransaction* transaction)
-    : HttpRequest(method, transaction) {}
+    : HttpRequest(std::move(method), transaction) {}
 
 SimpleHttpRequest::~SimpleHttpRequest() {
 #if defined(KWC_OS_WINDOWS)

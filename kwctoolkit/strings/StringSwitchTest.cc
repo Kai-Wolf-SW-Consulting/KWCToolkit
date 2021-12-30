@@ -12,11 +12,11 @@ using namespace kwc::strings;
 
 TEST(StringSwitchTest, TestWithStdString) {
     const auto result = StringSwitch<std::string>("Foo")
-                            .Case("Foo", "foo")
+                            .Case("Foo", "foo_")
                             .Case("Bar", "bar")
                             .Case("Bat", "bat")
                             .Default("generic");
-    EXPECT_EQ("foo", result);
+    EXPECT_EQ("foo_", result);
 }
 
 TEST(StringSwitchTest, TestWithConstChar) {

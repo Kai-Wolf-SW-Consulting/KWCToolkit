@@ -9,27 +9,27 @@
 using namespace kwc::system;
 
 namespace {
-void nothingRunFunction(void*) {}
+void NothingRunFunction(void*) {}
 
-void setBoolFlagRunFunction(void* obj) {
-    bool* objAsBool = static_cast<bool*>(obj);
-    *objAsBool = true;
+void SetBoolFlagRunFunction(void* obj) {
+    bool* obj_as_bool = static_cast<bool*>(obj);
+    *obj_as_bool = true;
 }
 }  // namespace
 
 TEST(ThreadTest, CheckStartStop) {
-    Thread thread(&nothingRunFunction, nullptr, "ThreadTest");
+    Thread thread(&NothingRunFunction, nullptr, "ThreadTest");
     EXPECT_TRUE(thread.name() == "ThreadTest");
-    EXPECT_TRUE(thread.getThreadRef() == 0);
+    EXPECT_TRUE(thread.getThreadRef() == nullptr);
     thread.start();
-    EXPECT_TRUE(thread.getThreadRef() != 0);
+    EXPECT_TRUE(thread.getThreadRef() != nullptr);
     thread.stop();
-    EXPECT_TRUE(thread.getThreadRef() == 0);
+    EXPECT_TRUE(thread.getThreadRef() == nullptr);
 }
 
 TEST(ThreadTest, CheckStartStopWithTwoFuncs) {
-    Thread thread1(&nothingRunFunction, nullptr, "ThreadTest1");
-    Thread thread2(&nothingRunFunction, nullptr, "ThreadTest2");
+    Thread thread1(&NothingRunFunction, nullptr, "ThreadTest1");
+    Thread thread2(&NothingRunFunction, nullptr, "ThreadTest2");
     EXPECT_TRUE(thread1.getThreadRef() == thread2.getThreadRef());
     thread1.start();
     thread2.start();
@@ -40,7 +40,7 @@ TEST(ThreadTest, CheckStartStopWithTwoFuncs) {
 
 TEST(ThreadTest, CheckRunFunctionCalled) {
     bool flag = false;
-    Thread thread(&setBoolFlagRunFunction, &flag, "RunFunctionCalled");
+    Thread thread(&SetBoolFlagRunFunction, &flag, "RunFunctionCalled");
     thread.start();
     thread.stop();
     EXPECT_TRUE(flag);

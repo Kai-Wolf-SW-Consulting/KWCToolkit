@@ -23,12 +23,12 @@ class StringDataWriter : public DataWriter {
 
     Status doWrite(int64 bytes, const char* buffer) override {
         storage_->append(buffer, bytes);
-        return Status();
+        return {};
     }
 
     Status doClear() override {
         storage_->clear();
-        return Status();
+        return {};
     }
 
     DataReader* doCreateDataReader(Callback* delete_cb) override {

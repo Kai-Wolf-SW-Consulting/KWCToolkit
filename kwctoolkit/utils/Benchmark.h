@@ -27,68 +27,68 @@ template <typename Clock>
 class BasicContext {
   public:
     BasicContext(std::chrono::nanoseconds duration)
-        : state(ContextState::Idle), duration(duration) {}
+        : state_(ContextState::Idle), duration_(duration) {}
 
-    // Keeps the benchmark running for the duration given in the constructor.
+    // Keeps the benchmark running for the duration_ given in the constructor.
     // Return true as long as there is time left.
-    bool Running() {
-        if (state == ContextState::AreaBench) {
-            if (runTime > duration) {
+    bool running() {
+        if (state_ == ContextState::AreaBench) {
+            if (run_time_ > duration_) {
                 return false;
             }
-            iterations++;
+            iterations_++;
             return true;
         }
-        if (state == ContextState::Idle) {
-            state = ContextState::Running;
-            iterations = 1;
-            start = Clock::now();
+        if (state_ == ContextState::Idle) {
+            state_ = ContextState::Running;
+            iterations_ = 1;
+            start_ = Clock::now();
             return true;
         }
         auto now = Clock::now();
-        runTime = now - start;
-        if (runTime >= duration) {
+        run_time_ = now - start_;
+        if (run_time_ >= duration_) {
             return false;
         }
 
-        iterations++;
+        iterations_++;
         return true;
     }
 
   protected:
-    int64 TimePerIteration(int64 overhead = 0) const {
-        auto perIt = runTime.count() / iterations;
+    int64 timePerIteration(int64 overhead = 0) const {
+        auto per_it = run_time_.count() / iterations_;
 
-        if (state != ContextState::AreaBench) {
-            perIt -= overhead;
+        if (state_ != ContextState::AreaBench) {
+            per_it -= overhead;
         }
 
-        return perIt;
+        return per_it;
     }
 
-    int64 Iterations() const { return iterations; }
+    int64 iterations() const { return iterations_; }
 
-    void BeginArea() {
-        if (state != ContextState::AreaBench) {
-            // reset everything set by Running()
-            iterations = 1;
-            runTime = std::chrono::nanoseconds::zero();
-            state = ContextState::AreaBench;
+    void beginArea() {
+        if (state_ != ContextState::AreaBench) {
+            // reset everything set by running()
+            iterations_ = 1;
+            run_time_ = std::chrono::nanoseconds::zero();
+            state_ = ContextState::AreaBench;
         }
-        start = Clock::now();
+        start_ = Clock::now();
     }
 
-    void EndArea() {
+    void endArea() {
         auto now = Clock::now();
-        runTime += (now - start);
+        run_time_ += (now - start_);
     }
 
   private:
-    ContextState state;
-    int64 iterations;
-    typename Clock::time_point start;
-    std::chrono::nanoseconds duration;
-    std::chrono::nanoseconds runTime;
+    ContextState state_;
+    int64 iterations_;
+    typename Clock::time_point start_;
+    std::chrono::nanoseconds duration_;
+    std::chrono::nanoseconds run_time_;
 
     friend class BenchmarkArea;
     friend class Benchmark;
@@ -98,40 +98,40 @@ using Context = BasicContext<std::chrono::high_resolution_clock>;
 
 class BenchmarkArea {
   public:
-    BenchmarkArea(Context& context) : context(context) { context.BeginArea(); }
+    BenchmarkArea(Context& context) : context_(context) { context.beginArea(); }
 
-    ~BenchmarkArea() { context.EndArea(); }
+    ~BenchmarkArea() { context_.endArea(); }
 
   private:
-    Context& context;
+    Context& context_;
 };
 
 enum class Color { White = 0, Green = 32, Yellow = 33, Cyan = 36 };
 
 class ConsoleModifier {
   public:
-    ConsoleModifier(Color c) : code(c) {}
+    ConsoleModifier(Color c) : code_(c) {}
     friend std::ostream& operator<<(std::ostream& os, const ConsoleModifier& cm) {
-        return os << "\033[" << static_cast<int>(cm.code) << "m";
+        return os << "\033[" << static_cast<int>(cm.code_) << "m";
     }
 
   private:
-    Color code;
+    Color code_;
 };
 
 class Benchmark {
   private:
-    static std::string FilterArgument(int argc, const char* argv[]) {
+    static std::string filterArgument(int argc, const char* argv[]) {
         // iterate over all arguments and find --benchmark_filter=
-        std::regex filterRegex{"--benchmark_filter=(.*)"};
-        std::smatch baseMatch;
+        std::regex filter_regex{"--benchmark_filter=(.*)"};
+        std::smatch base_match;
 
         for (int i = 0; i < argc; i++) {
             std::string argument{argv[i]};
-            if (std::regex_match(argument, baseMatch, filterRegex)) {
-                if (baseMatch.size() == 2) {
-                    std::ssub_match subMatch = baseMatch[1];
-                    std::string filter = subMatch.str();
+            if (std::regex_match(argument, base_match, filter_regex)) {
+                if (base_match.size() == 2) {
+                    std::ssub_match sub_match = base_match[1];
+                    std::string filter = sub_match.str();
                     // replace all occurrences of * with .*
                     filter = std::regex_replace(filter, std::regex("\\*"), ".*");
 
@@ -144,7 +144,7 @@ class Benchmark {
     }
 
   public:
-    static BenchmarkList& List() {
+    static BenchmarkList& list() {
         // Currently elements in list are never destroyed, but as
         // the lifetime of list is the lifetime of the process, we
         // don't bother using unique_ptr
@@ -152,90 +152,90 @@ class Benchmark {
         return list;
     }
 
-    // empty benchmark to measure the overhead of context.Running()
-    static void EmptyBenchMark(Context& context) {
-        while (context.Running())
+    // empty benchmark to measure the overhead of context_.running()
+    static void emptyBenchMark(Context& context) {
+        while (context.running())
             ;
     }
 
-    static void RunAllBenchmarks(int argc = 0, const char* argv[] = nullptr) {
-        auto maxLength = MaxNameLength();
-        auto nanoLength = std::string("Time").length() + 10;
-        auto itLength = std::string("Iterations").length();
+    static void runAllBenchmarks(int argc = 0, const char* argv[] = nullptr) {
+        auto max_length = maxNameLength();
+        auto nano_length = std::string("Time").length() + 10;
+        auto it_length = std::string("iterations").length();
 
-        auto filter = FilterArgument(argc, argv);
+        auto filter = filterArgument(argc, argv);
 
-        std::regex filterRegex;
+        std::regex filter_regex;
         try {
-            filterRegex = std::regex(filter);
+            filter_regex = std::regex(filter);
         } catch (std::regex_error) {
             std::cout << "Invalid filter: " << filter << std::endl;
             exit(1);
         }
 
-        Context overheadContext(std::chrono::seconds(1));
-        EmptyBenchMark(overheadContext);
+        Context overhead_context(std::chrono::seconds(1));
+        emptyBenchMark(overhead_context);
 
-        std::cout << std::left << std::setw(maxLength) << "Name"
+        std::cout << std::left << std::setw(max_length) << "Name"
                   << "               "
-                  << "Time  Iterations" << std::endl;
+                  << "Time  iterations" << std::endl;
         std::string dashes;
-        dashes.insert(0, maxLength + 3 + nanoLength + 4 + itLength, '-');
+        dashes.insert(0, max_length + 3 + nano_length + 4 + it_length, '-');
         std::cout << dashes << std::endl;
 
-        for (auto benchmark : List()) {
-            std::smatch baseMatch;
-            if (!std::regex_match(benchmark->Name(), baseMatch, filterRegex))
+        for (auto benchmark : list()) {
+            std::smatch base_match;
+            if (!std::regex_match(benchmark->name(), base_match, filter_regex))
                 continue;
 
             Context context(std::chrono::seconds(1));
-            benchmark->SetUp();
-            benchmark->RunBenchmark(context);
-            benchmark->TearDown();
+            benchmark->setUp();
+            benchmark->runBenchmark(context);
+            benchmark->tearDown();
             std::ostringstream ost;
-            int64 timePerIteration = context.TimePerIteration(overheadContext.TimePerIteration());
-            timePerIteration = std::max<int64>(timePerIteration, 0ll);
-            ost << timePerIteration;
-            auto nanoStr = ost.str();
+            int64 time_per_iter = context.timePerIteration(overhead_context.timePerIteration());
+            time_per_iter = std::max<int64>(time_per_iter, 0ll);
+            ost << time_per_iter;
+            auto nano_str = ost.str();
 
             std::cout << ConsoleModifier(Color::Green);
-            std::cout << std::left << std::setw(maxLength);
-            std::cout << benchmark->Name();
+            std::cout << std::left << std::setw(max_length);
+            std::cout << benchmark->name();
             std::cout << "  ";
 
             std::cout << ConsoleModifier(Color::Yellow);
-            std::cout << std::right << std::setw(nanoLength) << nanoStr << " ns";
+            std::cout << std::right << std::setw(nano_length) << nano_str << " ns";
 
             std::ostringstream itstrstr;
-            itstrstr << context.Iterations();
-            auto itStr = itstrstr.str();
+            itstrstr << context.iterations();
+            auto it_str = itstrstr.str();
 
             std::cout << "  ";
             std::cout << ConsoleModifier(Color::Cyan);
-            std::cout << std::right << std::setw(itLength) << itStr << std::endl;
+            std::cout << std::right << std::setw(it_length) << it_str << std::endl;
             std::cout << "\033[0m";
         }
     }
 
-    static size_t MaxNameLength() {
+    static size_t maxNameLength() {
         size_t length = 0;
-        for (const auto& benchmark : List()) {
-            length = benchmark->Name().length() > length ? benchmark->Name().length() : length;
+        for (const auto& benchmark : list()) {
+            length = benchmark->name().length() > length ? benchmark->name().length() : length;
         }
         return length;
     }
 
-    const std::string& Name() const { return name; }
+    const std::string& name() const { return name_; }
 
-    std::string& Name() { return name; }
-
-  protected:
-    virtual void RunBenchmark(Context& context){};
-    virtual void SetUp() {}
-    virtual void TearDown() {}
+    std::string& name() { return name_; }
 
   protected:
-    std::string name;
+    virtual void runBenchmark(Context& context){};
+    virtual void setUp() {}
+    virtual void tearDown() {}
+
+  protected:
+    std::string name_;
 };
 
 #define _BM_CONCATX(A, B) A##B

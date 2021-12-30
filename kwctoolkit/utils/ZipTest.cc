@@ -14,7 +14,7 @@ TEST(ZipTest, ZipStdIntVectors) {
     std::vector<int> as = {1, 3, 5, 7, 9};
     std::vector<int> bs = {2, 4, 6, 8, 10};
 
-    const auto ab = zip(as, bs);
+    const auto ab = Zip(as, bs);
     ASSERT_EQ(ab.size(), 5);
     ASSERT_EQ(ab[0], std::make_pair(1, 2));
     ASSERT_EQ(ab[1], std::make_pair(3, 4));
@@ -27,7 +27,7 @@ TEST(ZipTest, ZipDifferentVectorSizes) {
     std::vector<int> as = {2, 3, 5, 7, 11, 13};
     std::vector<int> bs = {23, 42};
 
-    const auto ab = zip(as, bs);
+    const auto ab = Zip(as, bs);
     ASSERT_EQ(ab.size(), 2);
     ASSERT_EQ(ab[0], std::make_pair(2, 23));
     ASSERT_EQ(ab[1], std::make_pair(3, 42));

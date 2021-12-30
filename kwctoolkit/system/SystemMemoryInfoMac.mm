@@ -40,10 +40,10 @@ bool GetSystemMemoryInfo(SystemMemoryInfo *mem_info) {
     KWC_ASSERT (HOST_BASIC_INFO_COUNT == count);
     mem_info->total = static_cast<int> (host_basic_info.max_mem / 1024);
 
-    vm_statistics64_data_t vmInfo;
+    vm_statistics64_data_t vm_info;
     count = HOST_VM_INFO64_COUNT;
 
-    if (host_statistics64 (host, HOST_VM_INFO64, reinterpret_cast<host_info64_t> (&vmInfo),
+    if (host_statistics64 (host, HOST_VM_INFO64, reinterpret_cast<host_info64_t> (&vm_info),
                            &count) != KERN_SUCCESS)
     {
         return false;
@@ -52,10 +52,10 @@ bool GetSystemMemoryInfo(SystemMemoryInfo *mem_info) {
     KWC_ASSERT (PAGE_SIZE % 1024 == 0 && "Invalid page size");
 
     mem_info->free = static_cast<int> (PAGE_SIZE / 1024 *
-        (vmInfo.free_count - vmInfo.speculative_count));
-    mem_info->speculative = static_cast<int> (PAGE_SIZE / 1024 * vmInfo.speculative_count);
-    mem_info->file_backed = static_cast<int> (PAGE_SIZE / 1024 * vmInfo.external_page_count);
-    mem_info->purgeable = static_cast<int> (PAGE_SIZE / 1024 * vmInfo.purgeable_count);
+        (vm_info.free_count - vm_info.speculative_count));
+    mem_info->speculative = static_cast<int> (PAGE_SIZE / 1024 * vm_info.speculative_count);
+    mem_info->file_backed = static_cast<int> (PAGE_SIZE / 1024 * vm_info.external_page_count);
+    mem_info->purgeable = static_cast<int> (PAGE_SIZE / 1024 * vm_info.purgeable_count);
 
     return true;
 }

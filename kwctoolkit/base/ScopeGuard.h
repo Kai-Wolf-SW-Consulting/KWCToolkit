@@ -15,14 +15,14 @@ namespace base {
 // This idiom ensures that resources always get released in face of an
 // exception or otherwise not returning normally. |ScopeGuard| can exploit
 // type inference and auto, move semantics as well as lambda functions which
-// can defer any arbitrary code
+// can defer any arbitrary code_
 template <typename Func>
 class ScopeGuard {
   public:
     ScopeGuard() = delete;
     ScopeGuard(const ScopeGuard&) = delete;
     ScopeGuard& operator=(const ScopeGuard&) = delete;
-    ScopeGuard(ScopeGuard&& rhs) : func_(std::move(rhs.func_)), isActive_(rhs.isActive_) {
+    ScopeGuard(ScopeGuard&& rhs) noexcept : func_(std::move(rhs.func_)), isActive_(rhs.isActive_) {
         rhs.dismiss();
     }
     ScopeGuard(Func func) : func_(std::move(func)), isActive_(true) {}
@@ -47,7 +47,7 @@ class ScopeGuard {
 //         // .. use buf here ..
 //     }
 template <typename Func>
-ScopeGuard<Func> scopeGuard(Func func) {
+ScopeGuard<Func> scopeGuard(Func func) {  // NOLINT
     return ScopeGuard<Func>(std::move(func));
 }
 
@@ -66,7 +66,7 @@ ScopeGuard<Func> operator+(ScopeGuardOnExit, Func&& fn) {
 // gets initialized with |ScopeGuardOnExit| plus an unfinished lambda
 // function. Note that we're not interested in |ScopeGuardOnExit| itself, but
 // only need its type. If |KWC_SCOPE_EXIT| is used, the user finishes it with {}
-// and inserts the code, which gets executed when the current scope is left.
+// and inserts the code_, which gets executed when the current scope is left.
 // Example usage:
 //     void fun() {
 //         char name[] = "/tmp/deleteme.XXXXXX";

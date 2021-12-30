@@ -61,12 +61,12 @@
         std::abort(); \
     } while (KWC_ASSERT_LOOP_CONDITION)
 
-#define KWC_UNREACHABLE()                                                \
-    do {                                                                 \
-        KWC_ASSERT(KWC_ASSERT_LOOP_CONDITION && "Unreachable code hit"); \
-        KWC_BUILTIN_UNREACHABLE();                                       \
+#define KWC_UNREACHABLE()                                                 \
+    do {                                                                  \
+        KWC_ASSERT(KWC_ASSERT_LOOP_CONDITION && "Unreachable code_ hit"); \
+        KWC_BUILTIN_UNREACHABLE();                                        \
     } while (KWC_ASSERT_LOOP_CONDITION)
 
-void handleAssertFailure(const char* file, const char* fn, int line, const char* condition);
+void HandleAssertFailure(const char* file, const char* fn, int line, const char* condition);
 
 #endif  // KWCTOOLKIT_BASE_ASSERT_H_

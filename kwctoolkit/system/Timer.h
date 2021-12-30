@@ -20,12 +20,12 @@ namespace system {
 // implementations to provide the highest accuracy possible
 class Timer {
   public:
-    virtual ~Timer() {}
+    virtual ~Timer() = default;
 
     // Stopwatch timer functionality
-    // Use start () and stop () to record the duration and use getElapsedTime ()
-    // to query the duration. If getElapsedTime () is called in between, it will
-    // simply report the elapsed time since start ().
+    // Use start_ () and stop () to record the duration_ and use getElapsedTime ()
+    // to query the duration_. If getElapsedTime () is called in between, it will
+    // simply report the elapsed time since start_ ().
     virtual void start() = 0;
     virtual void stop() = 0;
     virtual double getElapsedTime() const = 0;
@@ -36,8 +36,8 @@ class Timer {
     virtual double getAbsoluteTime() = 0;
 };
 
-// Create UTF ISO8601 formatted timestamp
-inline std::string getISO8601TimeUTC() {
+// create UTF ISO8601 formatted timestamp
+inline std::string GetIsO8601TimeUtc() {
     const auto now = std::chrono::system_clock::now();
     const auto itt = std::chrono::system_clock::to_time_t(now);
 
@@ -46,13 +46,13 @@ inline std::string getISO8601TimeUTC() {
     ss << std::put_time(std::gmtime(&itt), "%FT%TZ");
     return ss.str();
 #else
-    char timeBuffer[80];
-    std::strftime(&timeBuffer[0], 80, "%FT%TZ", std::localtime(&itt));
-    return timeBuffer;
+    char time_buffer[80];
+    std::strftime(&time_buffer[0], 80, "%FT%TZ", std::localtime(&itt));
+    return time_buffer;
 #endif
 }
 
-Timer* createTimer();
+Timer* CreateTimer();
 
 }  // namespace system
 }  // namespace kwc

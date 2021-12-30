@@ -6,6 +6,7 @@
 #define KWCTOOLKIT_BASE_CALLBACK_IMPL_H_
 
 #include <type_traits>
+#include <utility>
 
 #include "kwctoolkit/base/CallbackTypes.h"
 
@@ -14,19 +15,19 @@ namespace internal {
 
 template <typename T>
 struct ConstRef {
-    typedef typename ::std::remove_reference<T>::type base_type;
-    typedef const base_type& type;
+    using base_type = typename ::std::remove_reference<T>::type;
+    using type = const base_type&;
 };
 }  // namespace internal
 template <bool del,
           typename RetType,
           typename Class,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_0_0 : public ResultCallback<RetType> {
+class ConstMemberResultCallback00 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (Class::*Method)() const;
-    inline ConstMemberResultCallback_0_0(const Class* instance, Method method)
+    using base = ResultCallback<RetType>;
+    using Method = RetType (Class::*)() const;
+    inline ConstMemberResultCallback00(const Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -45,15 +46,15 @@ class ConstMemberResultCallback_0_0 : public ResultCallback<RetType> {
     Method method_;
 };
 template <bool del, typename Class>
-class ConstMemberResultCallback_0_0<
-    del,
-    void,
-    Class,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback {
+class ConstMemberResultCallback00<del,
+                                  void,
+                                  Class,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback {
   public:
-    typedef Callback base;
-    typedef void (Class::*Method)() const;
-    inline ConstMemberResultCallback_0_0(const Class* instance, Method method)
+    using base = Callback;
+    using Method = void (Class::*)() const;
+    inline ConstMemberResultCallback00(const Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -72,27 +73,27 @@ class ConstMemberResultCallback_0_0<
 };
 
 template <typename Caller, typename Callee, typename RetType>
-inline typename ConstMemberResultCallback_0_0<true, RetType, Caller>::base* MakeCallback(
+inline typename ConstMemberResultCallback00<true, RetType, Caller>::base* MakeCallback(
     const Caller* instance,
     RetType (Callee::*method)() const) {
-    return new ConstMemberResultCallback_0_0<true, RetType, Caller>(instance, method);
+    return new ConstMemberResultCallback00<true, RetType, Caller>(instance, method);
 }
 
 template <typename Caller, typename Callee, typename RetType>
-inline typename ConstMemberResultCallback_0_0<false, RetType, Caller>::base* MakePermanentCallback(
+inline typename ConstMemberResultCallback00<false, RetType, Caller>::base* MakePermanentCallback(
     const Caller* instance,
     RetType (Callee::*method)() const) {
-    return new ConstMemberResultCallback_0_0<false, RetType, Caller>(instance, method);
+    return new ConstMemberResultCallback00<false, RetType, Caller>(instance, method);
 }
 template <bool del,
           typename RetType,
           typename Class,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_0_0 : public ResultCallback<RetType> {
+class MemberResultCallback00 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (Class::*Method)();
-    inline MemberResultCallback_0_0(Class* instance, Method method)
+    using base = ResultCallback<RetType>;
+    using Method = RetType (Class::*)();
+    inline MemberResultCallback00(Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -111,15 +112,15 @@ class MemberResultCallback_0_0 : public ResultCallback<RetType> {
     Method method_;
 };
 template <bool del, typename Class>
-class MemberResultCallback_0_0<del,
-                               void,
-                               Class,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback00<del,
+                             void,
+                             Class,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback {
   public:
-    typedef Callback base;
-    typedef void (Class::*Method)();
-    inline MemberResultCallback_0_0(Class* instance, Method method)
+    using base = Callback;
+    using Method = void (Class::*)();
+    inline MemberResultCallback00(Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -138,24 +139,24 @@ class MemberResultCallback_0_0<del,
 };
 
 template <typename Caller, typename Callee, typename RetType>
-inline typename MemberResultCallback_0_0<true, RetType, Caller>::base* MakeCallback(
+inline typename MemberResultCallback00<true, RetType, Caller>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)()) {
-    return new MemberResultCallback_0_0<true, RetType, Caller>(instance, method);
+    return new MemberResultCallback00<true, RetType, Caller>(instance, method);
 }
 
 template <typename Caller, typename Callee, typename RetType>
-inline typename MemberResultCallback_0_0<false, RetType, Caller>::base* MakePermanentCallback(
+inline typename MemberResultCallback00<false, RetType, Caller>::base* MakePermanentCallback(
     Caller* instance,
     RetType (Callee::*method)()) {
-    return new MemberResultCallback_0_0<false, RetType, Caller>(instance, method);
+    return new MemberResultCallback00<false, RetType, Caller>(instance, method);
 }
 template <bool del, typename RetType>
-class FunctionResultCallback_0_0 : public ResultCallback<RetType> {
+class FunctionResultCallback00 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (*Function)();
-    inline FunctionResultCallback_0_0(Function function) : function_(function) {}
+    using base = ResultCallback<RetType>;
+    using Function = RetType (*)();
+    inline FunctionResultCallback00(Function function) : function_(function) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
         if (!del) {
@@ -172,11 +173,11 @@ class FunctionResultCallback_0_0 : public ResultCallback<RetType> {
     Function function_;
 };
 template <bool del>
-class FunctionResultCallback_0_0<del, void> : public Callback {
+class FunctionResultCallback00<del, void> : public Callback {
   public:
-    typedef Callback base;
-    typedef void (*Function)();
-    inline FunctionResultCallback_0_0(Function function) : function_(function) {}
+    using base = Callback;
+    using Function = void (*)();
+    inline FunctionResultCallback00(Function function) : function_(function) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
         if (!del) {
@@ -193,26 +194,25 @@ class FunctionResultCallback_0_0<del, void> : public Callback {
 };
 
 template <typename RetType>
-inline typename FunctionResultCallback_0_0<true, RetType>::base* MakeCallback(
-    RetType (*function)()) {
-    return new FunctionResultCallback_0_0<true, RetType>(function);
+inline typename FunctionResultCallback00<true, RetType>::base* MakeCallback(RetType (*function)()) {
+    return new FunctionResultCallback00<true, RetType>(function);
 }
 
 template <typename RetType>
-inline typename FunctionResultCallback_0_0<false, RetType>::base* MakePermanentCallback(
+inline typename FunctionResultCallback00<false, RetType>::base* MakePermanentCallback(
     RetType (*function)()) {
-    return new FunctionResultCallback_0_0<false, RetType>(function);
+    return new FunctionResultCallback00<false, RetType>(function);
 }
 template <bool del,
           typename RetType,
           typename Class,
           typename A1,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_0_1 : public ResultCallback1<RetType, A1> {
+class ConstMemberResultCallback01 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (Class::*Method)(A1) const;
-    inline ConstMemberResultCallback_0_1(const Class* instance, Method method)
+    using base = ResultCallback1<RetType, A1>;
+    using Method = RetType (Class::*)(A1) const;
+    inline ConstMemberResultCallback01(const Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -231,83 +231,83 @@ class ConstMemberResultCallback_0_1 : public ResultCallback1<RetType, A1> {
     Method method_;
 };
 template <bool del, typename Class, typename A1>
-class ConstMemberResultCallback_0_1<
-    del,
-    void,
-    Class,
-    A1,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback1<A1> {
-  public:
-    typedef Callback1<A1> base;
-    typedef void (Class::*Method)(A1) const;
-    inline ConstMemberResultCallback_0_1(const Class* instance, Method method)
-        : instance_(instance), method_(method) {}
-    bool isRepeatable() const override { return !del; }
-    void run(A1 a1) override {
-        if (!del) {
-            (instance_->*method_)(a1);
-        } else {
-            (instance_->*method_)(a1);
-            method_ = nullptr;
-            delete this;
-        }
-    }
-
-  private:
-    const Class* instance_;
-    Method method_;
-};
-
-template <typename Caller, typename Callee, typename RetType, typename A1>
-inline typename ConstMemberResultCallback_0_1<true, RetType, Caller, A1>::base* MakeCallback(
-    const Caller* instance,
-    RetType (Callee::*method)(A1) const) {
-    return new ConstMemberResultCallback_0_1<true, RetType, Caller, A1>(instance, method);
-}
-
-template <typename Caller, typename Callee, typename RetType, typename A1>
-inline typename ConstMemberResultCallback_0_1<false, RetType, Caller, A1>::base*
-MakePermanentCallback(const Caller* instance, RetType (Callee::*method)(A1) const) {
-    return new ConstMemberResultCallback_0_1<false, RetType, Caller, A1>(instance, method);
-}
-template <bool del,
-          typename RetType,
-          typename Class,
-          typename A1,
-          typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_0_1 : public ResultCallback1<RetType, A1> {
-  public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (Class::*Method)(A1);
-    inline MemberResultCallback_0_1(Class* instance, Method method)
-        : instance_(instance), method_(method) {}
-    bool isRepeatable() const override { return !del; }
-    RetType run(A1 a1) override {
-        if (!del) {
-            return (instance_->*method_)(a1);
-        } else {
-            RetType result = (instance_->*method_)(a1);
-            method_ = nullptr;
-            delete this;
-            return result;
-        }
-    }
-
-  private:
-    Class* instance_;
-    Method method_;
-};
-template <bool del, typename Class, typename A1>
-class MemberResultCallback_0_1<del,
-                               void,
-                               Class,
-                               A1,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class ConstMemberResultCallback01<del,
+                                  void,
+                                  Class,
+                                  A1,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (Class::*Method)(A1);
-    inline MemberResultCallback_0_1(Class* instance, Method method)
+    using base = Callback1<A1>;
+    using Method = void (Class::*)(A1) const;
+    inline ConstMemberResultCallback01(const Class* instance, Method method)
+        : instance_(instance), method_(method) {}
+    bool isRepeatable() const override { return !del; }
+    void run(A1 a1) override {
+        if (!del) {
+            (instance_->*method_)(a1);
+        } else {
+            (instance_->*method_)(a1);
+            method_ = nullptr;
+            delete this;
+        }
+    }
+
+  private:
+    const Class* instance_;
+    Method method_;
+};
+
+template <typename Caller, typename Callee, typename RetType, typename A1>
+inline typename ConstMemberResultCallback01<true, RetType, Caller, A1>::base* MakeCallback(
+    const Caller* instance,
+    RetType (Callee::*method)(A1) const) {
+    return new ConstMemberResultCallback01<true, RetType, Caller, A1>(instance, method);
+}
+
+template <typename Caller, typename Callee, typename RetType, typename A1>
+inline typename ConstMemberResultCallback01<false, RetType, Caller, A1>::base*
+MakePermanentCallback(const Caller* instance, RetType (Callee::*method)(A1) const) {
+    return new ConstMemberResultCallback01<false, RetType, Caller, A1>(instance, method);
+}
+template <bool del,
+          typename RetType,
+          typename Class,
+          typename A1,
+          typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback01 : public ResultCallback1<RetType, A1> {
+  public:
+    using base = ResultCallback1<RetType, A1>;
+    using Method = RetType (Class::*)(A1);
+    inline MemberResultCallback01(Class* instance, Method method)
+        : instance_(instance), method_(method) {}
+    bool isRepeatable() const override { return !del; }
+    RetType run(A1 a1) override {
+        if (!del) {
+            return (instance_->*method_)(a1);
+        } else {
+            RetType result = (instance_->*method_)(a1);
+            method_ = nullptr;
+            delete this;
+            return result;
+        }
+    }
+
+  private:
+    Class* instance_;
+    Method method_;
+};
+template <bool del, typename Class, typename A1>
+class MemberResultCallback01<del,
+                             void,
+                             Class,
+                             A1,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback1<A1> {
+  public:
+    using base = Callback1<A1>;
+    using Method = void (Class::*)(A1);
+    inline MemberResultCallback01(Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -326,24 +326,24 @@ class MemberResultCallback_0_1<del,
 };
 
 template <typename Caller, typename Callee, typename RetType, typename A1>
-inline typename MemberResultCallback_0_1<true, RetType, Caller, A1>::base* MakeCallback(
+inline typename MemberResultCallback01<true, RetType, Caller, A1>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(A1)) {
-    return new MemberResultCallback_0_1<true, RetType, Caller, A1>(instance, method);
+    return new MemberResultCallback01<true, RetType, Caller, A1>(instance, method);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename A1>
-inline typename MemberResultCallback_0_1<false, RetType, Caller, A1>::base* MakePermanentCallback(
+inline typename MemberResultCallback01<false, RetType, Caller, A1>::base* MakePermanentCallback(
     Caller* instance,
     RetType (Callee::*method)(A1)) {
-    return new MemberResultCallback_0_1<false, RetType, Caller, A1>(instance, method);
+    return new MemberResultCallback01<false, RetType, Caller, A1>(instance, method);
 }
 template <bool del, typename RetType, typename A1>
-class FunctionResultCallback_0_1 : public ResultCallback1<RetType, A1> {
+class FunctionResultCallback01 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (*Function)(A1);
-    inline FunctionResultCallback_0_1(Function function) : function_(function) {}
+    using base = ResultCallback1<RetType, A1>;
+    using Function = RetType (*)(A1);
+    inline FunctionResultCallback01(Function function) : function_(function) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
         if (!del) {
@@ -360,11 +360,11 @@ class FunctionResultCallback_0_1 : public ResultCallback1<RetType, A1> {
     Function function_;
 };
 template <bool del, typename A1>
-class FunctionResultCallback_0_1<del, void, A1> : public Callback1<A1> {
+class FunctionResultCallback01<del, void, A1> : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (*Function)(A1);
-    inline FunctionResultCallback_0_1(Function function) : function_(function) {}
+    using base = Callback1<A1>;
+    using Function = void (*)(A1);
+    inline FunctionResultCallback01(Function function) : function_(function) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
         if (!del) {
@@ -381,15 +381,15 @@ class FunctionResultCallback_0_1<del, void, A1> : public Callback1<A1> {
 };
 
 template <typename RetType, typename A1>
-inline typename FunctionResultCallback_0_1<true, RetType, A1>::base* MakeCallback(
+inline typename FunctionResultCallback01<true, RetType, A1>::base* MakeCallback(
     RetType (*function)(A1)) {
-    return new FunctionResultCallback_0_1<true, RetType, A1>(function);
+    return new FunctionResultCallback01<true, RetType, A1>(function);
 }
 
 template <typename RetType, typename A1>
-inline typename FunctionResultCallback_0_1<false, RetType, A1>::base* MakePermanentCallback(
+inline typename FunctionResultCallback01<false, RetType, A1>::base* MakePermanentCallback(
     RetType (*function)(A1)) {
-    return new FunctionResultCallback_0_1<false, RetType, A1>(function);
+    return new FunctionResultCallback01<false, RetType, A1>(function);
 }
 template <bool del,
           typename RetType,
@@ -397,11 +397,11 @@ template <bool del,
           typename A1,
           typename A2,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_0_2 : public ResultCallback2<RetType, A1, A2> {
+class ConstMemberResultCallback02 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (Class::*Method)(A1, A2) const;
-    inline ConstMemberResultCallback_0_2(const Class* instance, Method method)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Method = RetType (Class::*)(A1, A2) const;
+    inline ConstMemberResultCallback02(const Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -420,86 +420,86 @@ class ConstMemberResultCallback_0_2 : public ResultCallback2<RetType, A1, A2> {
     Method method_;
 };
 template <bool del, typename Class, typename A1, typename A2>
-class ConstMemberResultCallback_0_2<
-    del,
-    void,
-    Class,
-    A1,
-    A2,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback2<A1, A2> {
-  public:
-    typedef Callback2<A1, A2> base;
-    typedef void (Class::*Method)(A1, A2) const;
-    inline ConstMemberResultCallback_0_2(const Class* instance, Method method)
-        : instance_(instance), method_(method) {}
-    bool isRepeatable() const override { return !del; }
-    void run(A1 a1, A2 a2) override {
-        if (!del) {
-            (instance_->*method_)(a1, a2);
-        } else {
-            (instance_->*method_)(a1, a2);
-            method_ = nullptr;
-            delete this;
-        }
-    }
-
-  private:
-    const Class* instance_;
-    Method method_;
-};
-
-template <typename Caller, typename Callee, typename RetType, typename A1, typename A2>
-inline typename ConstMemberResultCallback_0_2<true, RetType, Caller, A1, A2>::base* MakeCallback(
-    const Caller* instance,
-    RetType (Callee::*method)(A1, A2) const) {
-    return new ConstMemberResultCallback_0_2<true, RetType, Caller, A1, A2>(instance, method);
-}
-
-template <typename Caller, typename Callee, typename RetType, typename A1, typename A2>
-inline typename ConstMemberResultCallback_0_2<false, RetType, Caller, A1, A2>::base*
-MakePermanentCallback(const Caller* instance, RetType (Callee::*method)(A1, A2) const) {
-    return new ConstMemberResultCallback_0_2<false, RetType, Caller, A1, A2>(instance, method);
-}
-template <bool del,
-          typename RetType,
-          typename Class,
-          typename A1,
-          typename A2,
-          typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_0_2 : public ResultCallback2<RetType, A1, A2> {
-  public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (Class::*Method)(A1, A2);
-    inline MemberResultCallback_0_2(Class* instance, Method method)
-        : instance_(instance), method_(method) {}
-    bool isRepeatable() const override { return !del; }
-    RetType run(A1 a1, A2 a2) override {
-        if (!del) {
-            return (instance_->*method_)(a1, a2);
-        } else {
-            RetType result = (instance_->*method_)(a1, a2);
-            method_ = nullptr;
-            delete this;
-            return result;
-        }
-    }
-
-  private:
-    Class* instance_;
-    Method method_;
-};
-template <bool del, typename Class, typename A1, typename A2>
-class MemberResultCallback_0_2<del,
-                               void,
-                               Class,
-                               A1,
-                               A2,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class ConstMemberResultCallback02<del,
+                                  void,
+                                  Class,
+                                  A1,
+                                  A2,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (Class::*Method)(A1, A2);
-    inline MemberResultCallback_0_2(Class* instance, Method method)
+    using base = Callback2<A1, A2>;
+    using Method = void (Class::*)(A1, A2) const;
+    inline ConstMemberResultCallback02(const Class* instance, Method method)
+        : instance_(instance), method_(method) {}
+    bool isRepeatable() const override { return !del; }
+    void run(A1 a1, A2 a2) override {
+        if (!del) {
+            (instance_->*method_)(a1, a2);
+        } else {
+            (instance_->*method_)(a1, a2);
+            method_ = nullptr;
+            delete this;
+        }
+    }
+
+  private:
+    const Class* instance_;
+    Method method_;
+};
+
+template <typename Caller, typename Callee, typename RetType, typename A1, typename A2>
+inline typename ConstMemberResultCallback02<true, RetType, Caller, A1, A2>::base* MakeCallback(
+    const Caller* instance,
+    RetType (Callee::*method)(A1, A2) const) {
+    return new ConstMemberResultCallback02<true, RetType, Caller, A1, A2>(instance, method);
+}
+
+template <typename Caller, typename Callee, typename RetType, typename A1, typename A2>
+inline typename ConstMemberResultCallback02<false, RetType, Caller, A1, A2>::base*
+MakePermanentCallback(const Caller* instance, RetType (Callee::*method)(A1, A2) const) {
+    return new ConstMemberResultCallback02<false, RetType, Caller, A1, A2>(instance, method);
+}
+template <bool del,
+          typename RetType,
+          typename Class,
+          typename A1,
+          typename A2,
+          typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback02 : public ResultCallback2<RetType, A1, A2> {
+  public:
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Method = RetType (Class::*)(A1, A2);
+    inline MemberResultCallback02(Class* instance, Method method)
+        : instance_(instance), method_(method) {}
+    bool isRepeatable() const override { return !del; }
+    RetType run(A1 a1, A2 a2) override {
+        if (!del) {
+            return (instance_->*method_)(a1, a2);
+        } else {
+            RetType result = (instance_->*method_)(a1, a2);
+            method_ = nullptr;
+            delete this;
+            return result;
+        }
+    }
+
+  private:
+    Class* instance_;
+    Method method_;
+};
+template <bool del, typename Class, typename A1, typename A2>
+class MemberResultCallback02<del,
+                             void,
+                             Class,
+                             A1,
+                             A2,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback2<A1, A2> {
+  public:
+    using base = Callback2<A1, A2>;
+    using Method = void (Class::*)(A1, A2);
+    inline MemberResultCallback02(Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
@@ -518,23 +518,24 @@ class MemberResultCallback_0_2<del,
 };
 
 template <typename Caller, typename Callee, typename RetType, typename A1, typename A2>
-inline typename MemberResultCallback_0_2<true, RetType, Caller, A1, A2>::base* MakeCallback(
+inline typename MemberResultCallback02<true, RetType, Caller, A1, A2>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(A1, A2)) {
-    return new MemberResultCallback_0_2<true, RetType, Caller, A1, A2>(instance, method);
+    return new MemberResultCallback02<true, RetType, Caller, A1, A2>(instance, method);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename A1, typename A2>
-inline typename MemberResultCallback_0_2<false, RetType, Caller, A1, A2>::base*
-MakePermanentCallback(Caller* instance, RetType (Callee::*method)(A1, A2)) {
-    return new MemberResultCallback_0_2<false, RetType, Caller, A1, A2>(instance, method);
+inline typename MemberResultCallback02<false, RetType, Caller, A1, A2>::base* MakePermanentCallback(
+    Caller* instance,
+    RetType (Callee::*method)(A1, A2)) {
+    return new MemberResultCallback02<false, RetType, Caller, A1, A2>(instance, method);
 }
 template <bool del, typename RetType, typename A1, typename A2>
-class FunctionResultCallback_0_2 : public ResultCallback2<RetType, A1, A2> {
+class FunctionResultCallback02 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (*Function)(A1, A2);
-    inline FunctionResultCallback_0_2(Function function) : function_(function) {}
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Function = RetType (*)(A1, A2);
+    inline FunctionResultCallback02(Function function) : function_(function) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
         if (!del) {
@@ -551,11 +552,11 @@ class FunctionResultCallback_0_2 : public ResultCallback2<RetType, A1, A2> {
     Function function_;
 };
 template <bool del, typename A1, typename A2>
-class FunctionResultCallback_0_2<del, void, A1, A2> : public Callback2<A1, A2> {
+class FunctionResultCallback02<del, void, A1, A2> : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (*Function)(A1, A2);
-    inline FunctionResultCallback_0_2(Function function) : function_(function) {}
+    using base = Callback2<A1, A2>;
+    using Function = void (*)(A1, A2);
+    inline FunctionResultCallback02(Function function) : function_(function) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
         if (!del) {
@@ -572,15 +573,15 @@ class FunctionResultCallback_0_2<del, void, A1, A2> : public Callback2<A1, A2> {
 };
 
 template <typename RetType, typename A1, typename A2>
-inline typename FunctionResultCallback_0_2<true, RetType, A1, A2>::base* MakeCallback(
+inline typename FunctionResultCallback02<true, RetType, A1, A2>::base* MakeCallback(
     RetType (*function)(A1, A2)) {
-    return new FunctionResultCallback_0_2<true, RetType, A1, A2>(function);
+    return new FunctionResultCallback02<true, RetType, A1, A2>(function);
 }
 
 template <typename RetType, typename A1, typename A2>
-inline typename FunctionResultCallback_0_2<false, RetType, A1, A2>::base* MakePermanentCallback(
+inline typename FunctionResultCallback02<false, RetType, A1, A2>::base* MakePermanentCallback(
     RetType (*function)(A1, A2)) {
-    return new FunctionResultCallback_0_2<false, RetType, A1, A2>(function);
+    return new FunctionResultCallback02<false, RetType, A1, A2>(function);
 }
 template <bool del,
           typename RetType,
@@ -589,11 +590,11 @@ template <bool del,
           typename A2,
           typename A3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_0_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class ConstMemberResultCallback03 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (Class::*Method)(A1, A2, A3) const;
-    inline ConstMemberResultCallback_0_3(const Class* instance, Method method)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Method = RetType (Class::*)(A1, A2, A3) const;
+    inline ConstMemberResultCallback03(const Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -612,19 +613,18 @@ class ConstMemberResultCallback_0_3 : public ResultCallback3<RetType, A1, A2, A3
     Method method_;
 };
 template <bool del, typename Class, typename A1, typename A2, typename A3>
-class ConstMemberResultCallback_0_3<
-    del,
-    void,
-    Class,
-    A1,
-    A2,
-    A3,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class ConstMemberResultCallback03<del,
+                                  void,
+                                  Class,
+                                  A1,
+                                  A2,
+                                  A3,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (Class::*Method)(A1, A2, A3) const;
-    inline ConstMemberResultCallback_0_3(const Class* instance, Method method)
+    using base = Callback3<A1, A2, A3>;
+    using Method = void (Class::*)(A1, A2, A3) const;
+    inline ConstMemberResultCallback03(const Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -643,15 +643,16 @@ class ConstMemberResultCallback_0_3<
 };
 
 template <typename Caller, typename Callee, typename RetType, typename A1, typename A2, typename A3>
-inline typename ConstMemberResultCallback_0_3<true, RetType, Caller, A1, A2, A3>::base*
-MakeCallback(const Caller* instance, RetType (Callee::*method)(A1, A2, A3) const) {
-    return new ConstMemberResultCallback_0_3<true, RetType, Caller, A1, A2, A3>(instance, method);
+inline typename ConstMemberResultCallback03<true, RetType, Caller, A1, A2, A3>::base* MakeCallback(
+    const Caller* instance,
+    RetType (Callee::*method)(A1, A2, A3) const) {
+    return new ConstMemberResultCallback03<true, RetType, Caller, A1, A2, A3>(instance, method);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename A1, typename A2, typename A3>
-inline typename ConstMemberResultCallback_0_3<false, RetType, Caller, A1, A2, A3>::base*
+inline typename ConstMemberResultCallback03<false, RetType, Caller, A1, A2, A3>::base*
 MakePermanentCallback(const Caller* instance, RetType (Callee::*method)(A1, A2, A3) const) {
-    return new ConstMemberResultCallback_0_3<false, RetType, Caller, A1, A2, A3>(instance, method);
+    return new ConstMemberResultCallback03<false, RetType, Caller, A1, A2, A3>(instance, method);
 }
 template <bool del,
           typename RetType,
@@ -660,11 +661,11 @@ template <bool del,
           typename A2,
           typename A3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_0_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class MemberResultCallback03 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (Class::*Method)(A1, A2, A3);
-    inline MemberResultCallback_0_3(Class* instance, Method method)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Method = RetType (Class::*)(A1, A2, A3);
+    inline MemberResultCallback03(Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -683,18 +684,18 @@ class MemberResultCallback_0_3 : public ResultCallback3<RetType, A1, A2, A3> {
     Method method_;
 };
 template <bool del, typename Class, typename A1, typename A2, typename A3>
-class MemberResultCallback_0_3<del,
-                               void,
-                               Class,
-                               A1,
-                               A2,
-                               A3,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback03<del,
+                             void,
+                             Class,
+                             A1,
+                             A2,
+                             A3,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (Class::*Method)(A1, A2, A3);
-    inline MemberResultCallback_0_3(Class* instance, Method method)
+    using base = Callback3<A1, A2, A3>;
+    using Method = void (Class::*)(A1, A2, A3);
+    inline MemberResultCallback03(Class* instance, Method method)
         : instance_(instance), method_(method) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -713,23 +714,23 @@ class MemberResultCallback_0_3<del,
 };
 
 template <typename Caller, typename Callee, typename RetType, typename A1, typename A2, typename A3>
-inline typename MemberResultCallback_0_3<true, RetType, Caller, A1, A2, A3>::base* MakeCallback(
+inline typename MemberResultCallback03<true, RetType, Caller, A1, A2, A3>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(A1, A2, A3)) {
-    return new MemberResultCallback_0_3<true, RetType, Caller, A1, A2, A3>(instance, method);
+    return new MemberResultCallback03<true, RetType, Caller, A1, A2, A3>(instance, method);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename A1, typename A2, typename A3>
-inline typename MemberResultCallback_0_3<false, RetType, Caller, A1, A2, A3>::base*
+inline typename MemberResultCallback03<false, RetType, Caller, A1, A2, A3>::base*
 MakePermanentCallback(Caller* instance, RetType (Callee::*method)(A1, A2, A3)) {
-    return new MemberResultCallback_0_3<false, RetType, Caller, A1, A2, A3>(instance, method);
+    return new MemberResultCallback03<false, RetType, Caller, A1, A2, A3>(instance, method);
 }
 template <bool del, typename RetType, typename A1, typename A2, typename A3>
-class FunctionResultCallback_0_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class FunctionResultCallback03 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (*Function)(A1, A2, A3);
-    inline FunctionResultCallback_0_3(Function function) : function_(function) {}
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Function = RetType (*)(A1, A2, A3);
+    inline FunctionResultCallback03(Function function) : function_(function) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
         if (!del) {
@@ -746,11 +747,11 @@ class FunctionResultCallback_0_3 : public ResultCallback3<RetType, A1, A2, A3> {
     Function function_;
 };
 template <bool del, typename A1, typename A2, typename A3>
-class FunctionResultCallback_0_3<del, void, A1, A2, A3> : public Callback3<A1, A2, A3> {
+class FunctionResultCallback03<del, void, A1, A2, A3> : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (*Function)(A1, A2, A3);
-    inline FunctionResultCallback_0_3(Function function) : function_(function) {}
+    using base = Callback3<A1, A2, A3>;
+    using Function = void (*)(A1, A2, A3);
+    inline FunctionResultCallback03(Function function) : function_(function) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
         if (!del) {
@@ -767,28 +768,28 @@ class FunctionResultCallback_0_3<del, void, A1, A2, A3> : public Callback3<A1, A
 };
 
 template <typename RetType, typename A1, typename A2, typename A3>
-inline typename FunctionResultCallback_0_3<true, RetType, A1, A2, A3>::base* MakeCallback(
+inline typename FunctionResultCallback03<true, RetType, A1, A2, A3>::base* MakeCallback(
     RetType (*function)(A1, A2, A3)) {
-    return new FunctionResultCallback_0_3<true, RetType, A1, A2, A3>(function);
+    return new FunctionResultCallback03<true, RetType, A1, A2, A3>(function);
 }
 
 template <typename RetType, typename A1, typename A2, typename A3>
-inline typename FunctionResultCallback_0_3<false, RetType, A1, A2, A3>::base* MakePermanentCallback(
+inline typename FunctionResultCallback03<false, RetType, A1, A2, A3>::base* MakePermanentCallback(
     RetType (*function)(A1, A2, A3)) {
-    return new FunctionResultCallback_0_3<false, RetType, A1, A2, A3>(function);
+    return new FunctionResultCallback03<false, RetType, A1, A2, A3>(function);
 }
 template <bool del,
           typename RetType,
           typename Class,
           typename P1,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_1_0 : public ResultCallback<RetType> {
+class ConstMemberResultCallback10 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (Class::*Method)(P1) const;
-    inline ConstMemberResultCallback_1_0(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback<RetType>;
+    using Method = RetType (Class::*)(P1) const;
+    inline ConstMemberResultCallback10(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -808,18 +809,18 @@ class ConstMemberResultCallback_1_0 : public ResultCallback<RetType> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename Class, typename P1>
-class ConstMemberResultCallback_1_0<
-    del,
-    void,
-    Class,
-    P1,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback {
+class ConstMemberResultCallback10<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback {
   public:
-    typedef Callback base;
-    typedef void (Class::*Method)(P1) const;
-    inline ConstMemberResultCallback_1_0(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1)
+    using base = Callback;
+    using Method = void (Class::*)(P1) const;
+    inline ConstMemberResultCallback10(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -839,32 +840,32 @@ class ConstMemberResultCallback_1_0<
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1>
-inline typename ConstMemberResultCallback_1_0<true, RetType, Caller, P1>::base* MakeCallback(
+inline typename ConstMemberResultCallback10<true, RetType, Caller, P1>::base* MakeCallback(
     const Caller* instance,
     RetType (Callee::*method)(P1) const,
     typename internal::ConstRef<P1>::type p1) {
-    return new ConstMemberResultCallback_1_0<true, RetType, Caller, P1>(instance, method, p1);
+    return new ConstMemberResultCallback10<true, RetType, Caller, P1>(instance, method, p1);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1>
-inline typename ConstMemberResultCallback_1_0<false, RetType, Caller, P1>::base*
+inline typename ConstMemberResultCallback10<false, RetType, Caller, P1>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1) const,
                       typename internal::ConstRef<P1>::type p1) {
-    return new ConstMemberResultCallback_1_0<false, RetType, Caller, P1>(instance, method, p1);
+    return new ConstMemberResultCallback10<false, RetType, Caller, P1>(instance, method, p1);
 }
 template <bool del,
           typename RetType,
           typename Class,
           typename P1,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_1_0 : public ResultCallback<RetType> {
+class MemberResultCallback10 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (Class::*Method)(P1);
-    inline MemberResultCallback_1_0(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback<RetType>;
+    using Method = RetType (Class::*)(P1);
+    inline MemberResultCallback10(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -884,18 +885,18 @@ class MemberResultCallback_1_0 : public ResultCallback<RetType> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename Class, typename P1>
-class MemberResultCallback_1_0<del,
-                               void,
-                               Class,
-                               P1,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback10<del,
+                             void,
+                             Class,
+                             P1,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback {
   public:
-    typedef Callback base;
-    typedef void (Class::*Method)(P1);
-    inline MemberResultCallback_1_0(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1)
+    using base = Callback;
+    using Method = void (Class::*)(P1);
+    inline MemberResultCallback10(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -915,26 +916,26 @@ class MemberResultCallback_1_0<del,
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1>
-inline typename MemberResultCallback_1_0<true, RetType, Caller, P1>::base* MakeCallback(
+inline typename MemberResultCallback10<true, RetType, Caller, P1>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(P1),
     typename internal::ConstRef<P1>::type p1) {
-    return new MemberResultCallback_1_0<true, RetType, Caller, P1>(instance, method, p1);
+    return new MemberResultCallback10<true, RetType, Caller, P1>(instance, method, p1);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1>
-inline typename MemberResultCallback_1_0<false, RetType, Caller, P1>::base* MakePermanentCallback(
+inline typename MemberResultCallback10<false, RetType, Caller, P1>::base* MakePermanentCallback(
     Caller* instance,
     RetType (Callee::*method)(P1),
     typename internal::ConstRef<P1>::type p1) {
-    return new MemberResultCallback_1_0<false, RetType, Caller, P1>(instance, method, p1);
+    return new MemberResultCallback10<false, RetType, Caller, P1>(instance, method, p1);
 }
 template <bool del, typename RetType, typename P1>
-class FunctionResultCallback_1_0 : public ResultCallback<RetType> {
+class FunctionResultCallback10 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (*Function)(P1);
-    inline FunctionResultCallback_1_0(Function function, typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback<RetType>;
+    using Function = RetType (*)(P1);
+    inline FunctionResultCallback10(Function function, typename internal::ConstRef<P1>::type p1)
         : function_(function), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -953,11 +954,11 @@ class FunctionResultCallback_1_0 : public ResultCallback<RetType> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename P1>
-class FunctionResultCallback_1_0<del, void, P1> : public Callback {
+class FunctionResultCallback10<del, void, P1> : public Callback {
   public:
-    typedef Callback base;
-    typedef void (*Function)(P1);
-    inline FunctionResultCallback_1_0(Function function, typename internal::ConstRef<P1>::type p1)
+    using base = Callback;
+    using Function = void (*)(P1);
+    inline FunctionResultCallback10(Function function, typename internal::ConstRef<P1>::type p1)
         : function_(function), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -976,17 +977,17 @@ class FunctionResultCallback_1_0<del, void, P1> : public Callback {
 };
 
 template <typename RetType, typename P1>
-inline typename FunctionResultCallback_1_0<true, RetType, P1>::base* MakeCallback(
+inline typename FunctionResultCallback10<true, RetType, P1>::base* MakeCallback(
     RetType (*function)(P1),
     typename internal::ConstRef<P1>::type p1) {
-    return new FunctionResultCallback_1_0<true, RetType, P1>(function, p1);
+    return new FunctionResultCallback10<true, RetType, P1>(function, p1);
 }
 
 template <typename RetType, typename P1>
-inline typename FunctionResultCallback_1_0<false, RetType, P1>::base* MakePermanentCallback(
+inline typename FunctionResultCallback10<false, RetType, P1>::base* MakePermanentCallback(
     RetType (*function)(P1),
     typename internal::ConstRef<P1>::type p1) {
-    return new FunctionResultCallback_1_0<false, RetType, P1>(function, p1);
+    return new FunctionResultCallback10<false, RetType, P1>(function, p1);
 }
 template <bool del,
           typename RetType,
@@ -994,13 +995,13 @@ template <bool del,
           typename P1,
           typename A1,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_1_1 : public ResultCallback1<RetType, A1> {
+class ConstMemberResultCallback11 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (Class::*Method)(P1, A1) const;
-    inline ConstMemberResultCallback_1_1(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback1<RetType, A1>;
+    using Method = RetType (Class::*)(P1, A1) const;
+    inline ConstMemberResultCallback11(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -1020,19 +1021,19 @@ class ConstMemberResultCallback_1_1 : public ResultCallback1<RetType, A1> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename Class, typename P1, typename A1>
-class ConstMemberResultCallback_1_1<
-    del,
-    void,
-    Class,
-    P1,
-    A1,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback1<A1> {
+class ConstMemberResultCallback11<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  A1,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (Class::*Method)(P1, A1) const;
-    inline ConstMemberResultCallback_1_1(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1)
+    using base = Callback1<A1>;
+    using Method = void (Class::*)(P1, A1) const;
+    inline ConstMemberResultCallback11(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -1052,19 +1053,19 @@ class ConstMemberResultCallback_1_1<
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename A1>
-inline typename ConstMemberResultCallback_1_1<true, RetType, Caller, P1, A1>::base* MakeCallback(
+inline typename ConstMemberResultCallback11<true, RetType, Caller, P1, A1>::base* MakeCallback(
     const Caller* instance,
     RetType (Callee::*method)(P1, A1) const,
     typename internal::ConstRef<P1>::type p1) {
-    return new ConstMemberResultCallback_1_1<true, RetType, Caller, P1, A1>(instance, method, p1);
+    return new ConstMemberResultCallback11<true, RetType, Caller, P1, A1>(instance, method, p1);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename A1>
-inline typename ConstMemberResultCallback_1_1<false, RetType, Caller, P1, A1>::base*
+inline typename ConstMemberResultCallback11<false, RetType, Caller, P1, A1>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, A1) const,
                       typename internal::ConstRef<P1>::type p1) {
-    return new ConstMemberResultCallback_1_1<false, RetType, Caller, P1, A1>(instance, method, p1);
+    return new ConstMemberResultCallback11<false, RetType, Caller, P1, A1>(instance, method, p1);
 }
 template <bool del,
           typename RetType,
@@ -1072,13 +1073,13 @@ template <bool del,
           typename P1,
           typename A1,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_1_1 : public ResultCallback1<RetType, A1> {
+class MemberResultCallback11 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (Class::*Method)(P1, A1);
-    inline MemberResultCallback_1_1(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback1<RetType, A1>;
+    using Method = RetType (Class::*)(P1, A1);
+    inline MemberResultCallback11(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -1098,19 +1099,19 @@ class MemberResultCallback_1_1 : public ResultCallback1<RetType, A1> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename Class, typename P1, typename A1>
-class MemberResultCallback_1_1<del,
-                               void,
-                               Class,
-                               P1,
-                               A1,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback11<del,
+                             void,
+                             Class,
+                             P1,
+                             A1,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (Class::*Method)(P1, A1);
-    inline MemberResultCallback_1_1(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1)
+    using base = Callback1<A1>;
+    using Method = void (Class::*)(P1, A1);
+    inline MemberResultCallback11(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -1130,26 +1131,26 @@ class MemberResultCallback_1_1<del,
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename A1>
-inline typename MemberResultCallback_1_1<true, RetType, Caller, P1, A1>::base* MakeCallback(
+inline typename MemberResultCallback11<true, RetType, Caller, P1, A1>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(P1, A1),
     typename internal::ConstRef<P1>::type p1) {
-    return new MemberResultCallback_1_1<true, RetType, Caller, P1, A1>(instance, method, p1);
+    return new MemberResultCallback11<true, RetType, Caller, P1, A1>(instance, method, p1);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename A1>
-inline typename MemberResultCallback_1_1<false, RetType, Caller, P1, A1>::base*
-MakePermanentCallback(Caller* instance,
-                      RetType (Callee::*method)(P1, A1),
-                      typename internal::ConstRef<P1>::type p1) {
-    return new MemberResultCallback_1_1<false, RetType, Caller, P1, A1>(instance, method, p1);
+inline typename MemberResultCallback11<false, RetType, Caller, P1, A1>::base* MakePermanentCallback(
+    Caller* instance,
+    RetType (Callee::*method)(P1, A1),
+    typename internal::ConstRef<P1>::type p1) {
+    return new MemberResultCallback11<false, RetType, Caller, P1, A1>(instance, method, p1);
 }
 template <bool del, typename RetType, typename P1, typename A1>
-class FunctionResultCallback_1_1 : public ResultCallback1<RetType, A1> {
+class FunctionResultCallback11 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (*Function)(P1, A1);
-    inline FunctionResultCallback_1_1(Function function, typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback1<RetType, A1>;
+    using Function = RetType (*)(P1, A1);
+    inline FunctionResultCallback11(Function function, typename internal::ConstRef<P1>::type p1)
         : function_(function), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -1168,11 +1169,11 @@ class FunctionResultCallback_1_1 : public ResultCallback1<RetType, A1> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename P1, typename A1>
-class FunctionResultCallback_1_1<del, void, P1, A1> : public Callback1<A1> {
+class FunctionResultCallback11<del, void, P1, A1> : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (*Function)(P1, A1);
-    inline FunctionResultCallback_1_1(Function function, typename internal::ConstRef<P1>::type p1)
+    using base = Callback1<A1>;
+    using Function = void (*)(P1, A1);
+    inline FunctionResultCallback11(Function function, typename internal::ConstRef<P1>::type p1)
         : function_(function), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -1191,17 +1192,17 @@ class FunctionResultCallback_1_1<del, void, P1, A1> : public Callback1<A1> {
 };
 
 template <typename RetType, typename P1, typename A1>
-inline typename FunctionResultCallback_1_1<true, RetType, P1, A1>::base* MakeCallback(
+inline typename FunctionResultCallback11<true, RetType, P1, A1>::base* MakeCallback(
     RetType (*function)(P1, A1),
     typename internal::ConstRef<P1>::type p1) {
-    return new FunctionResultCallback_1_1<true, RetType, P1, A1>(function, p1);
+    return new FunctionResultCallback11<true, RetType, P1, A1>(function, p1);
 }
 
 template <typename RetType, typename P1, typename A1>
-inline typename FunctionResultCallback_1_1<false, RetType, P1, A1>::base* MakePermanentCallback(
+inline typename FunctionResultCallback11<false, RetType, P1, A1>::base* MakePermanentCallback(
     RetType (*function)(P1, A1),
     typename internal::ConstRef<P1>::type p1) {
-    return new FunctionResultCallback_1_1<false, RetType, P1, A1>(function, p1);
+    return new FunctionResultCallback11<false, RetType, P1, A1>(function, p1);
 }
 template <bool del,
           typename RetType,
@@ -1210,13 +1211,13 @@ template <bool del,
           typename A1,
           typename A2,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_1_2 : public ResultCallback2<RetType, A1, A2> {
+class ConstMemberResultCallback12 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (Class::*Method)(P1, A1, A2) const;
-    inline ConstMemberResultCallback_1_2(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Method = RetType (Class::*)(P1, A1, A2) const;
+    inline ConstMemberResultCallback12(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -1236,20 +1237,20 @@ class ConstMemberResultCallback_1_2 : public ResultCallback2<RetType, A1, A2> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename Class, typename P1, typename A1, typename A2>
-class ConstMemberResultCallback_1_2<
-    del,
-    void,
-    Class,
-    P1,
-    A1,
-    A2,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback2<A1, A2> {
+class ConstMemberResultCallback12<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  A1,
+                                  A2,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (Class::*Method)(P1, A1, A2) const;
-    inline ConstMemberResultCallback_1_2(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1)
+    using base = Callback2<A1, A2>;
+    using Method = void (Class::*)(P1, A1, A2) const;
+    inline ConstMemberResultCallback12(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
@@ -1269,21 +1270,20 @@ class ConstMemberResultCallback_1_2<
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename A1, typename A2>
-inline typename ConstMemberResultCallback_1_2<true, RetType, Caller, P1, A1, A2>::base*
-MakeCallback(const Caller* instance,
-             RetType (Callee::*method)(P1, A1, A2) const,
-             typename internal::ConstRef<P1>::type p1) {
-    return new ConstMemberResultCallback_1_2<true, RetType, Caller, P1, A1, A2>(instance, method,
-                                                                                p1);
+inline typename ConstMemberResultCallback12<true, RetType, Caller, P1, A1, A2>::base* MakeCallback(
+    const Caller* instance,
+    RetType (Callee::*method)(P1, A1, A2) const,
+    typename internal::ConstRef<P1>::type p1) {
+    return new ConstMemberResultCallback12<true, RetType, Caller, P1, A1, A2>(instance, method, p1);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename A1, typename A2>
-inline typename ConstMemberResultCallback_1_2<false, RetType, Caller, P1, A1, A2>::base*
+inline typename ConstMemberResultCallback12<false, RetType, Caller, P1, A1, A2>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, A1, A2) const,
                       typename internal::ConstRef<P1>::type p1) {
-    return new ConstMemberResultCallback_1_2<false, RetType, Caller, P1, A1, A2>(instance, method,
-                                                                                 p1);
+    return new ConstMemberResultCallback12<false, RetType, Caller, P1, A1, A2>(instance, method,
+                                                                               p1);
 }
 template <bool del,
           typename RetType,
@@ -1292,13 +1292,13 @@ template <bool del,
           typename A1,
           typename A2,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_1_2 : public ResultCallback2<RetType, A1, A2> {
+class MemberResultCallback12 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (Class::*Method)(P1, A1, A2);
-    inline MemberResultCallback_1_2(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Method = RetType (Class::*)(P1, A1, A2);
+    inline MemberResultCallback12(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -1318,21 +1318,21 @@ class MemberResultCallback_1_2 : public ResultCallback2<RetType, A1, A2> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename Class, typename P1, typename A1, typename A2>
-class MemberResultCallback_1_2<del,
-                               void,
-                               Class,
-                               P1,
-                               A1,
-                               A2,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback12<del,
+                             void,
+                             Class,
+                             P1,
+                             A1,
+                             A2,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (Class::*Method)(P1, A1, A2);
-    inline MemberResultCallback_1_2(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1)
-        : instance_(instance), method_(method), p1_(p1) {}
+    using base = Callback2<A1, A2>;
+    using Method = void (Class::*)(P1, A1, A2);
+    inline MemberResultCallback12(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1)
+        : instance_(instance), method_(method), p1_(std::move(p1)) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
         if (!del) {
@@ -1351,26 +1351,26 @@ class MemberResultCallback_1_2<del,
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename A1, typename A2>
-inline typename MemberResultCallback_1_2<true, RetType, Caller, P1, A1, A2>::base* MakeCallback(
+inline typename MemberResultCallback12<true, RetType, Caller, P1, A1, A2>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(P1, A1, A2),
     typename internal::ConstRef<P1>::type p1) {
-    return new MemberResultCallback_1_2<true, RetType, Caller, P1, A1, A2>(instance, method, p1);
+    return new MemberResultCallback12<true, RetType, Caller, P1, A1, A2>(instance, method, p1);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename A1, typename A2>
-inline typename MemberResultCallback_1_2<false, RetType, Caller, P1, A1, A2>::base*
+inline typename MemberResultCallback12<false, RetType, Caller, P1, A1, A2>::base*
 MakePermanentCallback(Caller* instance,
                       RetType (Callee::*method)(P1, A1, A2),
                       typename internal::ConstRef<P1>::type p1) {
-    return new MemberResultCallback_1_2<false, RetType, Caller, P1, A1, A2>(instance, method, p1);
+    return new MemberResultCallback12<false, RetType, Caller, P1, A1, A2>(instance, method, p1);
 }
 template <bool del, typename RetType, typename P1, typename A1, typename A2>
-class FunctionResultCallback_1_2 : public ResultCallback2<RetType, A1, A2> {
+class FunctionResultCallback12 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (*Function)(P1, A1, A2);
-    inline FunctionResultCallback_1_2(Function function, typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Function = RetType (*)(P1, A1, A2);
+    inline FunctionResultCallback12(Function function, typename internal::ConstRef<P1>::type p1)
         : function_(function), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -1389,11 +1389,11 @@ class FunctionResultCallback_1_2 : public ResultCallback2<RetType, A1, A2> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename P1, typename A1, typename A2>
-class FunctionResultCallback_1_2<del, void, P1, A1, A2> : public Callback2<A1, A2> {
+class FunctionResultCallback12<del, void, P1, A1, A2> : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (*Function)(P1, A1, A2);
-    inline FunctionResultCallback_1_2(Function function, typename internal::ConstRef<P1>::type p1)
+    using base = Callback2<A1, A2>;
+    using Function = void (*)(P1, A1, A2);
+    inline FunctionResultCallback12(Function function, typename internal::ConstRef<P1>::type p1)
         : function_(function), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
@@ -1412,17 +1412,17 @@ class FunctionResultCallback_1_2<del, void, P1, A1, A2> : public Callback2<A1, A
 };
 
 template <typename RetType, typename P1, typename A1, typename A2>
-inline typename FunctionResultCallback_1_2<true, RetType, P1, A1, A2>::base* MakeCallback(
+inline typename FunctionResultCallback12<true, RetType, P1, A1, A2>::base* MakeCallback(
     RetType (*function)(P1, A1, A2),
     typename internal::ConstRef<P1>::type p1) {
-    return new FunctionResultCallback_1_2<true, RetType, P1, A1, A2>(function, p1);
+    return new FunctionResultCallback12<true, RetType, P1, A1, A2>(function, p1);
 }
 
 template <typename RetType, typename P1, typename A1, typename A2>
-inline typename FunctionResultCallback_1_2<false, RetType, P1, A1, A2>::base* MakePermanentCallback(
+inline typename FunctionResultCallback12<false, RetType, P1, A1, A2>::base* MakePermanentCallback(
     RetType (*function)(P1, A1, A2),
     typename internal::ConstRef<P1>::type p1) {
-    return new FunctionResultCallback_1_2<false, RetType, P1, A1, A2>(function, p1);
+    return new FunctionResultCallback12<false, RetType, P1, A1, A2>(function, p1);
 }
 template <bool del,
           typename RetType,
@@ -1432,13 +1432,13 @@ template <bool del,
           typename A2,
           typename A3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_1_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class ConstMemberResultCallback13 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (Class::*Method)(P1, A1, A2, A3) const;
-    inline ConstMemberResultCallback_1_3(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Method = RetType (Class::*)(P1, A1, A2, A3) const;
+    inline ConstMemberResultCallback13(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -1458,22 +1458,21 @@ class ConstMemberResultCallback_1_3 : public ResultCallback3<RetType, A1, A2, A3
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename Class, typename P1, typename A1, typename A2, typename A3>
-class ConstMemberResultCallback_1_3<
-    del,
-    void,
-    Class,
-    P1,
-    A1,
-    A2,
-    A3,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class ConstMemberResultCallback13<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  A1,
+                                  A2,
+                                  A3,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (Class::*Method)(P1, A1, A2, A3) const;
-    inline ConstMemberResultCallback_1_3(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1)
+    using base = Callback3<A1, A2, A3>;
+    using Method = void (Class::*)(P1, A1, A2, A3) const;
+    inline ConstMemberResultCallback13(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -1499,12 +1498,12 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename ConstMemberResultCallback_1_3<true, RetType, Caller, P1, A1, A2, A3>::base*
+inline typename ConstMemberResultCallback13<true, RetType, Caller, P1, A1, A2, A3>::base*
 MakeCallback(const Caller* instance,
              RetType (Callee::*method)(P1, A1, A2, A3) const,
              typename internal::ConstRef<P1>::type p1) {
-    return new ConstMemberResultCallback_1_3<true, RetType, Caller, P1, A1, A2, A3>(instance,
-                                                                                    method, p1);
+    return new ConstMemberResultCallback13<true, RetType, Caller, P1, A1, A2, A3>(instance, method,
+                                                                                  p1);
 }
 
 template <typename Caller,
@@ -1514,12 +1513,12 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename ConstMemberResultCallback_1_3<false, RetType, Caller, P1, A1, A2, A3>::base*
+inline typename ConstMemberResultCallback13<false, RetType, Caller, P1, A1, A2, A3>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, A1, A2, A3) const,
                       typename internal::ConstRef<P1>::type p1) {
-    return new ConstMemberResultCallback_1_3<false, RetType, Caller, P1, A1, A2, A3>(instance,
-                                                                                     method, p1);
+    return new ConstMemberResultCallback13<false, RetType, Caller, P1, A1, A2, A3>(instance, method,
+                                                                                   p1);
 }
 template <bool del,
           typename RetType,
@@ -1529,13 +1528,13 @@ template <bool del,
           typename A2,
           typename A3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_1_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class MemberResultCallback13 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (Class::*Method)(P1, A1, A2, A3);
-    inline MemberResultCallback_1_3(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Method = RetType (Class::*)(P1, A1, A2, A3);
+    inline MemberResultCallback13(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -1555,21 +1554,21 @@ class MemberResultCallback_1_3 : public ResultCallback3<RetType, A1, A2, A3> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename Class, typename P1, typename A1, typename A2, typename A3>
-class MemberResultCallback_1_3<del,
-                               void,
-                               Class,
-                               P1,
-                               A1,
-                               A2,
-                               A3,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback13<del,
+                             void,
+                             Class,
+                             P1,
+                             A1,
+                             A2,
+                             A3,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (Class::*Method)(P1, A1, A2, A3);
-    inline MemberResultCallback_1_3(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1)
+    using base = Callback3<A1, A2, A3>;
+    using Method = void (Class::*)(P1, A1, A2, A3);
+    inline MemberResultCallback13(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1)
         : instance_(instance), method_(method), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -1595,12 +1594,11 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename MemberResultCallback_1_3<true, RetType, Caller, P1, A1, A2, A3>::base* MakeCallback(
+inline typename MemberResultCallback13<true, RetType, Caller, P1, A1, A2, A3>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(P1, A1, A2, A3),
     typename internal::ConstRef<P1>::type p1) {
-    return new MemberResultCallback_1_3<true, RetType, Caller, P1, A1, A2, A3>(instance, method,
-                                                                               p1);
+    return new MemberResultCallback13<true, RetType, Caller, P1, A1, A2, A3>(instance, method, p1);
 }
 
 template <typename Caller,
@@ -1610,19 +1608,18 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename MemberResultCallback_1_3<false, RetType, Caller, P1, A1, A2, A3>::base*
+inline typename MemberResultCallback13<false, RetType, Caller, P1, A1, A2, A3>::base*
 MakePermanentCallback(Caller* instance,
                       RetType (Callee::*method)(P1, A1, A2, A3),
                       typename internal::ConstRef<P1>::type p1) {
-    return new MemberResultCallback_1_3<false, RetType, Caller, P1, A1, A2, A3>(instance, method,
-                                                                                p1);
+    return new MemberResultCallback13<false, RetType, Caller, P1, A1, A2, A3>(instance, method, p1);
 }
 template <bool del, typename RetType, typename P1, typename A1, typename A2, typename A3>
-class FunctionResultCallback_1_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class FunctionResultCallback13 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (*Function)(P1, A1, A2, A3);
-    inline FunctionResultCallback_1_3(Function function, typename internal::ConstRef<P1>::type p1)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Function = RetType (*)(P1, A1, A2, A3);
+    inline FunctionResultCallback13(Function function, typename internal::ConstRef<P1>::type p1)
         : function_(function), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -1641,11 +1638,11 @@ class FunctionResultCallback_1_3 : public ResultCallback3<RetType, A1, A2, A3> {
     typename ::std::remove_reference<P1>::type p1_;
 };
 template <bool del, typename P1, typename A1, typename A2, typename A3>
-class FunctionResultCallback_1_3<del, void, P1, A1, A2, A3> : public Callback3<A1, A2, A3> {
+class FunctionResultCallback13<del, void, P1, A1, A2, A3> : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (*Function)(P1, A1, A2, A3);
-    inline FunctionResultCallback_1_3(Function function, typename internal::ConstRef<P1>::type p1)
+    using base = Callback3<A1, A2, A3>;
+    using Function = void (*)(P1, A1, A2, A3);
+    inline FunctionResultCallback13(Function function, typename internal::ConstRef<P1>::type p1)
         : function_(function), p1_(p1) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -1664,17 +1661,17 @@ class FunctionResultCallback_1_3<del, void, P1, A1, A2, A3> : public Callback3<A
 };
 
 template <typename RetType, typename P1, typename A1, typename A2, typename A3>
-inline typename FunctionResultCallback_1_3<true, RetType, P1, A1, A2, A3>::base* MakeCallback(
+inline typename FunctionResultCallback13<true, RetType, P1, A1, A2, A3>::base* MakeCallback(
     RetType (*function)(P1, A1, A2, A3),
     typename internal::ConstRef<P1>::type p1) {
-    return new FunctionResultCallback_1_3<true, RetType, P1, A1, A2, A3>(function, p1);
+    return new FunctionResultCallback13<true, RetType, P1, A1, A2, A3>(function, p1);
 }
 
 template <typename RetType, typename P1, typename A1, typename A2, typename A3>
-inline typename FunctionResultCallback_1_3<false, RetType, P1, A1, A2, A3>::base*
+inline typename FunctionResultCallback13<false, RetType, P1, A1, A2, A3>::base*
 MakePermanentCallback(RetType (*function)(P1, A1, A2, A3),
                       typename internal::ConstRef<P1>::type p1) {
-    return new FunctionResultCallback_1_3<false, RetType, P1, A1, A2, A3>(function, p1);
+    return new FunctionResultCallback13<false, RetType, P1, A1, A2, A3>(function, p1);
 }
 template <bool del,
           typename RetType,
@@ -1682,14 +1679,14 @@ template <bool del,
           typename P1,
           typename P2,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_2_0 : public ResultCallback<RetType> {
+class ConstMemberResultCallback20 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (Class::*Method)(P1, P2) const;
-    inline ConstMemberResultCallback_2_0(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback<RetType>;
+    using Method = RetType (Class::*)(P1, P2) const;
+    inline ConstMemberResultCallback20(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -1710,20 +1707,20 @@ class ConstMemberResultCallback_2_0 : public ResultCallback<RetType> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename Class, typename P1, typename P2>
-class ConstMemberResultCallback_2_0<
-    del,
-    void,
-    Class,
-    P1,
-    P2,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback {
+class ConstMemberResultCallback20<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  P2,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback {
   public:
-    typedef Callback base;
-    typedef void (Class::*Method)(P1, P2) const;
-    inline ConstMemberResultCallback_2_0(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2)
+    using base = Callback;
+    using Method = void (Class::*)(P1, P2) const;
+    inline ConstMemberResultCallback20(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -1744,23 +1741,22 @@ class ConstMemberResultCallback_2_0<
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2>
-inline typename ConstMemberResultCallback_2_0<true, RetType, Caller, P1, P2>::base* MakeCallback(
+inline typename ConstMemberResultCallback20<true, RetType, Caller, P1, P2>::base* MakeCallback(
     const Caller* instance,
     RetType (Callee::*method)(P1, P2) const,
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new ConstMemberResultCallback_2_0<true, RetType, Caller, P1, P2>(instance, method, p1,
-                                                                            p2);
+    return new ConstMemberResultCallback20<true, RetType, Caller, P1, P2>(instance, method, p1, p2);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2>
-inline typename ConstMemberResultCallback_2_0<false, RetType, Caller, P1, P2>::base*
+inline typename ConstMemberResultCallback20<false, RetType, Caller, P1, P2>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, P2) const,
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2) {
-    return new ConstMemberResultCallback_2_0<false, RetType, Caller, P1, P2>(instance, method, p1,
-                                                                             p2);
+    return new ConstMemberResultCallback20<false, RetType, Caller, P1, P2>(instance, method, p1,
+                                                                           p2);
 }
 template <bool del,
           typename RetType,
@@ -1768,14 +1764,14 @@ template <bool del,
           typename P1,
           typename P2,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_2_0 : public ResultCallback<RetType> {
+class MemberResultCallback20 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (Class::*Method)(P1, P2);
-    inline MemberResultCallback_2_0(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback<RetType>;
+    using Method = RetType (Class::*)(P1, P2);
+    inline MemberResultCallback20(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -1796,20 +1792,20 @@ class MemberResultCallback_2_0 : public ResultCallback<RetType> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename Class, typename P1, typename P2>
-class MemberResultCallback_2_0<del,
-                               void,
-                               Class,
-                               P1,
-                               P2,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback20<del,
+                             void,
+                             Class,
+                             P1,
+                             P2,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback {
   public:
-    typedef Callback base;
-    typedef void (Class::*Method)(P1, P2);
-    inline MemberResultCallback_2_0(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2)
+    using base = Callback;
+    using Method = void (Class::*)(P1, P2);
+    inline MemberResultCallback20(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -1830,30 +1826,30 @@ class MemberResultCallback_2_0<del,
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2>
-inline typename MemberResultCallback_2_0<true, RetType, Caller, P1, P2>::base* MakeCallback(
+inline typename MemberResultCallback20<true, RetType, Caller, P1, P2>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(P1, P2),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new MemberResultCallback_2_0<true, RetType, Caller, P1, P2>(instance, method, p1, p2);
+    return new MemberResultCallback20<true, RetType, Caller, P1, P2>(instance, method, p1, p2);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2>
-inline typename MemberResultCallback_2_0<false, RetType, Caller, P1, P2>::base*
-MakePermanentCallback(Caller* instance,
-                      RetType (Callee::*method)(P1, P2),
-                      typename internal::ConstRef<P1>::type p1,
-                      typename internal::ConstRef<P2>::type p2) {
-    return new MemberResultCallback_2_0<false, RetType, Caller, P1, P2>(instance, method, p1, p2);
+inline typename MemberResultCallback20<false, RetType, Caller, P1, P2>::base* MakePermanentCallback(
+    Caller* instance,
+    RetType (Callee::*method)(P1, P2),
+    typename internal::ConstRef<P1>::type p1,
+    typename internal::ConstRef<P2>::type p2) {
+    return new MemberResultCallback20<false, RetType, Caller, P1, P2>(instance, method, p1, p2);
 }
 template <bool del, typename RetType, typename P1, typename P2>
-class FunctionResultCallback_2_0 : public ResultCallback<RetType> {
+class FunctionResultCallback20 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (*Function)(P1, P2);
-    inline FunctionResultCallback_2_0(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback<RetType>;
+    using Function = RetType (*)(P1, P2);
+    inline FunctionResultCallback20(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2)
         : function_(function), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -1873,13 +1869,13 @@ class FunctionResultCallback_2_0 : public ResultCallback<RetType> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename P1, typename P2>
-class FunctionResultCallback_2_0<del, void, P1, P2> : public Callback {
+class FunctionResultCallback20<del, void, P1, P2> : public Callback {
   public:
-    typedef Callback base;
-    typedef void (*Function)(P1, P2);
-    inline FunctionResultCallback_2_0(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2)
+    using base = Callback;
+    using Function = void (*)(P1, P2);
+    inline FunctionResultCallback20(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2)
         : function_(function), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -1899,19 +1895,19 @@ class FunctionResultCallback_2_0<del, void, P1, P2> : public Callback {
 };
 
 template <typename RetType, typename P1, typename P2>
-inline typename FunctionResultCallback_2_0<true, RetType, P1, P2>::base* MakeCallback(
+inline typename FunctionResultCallback20<true, RetType, P1, P2>::base* MakeCallback(
     RetType (*function)(P1, P2),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new FunctionResultCallback_2_0<true, RetType, P1, P2>(function, p1, p2);
+    return new FunctionResultCallback20<true, RetType, P1, P2>(function, p1, p2);
 }
 
 template <typename RetType, typename P1, typename P2>
-inline typename FunctionResultCallback_2_0<false, RetType, P1, P2>::base* MakePermanentCallback(
+inline typename FunctionResultCallback20<false, RetType, P1, P2>::base* MakePermanentCallback(
     RetType (*function)(P1, P2),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new FunctionResultCallback_2_0<false, RetType, P1, P2>(function, p1, p2);
+    return new FunctionResultCallback20<false, RetType, P1, P2>(function, p1, p2);
 }
 template <bool del,
           typename RetType,
@@ -1920,14 +1916,14 @@ template <bool del,
           typename P2,
           typename A1,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_2_1 : public ResultCallback1<RetType, A1> {
+class ConstMemberResultCallback21 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (Class::*Method)(P1, P2, A1) const;
-    inline ConstMemberResultCallback_2_1(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback1<RetType, A1>;
+    using Method = RetType (Class::*)(P1, P2, A1) const;
+    inline ConstMemberResultCallback21(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -1948,21 +1944,21 @@ class ConstMemberResultCallback_2_1 : public ResultCallback1<RetType, A1> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename A1>
-class ConstMemberResultCallback_2_1<
-    del,
-    void,
-    Class,
-    P1,
-    P2,
-    A1,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback1<A1> {
+class ConstMemberResultCallback21<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  P2,
+                                  A1,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (Class::*Method)(P1, P2, A1) const;
-    inline ConstMemberResultCallback_2_1(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2)
+    using base = Callback1<A1>;
+    using Method = void (Class::*)(P1, P2, A1) const;
+    inline ConstMemberResultCallback21(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -1983,23 +1979,23 @@ class ConstMemberResultCallback_2_1<
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2, typename A1>
-inline typename ConstMemberResultCallback_2_1<true, RetType, Caller, P1, P2, A1>::base*
-MakeCallback(const Caller* instance,
-             RetType (Callee::*method)(P1, P2, A1) const,
-             typename internal::ConstRef<P1>::type p1,
-             typename internal::ConstRef<P2>::type p2) {
-    return new ConstMemberResultCallback_2_1<true, RetType, Caller, P1, P2, A1>(instance, method,
-                                                                                p1, p2);
+inline typename ConstMemberResultCallback21<true, RetType, Caller, P1, P2, A1>::base* MakeCallback(
+    const Caller* instance,
+    RetType (Callee::*method)(P1, P2, A1) const,
+    typename internal::ConstRef<P1>::type p1,
+    typename internal::ConstRef<P2>::type p2) {
+    return new ConstMemberResultCallback21<true, RetType, Caller, P1, P2, A1>(instance, method, p1,
+                                                                              p2);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2, typename A1>
-inline typename ConstMemberResultCallback_2_1<false, RetType, Caller, P1, P2, A1>::base*
+inline typename ConstMemberResultCallback21<false, RetType, Caller, P1, P2, A1>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, P2, A1) const,
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2) {
-    return new ConstMemberResultCallback_2_1<false, RetType, Caller, P1, P2, A1>(instance, method,
-                                                                                 p1, p2);
+    return new ConstMemberResultCallback21<false, RetType, Caller, P1, P2, A1>(instance, method, p1,
+                                                                               p2);
 }
 template <bool del,
           typename RetType,
@@ -2008,14 +2004,14 @@ template <bool del,
           typename P2,
           typename A1,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_2_1 : public ResultCallback1<RetType, A1> {
+class MemberResultCallback21 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (Class::*Method)(P1, P2, A1);
-    inline MemberResultCallback_2_1(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback1<RetType, A1>;
+    using Method = RetType (Class::*)(P1, P2, A1);
+    inline MemberResultCallback21(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -2036,21 +2032,21 @@ class MemberResultCallback_2_1 : public ResultCallback1<RetType, A1> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename A1>
-class MemberResultCallback_2_1<del,
-                               void,
-                               Class,
-                               P1,
-                               P2,
-                               A1,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback21<del,
+                             void,
+                             Class,
+                             P1,
+                             P2,
+                             A1,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (Class::*Method)(P1, P2, A1);
-    inline MemberResultCallback_2_1(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2)
+    using base = Callback1<A1>;
+    using Method = void (Class::*)(P1, P2, A1);
+    inline MemberResultCallback21(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -2071,32 +2067,30 @@ class MemberResultCallback_2_1<del,
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2, typename A1>
-inline typename MemberResultCallback_2_1<true, RetType, Caller, P1, P2, A1>::base* MakeCallback(
+inline typename MemberResultCallback21<true, RetType, Caller, P1, P2, A1>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(P1, P2, A1),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new MemberResultCallback_2_1<true, RetType, Caller, P1, P2, A1>(instance, method, p1,
-                                                                           p2);
+    return new MemberResultCallback21<true, RetType, Caller, P1, P2, A1>(instance, method, p1, p2);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2, typename A1>
-inline typename MemberResultCallback_2_1<false, RetType, Caller, P1, P2, A1>::base*
+inline typename MemberResultCallback21<false, RetType, Caller, P1, P2, A1>::base*
 MakePermanentCallback(Caller* instance,
                       RetType (Callee::*method)(P1, P2, A1),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2) {
-    return new MemberResultCallback_2_1<false, RetType, Caller, P1, P2, A1>(instance, method, p1,
-                                                                            p2);
+    return new MemberResultCallback21<false, RetType, Caller, P1, P2, A1>(instance, method, p1, p2);
 }
 template <bool del, typename RetType, typename P1, typename P2, typename A1>
-class FunctionResultCallback_2_1 : public ResultCallback1<RetType, A1> {
+class FunctionResultCallback21 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (*Function)(P1, P2, A1);
-    inline FunctionResultCallback_2_1(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback1<RetType, A1>;
+    using Function = RetType (*)(P1, P2, A1);
+    inline FunctionResultCallback21(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2)
         : function_(function), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -2116,13 +2110,13 @@ class FunctionResultCallback_2_1 : public ResultCallback1<RetType, A1> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename P1, typename P2, typename A1>
-class FunctionResultCallback_2_1<del, void, P1, P2, A1> : public Callback1<A1> {
+class FunctionResultCallback21<del, void, P1, P2, A1> : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (*Function)(P1, P2, A1);
-    inline FunctionResultCallback_2_1(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2)
+    using base = Callback1<A1>;
+    using Function = void (*)(P1, P2, A1);
+    inline FunctionResultCallback21(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2)
         : function_(function), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -2142,19 +2136,19 @@ class FunctionResultCallback_2_1<del, void, P1, P2, A1> : public Callback1<A1> {
 };
 
 template <typename RetType, typename P1, typename P2, typename A1>
-inline typename FunctionResultCallback_2_1<true, RetType, P1, P2, A1>::base* MakeCallback(
+inline typename FunctionResultCallback21<true, RetType, P1, P2, A1>::base* MakeCallback(
     RetType (*function)(P1, P2, A1),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new FunctionResultCallback_2_1<true, RetType, P1, P2, A1>(function, p1, p2);
+    return new FunctionResultCallback21<true, RetType, P1, P2, A1>(function, p1, p2);
 }
 
 template <typename RetType, typename P1, typename P2, typename A1>
-inline typename FunctionResultCallback_2_1<false, RetType, P1, P2, A1>::base* MakePermanentCallback(
+inline typename FunctionResultCallback21<false, RetType, P1, P2, A1>::base* MakePermanentCallback(
     RetType (*function)(P1, P2, A1),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new FunctionResultCallback_2_1<false, RetType, P1, P2, A1>(function, p1, p2);
+    return new FunctionResultCallback21<false, RetType, P1, P2, A1>(function, p1, p2);
 }
 template <bool del,
           typename RetType,
@@ -2164,14 +2158,14 @@ template <bool del,
           typename A1,
           typename A2,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_2_2 : public ResultCallback2<RetType, A1, A2> {
+class ConstMemberResultCallback22 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (Class::*Method)(P1, P2, A1, A2) const;
-    inline ConstMemberResultCallback_2_2(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Method = RetType (Class::*)(P1, P2, A1, A2) const;
+    inline ConstMemberResultCallback22(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -2192,22 +2186,22 @@ class ConstMemberResultCallback_2_2 : public ResultCallback2<RetType, A1, A2> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename A1, typename A2>
-class ConstMemberResultCallback_2_2<
-    del,
-    void,
-    Class,
-    P1,
-    P2,
-    A1,
-    A2,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback2<A1, A2> {
+class ConstMemberResultCallback22<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  P2,
+                                  A1,
+                                  A2,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (Class::*Method)(P1, P2, A1, A2) const;
-    inline ConstMemberResultCallback_2_2(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2)
+    using base = Callback2<A1, A2>;
+    using Method = void (Class::*)(P1, P2, A1, A2) const;
+    inline ConstMemberResultCallback22(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
@@ -2234,13 +2228,13 @@ template <typename Caller,
           typename P2,
           typename A1,
           typename A2>
-inline typename ConstMemberResultCallback_2_2<true, RetType, Caller, P1, P2, A1, A2>::base*
+inline typename ConstMemberResultCallback22<true, RetType, Caller, P1, P2, A1, A2>::base*
 MakeCallback(const Caller* instance,
              RetType (Callee::*method)(P1, P2, A1, A2) const,
              typename internal::ConstRef<P1>::type p1,
              typename internal::ConstRef<P2>::type p2) {
-    return new ConstMemberResultCallback_2_2<true, RetType, Caller, P1, P2, A1, A2>(instance,
-                                                                                    method, p1, p2);
+    return new ConstMemberResultCallback22<true, RetType, Caller, P1, P2, A1, A2>(instance, method,
+                                                                                  p1, p2);
 }
 
 template <typename Caller,
@@ -2250,13 +2244,13 @@ template <typename Caller,
           typename P2,
           typename A1,
           typename A2>
-inline typename ConstMemberResultCallback_2_2<false, RetType, Caller, P1, P2, A1, A2>::base*
+inline typename ConstMemberResultCallback22<false, RetType, Caller, P1, P2, A1, A2>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, P2, A1, A2) const,
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2) {
-    return new ConstMemberResultCallback_2_2<false, RetType, Caller, P1, P2, A1, A2>(
-        instance, method, p1, p2);
+    return new ConstMemberResultCallback22<false, RetType, Caller, P1, P2, A1, A2>(instance, method,
+                                                                                   p1, p2);
 }
 template <bool del,
           typename RetType,
@@ -2266,14 +2260,14 @@ template <bool del,
           typename A1,
           typename A2,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_2_2 : public ResultCallback2<RetType, A1, A2> {
+class MemberResultCallback22 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (Class::*Method)(P1, P2, A1, A2);
-    inline MemberResultCallback_2_2(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Method = RetType (Class::*)(P1, P2, A1, A2);
+    inline MemberResultCallback22(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -2294,22 +2288,22 @@ class MemberResultCallback_2_2 : public ResultCallback2<RetType, A1, A2> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename A1, typename A2>
-class MemberResultCallback_2_2<del,
-                               void,
-                               Class,
-                               P1,
-                               P2,
-                               A1,
-                               A2,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback22<del,
+                             void,
+                             Class,
+                             P1,
+                             P2,
+                             A1,
+                             A2,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (Class::*Method)(P1, P2, A1, A2);
-    inline MemberResultCallback_2_2(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2)
+    using base = Callback2<A1, A2>;
+    using Method = void (Class::*)(P1, P2, A1, A2);
+    inline MemberResultCallback22(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
@@ -2336,13 +2330,13 @@ template <typename Caller,
           typename P2,
           typename A1,
           typename A2>
-inline typename MemberResultCallback_2_2<true, RetType, Caller, P1, P2, A1, A2>::base* MakeCallback(
+inline typename MemberResultCallback22<true, RetType, Caller, P1, P2, A1, A2>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(P1, P2, A1, A2),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new MemberResultCallback_2_2<true, RetType, Caller, P1, P2, A1, A2>(instance, method, p1,
-                                                                               p2);
+    return new MemberResultCallback22<true, RetType, Caller, P1, P2, A1, A2>(instance, method, p1,
+                                                                             p2);
 }
 
 template <typename Caller,
@@ -2352,22 +2346,22 @@ template <typename Caller,
           typename P2,
           typename A1,
           typename A2>
-inline typename MemberResultCallback_2_2<false, RetType, Caller, P1, P2, A1, A2>::base*
+inline typename MemberResultCallback22<false, RetType, Caller, P1, P2, A1, A2>::base*
 MakePermanentCallback(Caller* instance,
                       RetType (Callee::*method)(P1, P2, A1, A2),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2) {
-    return new MemberResultCallback_2_2<false, RetType, Caller, P1, P2, A1, A2>(instance, method,
-                                                                                p1, p2);
+    return new MemberResultCallback22<false, RetType, Caller, P1, P2, A1, A2>(instance, method, p1,
+                                                                              p2);
 }
 template <bool del, typename RetType, typename P1, typename P2, typename A1, typename A2>
-class FunctionResultCallback_2_2 : public ResultCallback2<RetType, A1, A2> {
+class FunctionResultCallback22 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (*Function)(P1, P2, A1, A2);
-    inline FunctionResultCallback_2_2(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Function = RetType (*)(P1, P2, A1, A2);
+    inline FunctionResultCallback22(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2)
         : function_(function), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -2387,13 +2381,13 @@ class FunctionResultCallback_2_2 : public ResultCallback2<RetType, A1, A2> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename P1, typename P2, typename A1, typename A2>
-class FunctionResultCallback_2_2<del, void, P1, P2, A1, A2> : public Callback2<A1, A2> {
+class FunctionResultCallback22<del, void, P1, P2, A1, A2> : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (*Function)(P1, P2, A1, A2);
-    inline FunctionResultCallback_2_2(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2)
+    using base = Callback2<A1, A2>;
+    using Function = void (*)(P1, P2, A1, A2);
+    inline FunctionResultCallback22(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2)
         : function_(function), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
@@ -2413,19 +2407,19 @@ class FunctionResultCallback_2_2<del, void, P1, P2, A1, A2> : public Callback2<A
 };
 
 template <typename RetType, typename P1, typename P2, typename A1, typename A2>
-inline typename FunctionResultCallback_2_2<true, RetType, P1, P2, A1, A2>::base* MakeCallback(
+inline typename FunctionResultCallback22<true, RetType, P1, P2, A1, A2>::base* MakeCallback(
     RetType (*function)(P1, P2, A1, A2),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new FunctionResultCallback_2_2<true, RetType, P1, P2, A1, A2>(function, p1, p2);
+    return new FunctionResultCallback22<true, RetType, P1, P2, A1, A2>(function, p1, p2);
 }
 
 template <typename RetType, typename P1, typename P2, typename A1, typename A2>
-inline typename FunctionResultCallback_2_2<false, RetType, P1, P2, A1, A2>::base*
+inline typename FunctionResultCallback22<false, RetType, P1, P2, A1, A2>::base*
 MakePermanentCallback(RetType (*function)(P1, P2, A1, A2),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2) {
-    return new FunctionResultCallback_2_2<false, RetType, P1, P2, A1, A2>(function, p1, p2);
+    return new FunctionResultCallback22<false, RetType, P1, P2, A1, A2>(function, p1, p2);
 }
 template <bool del,
           typename RetType,
@@ -2436,14 +2430,14 @@ template <bool del,
           typename A2,
           typename A3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_2_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class ConstMemberResultCallback23 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (Class::*Method)(P1, P2, A1, A2, A3) const;
-    inline ConstMemberResultCallback_2_3(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Method = RetType (Class::*)(P1, P2, A1, A2, A3) const;
+    inline ConstMemberResultCallback23(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -2464,24 +2458,23 @@ class ConstMemberResultCallback_2_3 : public ResultCallback3<RetType, A1, A2, A3
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename A1, typename A2, typename A3>
-class ConstMemberResultCallback_2_3<
-    del,
-    void,
-    Class,
-    P1,
-    P2,
-    A1,
-    A2,
-    A3,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class ConstMemberResultCallback23<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  P2,
+                                  A1,
+                                  A2,
+                                  A3,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (Class::*Method)(P1, P2, A1, A2, A3) const;
-    inline ConstMemberResultCallback_2_3(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2)
+    using base = Callback3<A1, A2, A3>;
+    using Method = void (Class::*)(P1, P2, A1, A2, A3) const;
+    inline ConstMemberResultCallback23(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -2509,12 +2502,12 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename ConstMemberResultCallback_2_3<true, RetType, Caller, P1, P2, A1, A2, A3>::base*
+inline typename ConstMemberResultCallback23<true, RetType, Caller, P1, P2, A1, A2, A3>::base*
 MakeCallback(const Caller* instance,
              RetType (Callee::*method)(P1, P2, A1, A2, A3) const,
              typename internal::ConstRef<P1>::type p1,
              typename internal::ConstRef<P2>::type p2) {
-    return new ConstMemberResultCallback_2_3<true, RetType, Caller, P1, P2, A1, A2, A3>(
+    return new ConstMemberResultCallback23<true, RetType, Caller, P1, P2, A1, A2, A3>(
         instance, method, p1, p2);
 }
 
@@ -2526,12 +2519,12 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename ConstMemberResultCallback_2_3<false, RetType, Caller, P1, P2, A1, A2, A3>::base*
+inline typename ConstMemberResultCallback23<false, RetType, Caller, P1, P2, A1, A2, A3>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, P2, A1, A2, A3) const,
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2) {
-    return new ConstMemberResultCallback_2_3<false, RetType, Caller, P1, P2, A1, A2, A3>(
+    return new ConstMemberResultCallback23<false, RetType, Caller, P1, P2, A1, A2, A3>(
         instance, method, p1, p2);
 }
 template <bool del,
@@ -2543,14 +2536,14 @@ template <bool del,
           typename A2,
           typename A3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_2_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class MemberResultCallback23 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (Class::*Method)(P1, P2, A1, A2, A3);
-    inline MemberResultCallback_2_3(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Method = RetType (Class::*)(P1, P2, A1, A2, A3);
+    inline MemberResultCallback23(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -2571,23 +2564,23 @@ class MemberResultCallback_2_3 : public ResultCallback3<RetType, A1, A2, A3> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename A1, typename A2, typename A3>
-class MemberResultCallback_2_3<del,
-                               void,
-                               Class,
-                               P1,
-                               P2,
-                               A1,
-                               A2,
-                               A3,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback23<del,
+                             void,
+                             Class,
+                             P1,
+                             P2,
+                             A1,
+                             A2,
+                             A3,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (Class::*Method)(P1, P2, A1, A2, A3);
-    inline MemberResultCallback_2_3(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2)
+    using base = Callback3<A1, A2, A3>;
+    using Method = void (Class::*)(P1, P2, A1, A2, A3);
+    inline MemberResultCallback23(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2)
         : instance_(instance), method_(method), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -2615,13 +2608,13 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename MemberResultCallback_2_3<true, RetType, Caller, P1, P2, A1, A2, A3>::base*
+inline typename MemberResultCallback23<true, RetType, Caller, P1, P2, A1, A2, A3>::base*
 MakeCallback(Caller* instance,
              RetType (Callee::*method)(P1, P2, A1, A2, A3),
              typename internal::ConstRef<P1>::type p1,
              typename internal::ConstRef<P2>::type p2) {
-    return new MemberResultCallback_2_3<true, RetType, Caller, P1, P2, A1, A2, A3>(instance, method,
-                                                                                   p1, p2);
+    return new MemberResultCallback23<true, RetType, Caller, P1, P2, A1, A2, A3>(instance, method,
+                                                                                 p1, p2);
 }
 
 template <typename Caller,
@@ -2632,13 +2625,13 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename MemberResultCallback_2_3<false, RetType, Caller, P1, P2, A1, A2, A3>::base*
+inline typename MemberResultCallback23<false, RetType, Caller, P1, P2, A1, A2, A3>::base*
 MakePermanentCallback(Caller* instance,
                       RetType (Callee::*method)(P1, P2, A1, A2, A3),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2) {
-    return new MemberResultCallback_2_3<false, RetType, Caller, P1, P2, A1, A2, A3>(instance,
-                                                                                    method, p1, p2);
+    return new MemberResultCallback23<false, RetType, Caller, P1, P2, A1, A2, A3>(instance, method,
+                                                                                  p1, p2);
 }
 template <bool del,
           typename RetType,
@@ -2647,13 +2640,13 @@ template <bool del,
           typename A1,
           typename A2,
           typename A3>
-class FunctionResultCallback_2_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class FunctionResultCallback23 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (*Function)(P1, P2, A1, A2, A3);
-    inline FunctionResultCallback_2_3(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Function = RetType (*)(P1, P2, A1, A2, A3);
+    inline FunctionResultCallback23(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2)
         : function_(function), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -2673,13 +2666,13 @@ class FunctionResultCallback_2_3 : public ResultCallback3<RetType, A1, A2, A3> {
     typename ::std::remove_reference<P2>::type p2_;
 };
 template <bool del, typename P1, typename P2, typename A1, typename A2, typename A3>
-class FunctionResultCallback_2_3<del, void, P1, P2, A1, A2, A3> : public Callback3<A1, A2, A3> {
+class FunctionResultCallback23<del, void, P1, P2, A1, A2, A3> : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (*Function)(P1, P2, A1, A2, A3);
-    inline FunctionResultCallback_2_3(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2)
+    using base = Callback3<A1, A2, A3>;
+    using Function = void (*)(P1, P2, A1, A2, A3);
+    inline FunctionResultCallback23(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2)
         : function_(function), p1_(p1), p2_(p2) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -2699,19 +2692,19 @@ class FunctionResultCallback_2_3<del, void, P1, P2, A1, A2, A3> : public Callbac
 };
 
 template <typename RetType, typename P1, typename P2, typename A1, typename A2, typename A3>
-inline typename FunctionResultCallback_2_3<true, RetType, P1, P2, A1, A2, A3>::base* MakeCallback(
+inline typename FunctionResultCallback23<true, RetType, P1, P2, A1, A2, A3>::base* MakeCallback(
     RetType (*function)(P1, P2, A1, A2, A3),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2) {
-    return new FunctionResultCallback_2_3<true, RetType, P1, P2, A1, A2, A3>(function, p1, p2);
+    return new FunctionResultCallback23<true, RetType, P1, P2, A1, A2, A3>(function, p1, p2);
 }
 
 template <typename RetType, typename P1, typename P2, typename A1, typename A2, typename A3>
-inline typename FunctionResultCallback_2_3<false, RetType, P1, P2, A1, A2, A3>::base*
+inline typename FunctionResultCallback23<false, RetType, P1, P2, A1, A2, A3>::base*
 MakePermanentCallback(RetType (*function)(P1, P2, A1, A2, A3),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2) {
-    return new FunctionResultCallback_2_3<false, RetType, P1, P2, A1, A2, A3>(function, p1, p2);
+    return new FunctionResultCallback23<false, RetType, P1, P2, A1, A2, A3>(function, p1, p2);
 }
 template <bool del,
           typename RetType,
@@ -2720,15 +2713,15 @@ template <bool del,
           typename P2,
           typename P3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_3_0 : public ResultCallback<RetType> {
+class ConstMemberResultCallback30 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (Class::*Method)(P1, P2, P3) const;
-    inline ConstMemberResultCallback_3_0(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2,
-                                         typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback<RetType>;
+    using Method = RetType (Class::*)(P1, P2, P3) const;
+    inline ConstMemberResultCallback30(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2,
+                                       typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -2750,22 +2743,22 @@ class ConstMemberResultCallback_3_0 : public ResultCallback<RetType> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename P3>
-class ConstMemberResultCallback_3_0<
-    del,
-    void,
-    Class,
-    P1,
-    P2,
-    P3,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback {
+class ConstMemberResultCallback30<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  P2,
+                                  P3,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback {
   public:
-    typedef Callback base;
-    typedef void (Class::*Method)(P1, P2, P3) const;
-    inline ConstMemberResultCallback_3_0(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2,
-                                         typename internal::ConstRef<P3>::type p3)
+    using base = Callback;
+    using Method = void (Class::*)(P1, P2, P3) const;
+    inline ConstMemberResultCallback30(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2,
+                                       typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -2787,25 +2780,25 @@ class ConstMemberResultCallback_3_0<
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2, typename P3>
-inline typename ConstMemberResultCallback_3_0<true, RetType, Caller, P1, P2, P3>::base*
-MakeCallback(const Caller* instance,
-             RetType (Callee::*method)(P1, P2, P3) const,
-             typename internal::ConstRef<P1>::type p1,
-             typename internal::ConstRef<P2>::type p2,
-             typename internal::ConstRef<P3>::type p3) {
-    return new ConstMemberResultCallback_3_0<true, RetType, Caller, P1, P2, P3>(instance, method,
-                                                                                p1, p2, p3);
+inline typename ConstMemberResultCallback30<true, RetType, Caller, P1, P2, P3>::base* MakeCallback(
+    const Caller* instance,
+    RetType (Callee::*method)(P1, P2, P3) const,
+    typename internal::ConstRef<P1>::type p1,
+    typename internal::ConstRef<P2>::type p2,
+    typename internal::ConstRef<P3>::type p3) {
+    return new ConstMemberResultCallback30<true, RetType, Caller, P1, P2, P3>(instance, method, p1,
+                                                                              p2, p3);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2, typename P3>
-inline typename ConstMemberResultCallback_3_0<false, RetType, Caller, P1, P2, P3>::base*
+inline typename ConstMemberResultCallback30<false, RetType, Caller, P1, P2, P3>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, P2, P3) const,
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new ConstMemberResultCallback_3_0<false, RetType, Caller, P1, P2, P3>(instance, method,
-                                                                                 p1, p2, p3);
+    return new ConstMemberResultCallback30<false, RetType, Caller, P1, P2, P3>(instance, method, p1,
+                                                                               p2, p3);
 }
 template <bool del,
           typename RetType,
@@ -2814,15 +2807,15 @@ template <bool del,
           typename P2,
           typename P3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_3_0 : public ResultCallback<RetType> {
+class MemberResultCallback30 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (Class::*Method)(P1, P2, P3);
-    inline MemberResultCallback_3_0(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2,
-                                    typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback<RetType>;
+    using Method = RetType (Class::*)(P1, P2, P3);
+    inline MemberResultCallback30(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2,
+                                  typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -2844,22 +2837,22 @@ class MemberResultCallback_3_0 : public ResultCallback<RetType> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename P3>
-class MemberResultCallback_3_0<del,
-                               void,
-                               Class,
-                               P1,
-                               P2,
-                               P3,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback30<del,
+                             void,
+                             Class,
+                             P1,
+                             P2,
+                             P3,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback {
   public:
-    typedef Callback base;
-    typedef void (Class::*Method)(P1, P2, P3);
-    inline MemberResultCallback_3_0(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2,
-                                    typename internal::ConstRef<P3>::type p3)
+    using base = Callback;
+    using Method = void (Class::*)(P1, P2, P3);
+    inline MemberResultCallback30(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2,
+                                  typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -2881,35 +2874,35 @@ class MemberResultCallback_3_0<del,
 };
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2, typename P3>
-inline typename MemberResultCallback_3_0<true, RetType, Caller, P1, P2, P3>::base* MakeCallback(
+inline typename MemberResultCallback30<true, RetType, Caller, P1, P2, P3>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(P1, P2, P3),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2,
     typename internal::ConstRef<P3>::type p3) {
-    return new MemberResultCallback_3_0<true, RetType, Caller, P1, P2, P3>(instance, method, p1, p2,
-                                                                           p3);
+    return new MemberResultCallback30<true, RetType, Caller, P1, P2, P3>(instance, method, p1, p2,
+                                                                         p3);
 }
 
 template <typename Caller, typename Callee, typename RetType, typename P1, typename P2, typename P3>
-inline typename MemberResultCallback_3_0<false, RetType, Caller, P1, P2, P3>::base*
+inline typename MemberResultCallback30<false, RetType, Caller, P1, P2, P3>::base*
 MakePermanentCallback(Caller* instance,
                       RetType (Callee::*method)(P1, P2, P3),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new MemberResultCallback_3_0<false, RetType, Caller, P1, P2, P3>(instance, method, p1,
-                                                                            p2, p3);
+    return new MemberResultCallback30<false, RetType, Caller, P1, P2, P3>(instance, method, p1, p2,
+                                                                          p3);
 }
 template <bool del, typename RetType, typename P1, typename P2, typename P3>
-class FunctionResultCallback_3_0 : public ResultCallback<RetType> {
+class FunctionResultCallback30 : public ResultCallback<RetType> {
   public:
-    typedef ResultCallback<RetType> base;
-    typedef RetType (*Function)(P1, P2, P3);
-    inline FunctionResultCallback_3_0(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2,
-                                      typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback<RetType>;
+    using Function = RetType (*)(P1, P2, P3);
+    inline FunctionResultCallback30(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2,
+                                    typename internal::ConstRef<P3>::type p3)
         : function_(function), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run() override {
@@ -2930,14 +2923,14 @@ class FunctionResultCallback_3_0 : public ResultCallback<RetType> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename P1, typename P2, typename P3>
-class FunctionResultCallback_3_0<del, void, P1, P2, P3> : public Callback {
+class FunctionResultCallback30<del, void, P1, P2, P3> : public Callback {
   public:
-    typedef Callback base;
-    typedef void (*Function)(P1, P2, P3);
-    inline FunctionResultCallback_3_0(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2,
-                                      typename internal::ConstRef<P3>::type p3)
+    using base = Callback;
+    using Function = void (*)(P1, P2, P3);
+    inline FunctionResultCallback30(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2,
+                                    typename internal::ConstRef<P3>::type p3)
         : function_(function), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run() override {
@@ -2958,21 +2951,21 @@ class FunctionResultCallback_3_0<del, void, P1, P2, P3> : public Callback {
 };
 
 template <typename RetType, typename P1, typename P2, typename P3>
-inline typename FunctionResultCallback_3_0<true, RetType, P1, P2, P3>::base* MakeCallback(
+inline typename FunctionResultCallback30<true, RetType, P1, P2, P3>::base* MakeCallback(
     RetType (*function)(P1, P2, P3),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2,
     typename internal::ConstRef<P3>::type p3) {
-    return new FunctionResultCallback_3_0<true, RetType, P1, P2, P3>(function, p1, p2, p3);
+    return new FunctionResultCallback30<true, RetType, P1, P2, P3>(function, p1, p2, p3);
 }
 
 template <typename RetType, typename P1, typename P2, typename P3>
-inline typename FunctionResultCallback_3_0<false, RetType, P1, P2, P3>::base* MakePermanentCallback(
+inline typename FunctionResultCallback30<false, RetType, P1, P2, P3>::base* MakePermanentCallback(
     RetType (*function)(P1, P2, P3),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2,
     typename internal::ConstRef<P3>::type p3) {
-    return new FunctionResultCallback_3_0<false, RetType, P1, P2, P3>(function, p1, p2, p3);
+    return new FunctionResultCallback30<false, RetType, P1, P2, P3>(function, p1, p2, p3);
 }
 template <bool del,
           typename RetType,
@@ -2982,15 +2975,15 @@ template <bool del,
           typename P3,
           typename A1,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_3_1 : public ResultCallback1<RetType, A1> {
+class ConstMemberResultCallback31 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (Class::*Method)(P1, P2, P3, A1) const;
-    inline ConstMemberResultCallback_3_1(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2,
-                                         typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback1<RetType, A1>;
+    using Method = RetType (Class::*)(P1, P2, P3, A1) const;
+    inline ConstMemberResultCallback31(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2,
+                                       typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -3012,23 +3005,23 @@ class ConstMemberResultCallback_3_1 : public ResultCallback1<RetType, A1> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename P3, typename A1>
-class ConstMemberResultCallback_3_1<
-    del,
-    void,
-    Class,
-    P1,
-    P2,
-    P3,
-    A1,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback1<A1> {
+class ConstMemberResultCallback31<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  P2,
+                                  P3,
+                                  A1,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (Class::*Method)(P1, P2, P3, A1) const;
-    inline ConstMemberResultCallback_3_1(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2,
-                                         typename internal::ConstRef<P3>::type p3)
+    using base = Callback1<A1>;
+    using Method = void (Class::*)(P1, P2, P3, A1) const;
+    inline ConstMemberResultCallback31(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2,
+                                       typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -3056,14 +3049,14 @@ template <typename Caller,
           typename P2,
           typename P3,
           typename A1>
-inline typename ConstMemberResultCallback_3_1<true, RetType, Caller, P1, P2, P3, A1>::base*
+inline typename ConstMemberResultCallback31<true, RetType, Caller, P1, P2, P3, A1>::base*
 MakeCallback(const Caller* instance,
              RetType (Callee::*method)(P1, P2, P3, A1) const,
              typename internal::ConstRef<P1>::type p1,
              typename internal::ConstRef<P2>::type p2,
              typename internal::ConstRef<P3>::type p3) {
-    return new ConstMemberResultCallback_3_1<true, RetType, Caller, P1, P2, P3, A1>(
-        instance, method, p1, p2, p3);
+    return new ConstMemberResultCallback31<true, RetType, Caller, P1, P2, P3, A1>(instance, method,
+                                                                                  p1, p2, p3);
 }
 
 template <typename Caller,
@@ -3073,14 +3066,14 @@ template <typename Caller,
           typename P2,
           typename P3,
           typename A1>
-inline typename ConstMemberResultCallback_3_1<false, RetType, Caller, P1, P2, P3, A1>::base*
+inline typename ConstMemberResultCallback31<false, RetType, Caller, P1, P2, P3, A1>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, P2, P3, A1) const,
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new ConstMemberResultCallback_3_1<false, RetType, Caller, P1, P2, P3, A1>(
-        instance, method, p1, p2, p3);
+    return new ConstMemberResultCallback31<false, RetType, Caller, P1, P2, P3, A1>(instance, method,
+                                                                                   p1, p2, p3);
 }
 template <bool del,
           typename RetType,
@@ -3090,15 +3083,15 @@ template <bool del,
           typename P3,
           typename A1,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_3_1 : public ResultCallback1<RetType, A1> {
+class MemberResultCallback31 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (Class::*Method)(P1, P2, P3, A1);
-    inline MemberResultCallback_3_1(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2,
-                                    typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback1<RetType, A1>;
+    using Method = RetType (Class::*)(P1, P2, P3, A1);
+    inline MemberResultCallback31(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2,
+                                  typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -3120,23 +3113,23 @@ class MemberResultCallback_3_1 : public ResultCallback1<RetType, A1> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename P3, typename A1>
-class MemberResultCallback_3_1<del,
-                               void,
-                               Class,
-                               P1,
-                               P2,
-                               P3,
-                               A1,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback31<del,
+                             void,
+                             Class,
+                             P1,
+                             P2,
+                             P3,
+                             A1,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (Class::*Method)(P1, P2, P3, A1);
-    inline MemberResultCallback_3_1(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2,
-                                    typename internal::ConstRef<P3>::type p3)
+    using base = Callback1<A1>;
+    using Method = void (Class::*)(P1, P2, P3, A1);
+    inline MemberResultCallback31(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2,
+                                  typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -3164,14 +3157,14 @@ template <typename Caller,
           typename P2,
           typename P3,
           typename A1>
-inline typename MemberResultCallback_3_1<true, RetType, Caller, P1, P2, P3, A1>::base* MakeCallback(
+inline typename MemberResultCallback31<true, RetType, Caller, P1, P2, P3, A1>::base* MakeCallback(
     Caller* instance,
     RetType (Callee::*method)(P1, P2, P3, A1),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2,
     typename internal::ConstRef<P3>::type p3) {
-    return new MemberResultCallback_3_1<true, RetType, Caller, P1, P2, P3, A1>(instance, method, p1,
-                                                                               p2, p3);
+    return new MemberResultCallback31<true, RetType, Caller, P1, P2, P3, A1>(instance, method, p1,
+                                                                             p2, p3);
 }
 
 template <typename Caller,
@@ -3181,24 +3174,24 @@ template <typename Caller,
           typename P2,
           typename P3,
           typename A1>
-inline typename MemberResultCallback_3_1<false, RetType, Caller, P1, P2, P3, A1>::base*
+inline typename MemberResultCallback31<false, RetType, Caller, P1, P2, P3, A1>::base*
 MakePermanentCallback(Caller* instance,
                       RetType (Callee::*method)(P1, P2, P3, A1),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new MemberResultCallback_3_1<false, RetType, Caller, P1, P2, P3, A1>(instance, method,
-                                                                                p1, p2, p3);
+    return new MemberResultCallback31<false, RetType, Caller, P1, P2, P3, A1>(instance, method, p1,
+                                                                              p2, p3);
 }
 template <bool del, typename RetType, typename P1, typename P2, typename P3, typename A1>
-class FunctionResultCallback_3_1 : public ResultCallback1<RetType, A1> {
+class FunctionResultCallback31 : public ResultCallback1<RetType, A1> {
   public:
-    typedef ResultCallback1<RetType, A1> base;
-    typedef RetType (*Function)(P1, P2, P3, A1);
-    inline FunctionResultCallback_3_1(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2,
-                                      typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback1<RetType, A1>;
+    using Function = RetType (*)(P1, P2, P3, A1);
+    inline FunctionResultCallback31(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2,
+                                    typename internal::ConstRef<P3>::type p3)
         : function_(function), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1) override {
@@ -3219,14 +3212,14 @@ class FunctionResultCallback_3_1 : public ResultCallback1<RetType, A1> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename P1, typename P2, typename P3, typename A1>
-class FunctionResultCallback_3_1<del, void, P1, P2, P3, A1> : public Callback1<A1> {
+class FunctionResultCallback31<del, void, P1, P2, P3, A1> : public Callback1<A1> {
   public:
-    typedef Callback1<A1> base;
-    typedef void (*Function)(P1, P2, P3, A1);
-    inline FunctionResultCallback_3_1(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2,
-                                      typename internal::ConstRef<P3>::type p3)
+    using base = Callback1<A1>;
+    using Function = void (*)(P1, P2, P3, A1);
+    inline FunctionResultCallback31(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2,
+                                    typename internal::ConstRef<P3>::type p3)
         : function_(function), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1) override {
@@ -3247,21 +3240,21 @@ class FunctionResultCallback_3_1<del, void, P1, P2, P3, A1> : public Callback1<A
 };
 
 template <typename RetType, typename P1, typename P2, typename P3, typename A1>
-inline typename FunctionResultCallback_3_1<true, RetType, P1, P2, P3, A1>::base* MakeCallback(
+inline typename FunctionResultCallback31<true, RetType, P1, P2, P3, A1>::base* MakeCallback(
     RetType (*function)(P1, P2, P3, A1),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2,
     typename internal::ConstRef<P3>::type p3) {
-    return new FunctionResultCallback_3_1<true, RetType, P1, P2, P3, A1>(function, p1, p2, p3);
+    return new FunctionResultCallback31<true, RetType, P1, P2, P3, A1>(function, p1, p2, p3);
 }
 
 template <typename RetType, typename P1, typename P2, typename P3, typename A1>
-inline typename FunctionResultCallback_3_1<false, RetType, P1, P2, P3, A1>::base*
+inline typename FunctionResultCallback31<false, RetType, P1, P2, P3, A1>::base*
 MakePermanentCallback(RetType (*function)(P1, P2, P3, A1),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new FunctionResultCallback_3_1<false, RetType, P1, P2, P3, A1>(function, p1, p2, p3);
+    return new FunctionResultCallback31<false, RetType, P1, P2, P3, A1>(function, p1, p2, p3);
 }
 template <bool del,
           typename RetType,
@@ -3272,15 +3265,15 @@ template <bool del,
           typename A1,
           typename A2,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_3_2 : public ResultCallback2<RetType, A1, A2> {
+class ConstMemberResultCallback32 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (Class::*Method)(P1, P2, P3, A1, A2) const;
-    inline ConstMemberResultCallback_3_2(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2,
-                                         typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Method = RetType (Class::*)(P1, P2, P3, A1, A2) const;
+    inline ConstMemberResultCallback32(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2,
+                                       typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -3302,24 +3295,24 @@ class ConstMemberResultCallback_3_2 : public ResultCallback2<RetType, A1, A2> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename P3, typename A1, typename A2>
-class ConstMemberResultCallback_3_2<
-    del,
-    void,
-    Class,
-    P1,
-    P2,
-    P3,
-    A1,
-    A2,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type> : public Callback2<A1, A2> {
+class ConstMemberResultCallback32<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  P2,
+                                  P3,
+                                  A1,
+                                  A2,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+    : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (Class::*Method)(P1, P2, P3, A1, A2) const;
-    inline ConstMemberResultCallback_3_2(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2,
-                                         typename internal::ConstRef<P3>::type p3)
+    using base = Callback2<A1, A2>;
+    using Method = void (Class::*)(P1, P2, P3, A1, A2) const;
+    inline ConstMemberResultCallback32(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2,
+                                       typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
@@ -3348,13 +3341,13 @@ template <typename Caller,
           typename P3,
           typename A1,
           typename A2>
-inline typename ConstMemberResultCallback_3_2<true, RetType, Caller, P1, P2, P3, A1, A2>::base*
+inline typename ConstMemberResultCallback32<true, RetType, Caller, P1, P2, P3, A1, A2>::base*
 MakeCallback(const Caller* instance,
              RetType (Callee::*method)(P1, P2, P3, A1, A2) const,
              typename internal::ConstRef<P1>::type p1,
              typename internal::ConstRef<P2>::type p2,
              typename internal::ConstRef<P3>::type p3) {
-    return new ConstMemberResultCallback_3_2<true, RetType, Caller, P1, P2, P3, A1, A2>(
+    return new ConstMemberResultCallback32<true, RetType, Caller, P1, P2, P3, A1, A2>(
         instance, method, p1, p2, p3);
 }
 
@@ -3366,13 +3359,13 @@ template <typename Caller,
           typename P3,
           typename A1,
           typename A2>
-inline typename ConstMemberResultCallback_3_2<false, RetType, Caller, P1, P2, P3, A1, A2>::base*
+inline typename ConstMemberResultCallback32<false, RetType, Caller, P1, P2, P3, A1, A2>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, P2, P3, A1, A2) const,
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new ConstMemberResultCallback_3_2<false, RetType, Caller, P1, P2, P3, A1, A2>(
+    return new ConstMemberResultCallback32<false, RetType, Caller, P1, P2, P3, A1, A2>(
         instance, method, p1, p2, p3);
 }
 template <bool del,
@@ -3384,15 +3377,15 @@ template <bool del,
           typename A1,
           typename A2,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_3_2 : public ResultCallback2<RetType, A1, A2> {
+class MemberResultCallback32 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (Class::*Method)(P1, P2, P3, A1, A2);
-    inline MemberResultCallback_3_2(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2,
-                                    typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Method = RetType (Class::*)(P1, P2, P3, A1, A2);
+    inline MemberResultCallback32(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2,
+                                  typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -3414,24 +3407,24 @@ class MemberResultCallback_3_2 : public ResultCallback2<RetType, A1, A2> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename Class, typename P1, typename P2, typename P3, typename A1, typename A2>
-class MemberResultCallback_3_2<del,
-                               void,
-                               Class,
-                               P1,
-                               P2,
-                               P3,
-                               A1,
-                               A2,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback32<del,
+                             void,
+                             Class,
+                             P1,
+                             P2,
+                             P3,
+                             A1,
+                             A2,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (Class::*Method)(P1, P2, P3, A1, A2);
-    inline MemberResultCallback_3_2(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2,
-                                    typename internal::ConstRef<P3>::type p3)
+    using base = Callback2<A1, A2>;
+    using Method = void (Class::*)(P1, P2, P3, A1, A2);
+    inline MemberResultCallback32(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2,
+                                  typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
@@ -3460,14 +3453,14 @@ template <typename Caller,
           typename P3,
           typename A1,
           typename A2>
-inline typename MemberResultCallback_3_2<true, RetType, Caller, P1, P2, P3, A1, A2>::base*
+inline typename MemberResultCallback32<true, RetType, Caller, P1, P2, P3, A1, A2>::base*
 MakeCallback(Caller* instance,
              RetType (Callee::*method)(P1, P2, P3, A1, A2),
              typename internal::ConstRef<P1>::type p1,
              typename internal::ConstRef<P2>::type p2,
              typename internal::ConstRef<P3>::type p3) {
-    return new MemberResultCallback_3_2<true, RetType, Caller, P1, P2, P3, A1, A2>(instance, method,
-                                                                                   p1, p2, p3);
+    return new MemberResultCallback32<true, RetType, Caller, P1, P2, P3, A1, A2>(instance, method,
+                                                                                 p1, p2, p3);
 }
 
 template <typename Caller,
@@ -3478,14 +3471,14 @@ template <typename Caller,
           typename P3,
           typename A1,
           typename A2>
-inline typename MemberResultCallback_3_2<false, RetType, Caller, P1, P2, P3, A1, A2>::base*
+inline typename MemberResultCallback32<false, RetType, Caller, P1, P2, P3, A1, A2>::base*
 MakePermanentCallback(Caller* instance,
                       RetType (Callee::*method)(P1, P2, P3, A1, A2),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new MemberResultCallback_3_2<false, RetType, Caller, P1, P2, P3, A1, A2>(
-        instance, method, p1, p2, p3);
+    return new MemberResultCallback32<false, RetType, Caller, P1, P2, P3, A1, A2>(instance, method,
+                                                                                  p1, p2, p3);
 }
 template <bool del,
           typename RetType,
@@ -3494,14 +3487,14 @@ template <bool del,
           typename P3,
           typename A1,
           typename A2>
-class FunctionResultCallback_3_2 : public ResultCallback2<RetType, A1, A2> {
+class FunctionResultCallback32 : public ResultCallback2<RetType, A1, A2> {
   public:
-    typedef ResultCallback2<RetType, A1, A2> base;
-    typedef RetType (*Function)(P1, P2, P3, A1, A2);
-    inline FunctionResultCallback_3_2(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2,
-                                      typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback2<RetType, A1, A2>;
+    using Function = RetType (*)(P1, P2, P3, A1, A2);
+    inline FunctionResultCallback32(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2,
+                                    typename internal::ConstRef<P3>::type p3)
         : function_(function), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2) override {
@@ -3522,14 +3515,14 @@ class FunctionResultCallback_3_2 : public ResultCallback2<RetType, A1, A2> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename P1, typename P2, typename P3, typename A1, typename A2>
-class FunctionResultCallback_3_2<del, void, P1, P2, P3, A1, A2> : public Callback2<A1, A2> {
+class FunctionResultCallback32<del, void, P1, P2, P3, A1, A2> : public Callback2<A1, A2> {
   public:
-    typedef Callback2<A1, A2> base;
-    typedef void (*Function)(P1, P2, P3, A1, A2);
-    inline FunctionResultCallback_3_2(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2,
-                                      typename internal::ConstRef<P3>::type p3)
+    using base = Callback2<A1, A2>;
+    using Function = void (*)(P1, P2, P3, A1, A2);
+    inline FunctionResultCallback32(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2,
+                                    typename internal::ConstRef<P3>::type p3)
         : function_(function), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2) override {
@@ -3550,21 +3543,21 @@ class FunctionResultCallback_3_2<del, void, P1, P2, P3, A1, A2> : public Callbac
 };
 
 template <typename RetType, typename P1, typename P2, typename P3, typename A1, typename A2>
-inline typename FunctionResultCallback_3_2<true, RetType, P1, P2, P3, A1, A2>::base* MakeCallback(
+inline typename FunctionResultCallback32<true, RetType, P1, P2, P3, A1, A2>::base* MakeCallback(
     RetType (*function)(P1, P2, P3, A1, A2),
     typename internal::ConstRef<P1>::type p1,
     typename internal::ConstRef<P2>::type p2,
     typename internal::ConstRef<P3>::type p3) {
-    return new FunctionResultCallback_3_2<true, RetType, P1, P2, P3, A1, A2>(function, p1, p2, p3);
+    return new FunctionResultCallback32<true, RetType, P1, P2, P3, A1, A2>(function, p1, p2, p3);
 }
 
 template <typename RetType, typename P1, typename P2, typename P3, typename A1, typename A2>
-inline typename FunctionResultCallback_3_2<false, RetType, P1, P2, P3, A1, A2>::base*
+inline typename FunctionResultCallback32<false, RetType, P1, P2, P3, A1, A2>::base*
 MakePermanentCallback(RetType (*function)(P1, P2, P3, A1, A2),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new FunctionResultCallback_3_2<false, RetType, P1, P2, P3, A1, A2>(function, p1, p2, p3);
+    return new FunctionResultCallback32<false, RetType, P1, P2, P3, A1, A2>(function, p1, p2, p3);
 }
 template <bool del,
           typename RetType,
@@ -3576,15 +3569,15 @@ template <bool del,
           typename A2,
           typename A3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class ConstMemberResultCallback_3_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class ConstMemberResultCallback33 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (Class::*Method)(P1, P2, P3, A1, A2, A3) const;
-    inline ConstMemberResultCallback_3_3(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2,
-                                         typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Method = RetType (Class::*)(P1, P2, P3, A1, A2, A3) const;
+    inline ConstMemberResultCallback33(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2,
+                                       typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -3613,26 +3606,25 @@ template <bool del,
           typename A1,
           typename A2,
           typename A3>
-class ConstMemberResultCallback_3_3<
-    del,
-    void,
-    Class,
-    P1,
-    P2,
-    P3,
-    A1,
-    A2,
-    A3,
-    typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class ConstMemberResultCallback33<del,
+                                  void,
+                                  Class,
+                                  P1,
+                                  P2,
+                                  P3,
+                                  A1,
+                                  A2,
+                                  A3,
+                                  typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (Class::*Method)(P1, P2, P3, A1, A2, A3) const;
-    inline ConstMemberResultCallback_3_3(const Class* instance,
-                                         Method method,
-                                         typename internal::ConstRef<P1>::type p1,
-                                         typename internal::ConstRef<P2>::type p2,
-                                         typename internal::ConstRef<P3>::type p3)
+    using base = Callback3<A1, A2, A3>;
+    using Method = void (Class::*)(P1, P2, P3, A1, A2, A3) const;
+    inline ConstMemberResultCallback33(const Class* instance,
+                                       Method method,
+                                       typename internal::ConstRef<P1>::type p1,
+                                       typename internal::ConstRef<P2>::type p2,
+                                       typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -3662,13 +3654,13 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename ConstMemberResultCallback_3_3<true, RetType, Caller, P1, P2, P3, A1, A2, A3>::base*
+inline typename ConstMemberResultCallback33<true, RetType, Caller, P1, P2, P3, A1, A2, A3>::base*
 MakeCallback(const Caller* instance,
              RetType (Callee::*method)(P1, P2, P3, A1, A2, A3) const,
              typename internal::ConstRef<P1>::type p1,
              typename internal::ConstRef<P2>::type p2,
              typename internal::ConstRef<P3>::type p3) {
-    return new ConstMemberResultCallback_3_3<true, RetType, Caller, P1, P2, P3, A1, A2, A3>(
+    return new ConstMemberResultCallback33<true, RetType, Caller, P1, P2, P3, A1, A2, A3>(
         instance, method, p1, p2, p3);
 }
 
@@ -3681,13 +3673,13 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename ConstMemberResultCallback_3_3<false, RetType, Caller, P1, P2, P3, A1, A2, A3>::base*
+inline typename ConstMemberResultCallback33<false, RetType, Caller, P1, P2, P3, A1, A2, A3>::base*
 MakePermanentCallback(const Caller* instance,
                       RetType (Callee::*method)(P1, P2, P3, A1, A2, A3) const,
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new ConstMemberResultCallback_3_3<false, RetType, Caller, P1, P2, P3, A1, A2, A3>(
+    return new ConstMemberResultCallback33<false, RetType, Caller, P1, P2, P3, A1, A2, A3>(
         instance, method, p1, p2, p3);
 }
 template <bool del,
@@ -3700,15 +3692,15 @@ template <bool del,
           typename A2,
           typename A3,
           typename OnlyIf = typename ::std::enable_if<::std::is_compound<Class>::value>::type>
-class MemberResultCallback_3_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class MemberResultCallback33 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (Class::*Method)(P1, P2, P3, A1, A2, A3);
-    inline MemberResultCallback_3_3(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2,
-                                    typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Method = RetType (Class::*)(P1, P2, P3, A1, A2, A3);
+    inline MemberResultCallback33(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2,
+                                  typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -3737,25 +3729,25 @@ template <bool del,
           typename A1,
           typename A2,
           typename A3>
-class MemberResultCallback_3_3<del,
-                               void,
-                               Class,
-                               P1,
-                               P2,
-                               P3,
-                               A1,
-                               A2,
-                               A3,
-                               typename ::std::enable_if<::std::is_compound<Class>::value>::type>
+class MemberResultCallback33<del,
+                             void,
+                             Class,
+                             P1,
+                             P2,
+                             P3,
+                             A1,
+                             A2,
+                             A3,
+                             typename ::std::enable_if<::std::is_compound<Class>::value>::type>
     : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (Class::*Method)(P1, P2, P3, A1, A2, A3);
-    inline MemberResultCallback_3_3(Class* instance,
-                                    Method method,
-                                    typename internal::ConstRef<P1>::type p1,
-                                    typename internal::ConstRef<P2>::type p2,
-                                    typename internal::ConstRef<P3>::type p3)
+    using base = Callback3<A1, A2, A3>;
+    using Method = void (Class::*)(P1, P2, P3, A1, A2, A3);
+    inline MemberResultCallback33(Class* instance,
+                                  Method method,
+                                  typename internal::ConstRef<P1>::type p1,
+                                  typename internal::ConstRef<P2>::type p2,
+                                  typename internal::ConstRef<P3>::type p3)
         : instance_(instance), method_(method), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -3785,13 +3777,13 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename MemberResultCallback_3_3<true, RetType, Caller, P1, P2, P3, A1, A2, A3>::base*
+inline typename MemberResultCallback33<true, RetType, Caller, P1, P2, P3, A1, A2, A3>::base*
 MakeCallback(Caller* instance,
              RetType (Callee::*method)(P1, P2, P3, A1, A2, A3),
              typename internal::ConstRef<P1>::type p1,
              typename internal::ConstRef<P2>::type p2,
              typename internal::ConstRef<P3>::type p3) {
-    return new MemberResultCallback_3_3<true, RetType, Caller, P1, P2, P3, A1, A2, A3>(
+    return new MemberResultCallback33<true, RetType, Caller, P1, P2, P3, A1, A2, A3>(
         instance, method, p1, p2, p3);
 }
 
@@ -3804,13 +3796,13 @@ template <typename Caller,
           typename A1,
           typename A2,
           typename A3>
-inline typename MemberResultCallback_3_3<false, RetType, Caller, P1, P2, P3, A1, A2, A3>::base*
+inline typename MemberResultCallback33<false, RetType, Caller, P1, P2, P3, A1, A2, A3>::base*
 MakePermanentCallback(Caller* instance,
                       RetType (Callee::*method)(P1, P2, P3, A1, A2, A3),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new MemberResultCallback_3_3<false, RetType, Caller, P1, P2, P3, A1, A2, A3>(
+    return new MemberResultCallback33<false, RetType, Caller, P1, P2, P3, A1, A2, A3>(
         instance, method, p1, p2, p3);
 }
 template <bool del,
@@ -3821,14 +3813,14 @@ template <bool del,
           typename A1,
           typename A2,
           typename A3>
-class FunctionResultCallback_3_3 : public ResultCallback3<RetType, A1, A2, A3> {
+class FunctionResultCallback33 : public ResultCallback3<RetType, A1, A2, A3> {
   public:
-    typedef ResultCallback3<RetType, A1, A2, A3> base;
-    typedef RetType (*Function)(P1, P2, P3, A1, A2, A3);
-    inline FunctionResultCallback_3_3(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2,
-                                      typename internal::ConstRef<P3>::type p3)
+    using base = ResultCallback3<RetType, A1, A2, A3>;
+    using Function = RetType (*)(P1, P2, P3, A1, A2, A3);
+    inline FunctionResultCallback33(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2,
+                                    typename internal::ConstRef<P3>::type p3)
         : function_(function), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     RetType run(A1 a1, A2 a2, A3 a3) override {
@@ -3849,14 +3841,14 @@ class FunctionResultCallback_3_3 : public ResultCallback3<RetType, A1, A2, A3> {
     typename ::std::remove_reference<P3>::type p3_;
 };
 template <bool del, typename P1, typename P2, typename P3, typename A1, typename A2, typename A3>
-class FunctionResultCallback_3_3<del, void, P1, P2, P3, A1, A2, A3> : public Callback3<A1, A2, A3> {
+class FunctionResultCallback33<del, void, P1, P2, P3, A1, A2, A3> : public Callback3<A1, A2, A3> {
   public:
-    typedef Callback3<A1, A2, A3> base;
-    typedef void (*Function)(P1, P2, P3, A1, A2, A3);
-    inline FunctionResultCallback_3_3(Function function,
-                                      typename internal::ConstRef<P1>::type p1,
-                                      typename internal::ConstRef<P2>::type p2,
-                                      typename internal::ConstRef<P3>::type p3)
+    using base = Callback3<A1, A2, A3>;
+    using Function = void (*)(P1, P2, P3, A1, A2, A3);
+    inline FunctionResultCallback33(Function function,
+                                    typename internal::ConstRef<P1>::type p1,
+                                    typename internal::ConstRef<P2>::type p2,
+                                    typename internal::ConstRef<P3>::type p3)
         : function_(function), p1_(p1), p2_(p2), p3_(p3) {}
     bool isRepeatable() const override { return !del; }
     void run(A1 a1, A2 a2, A3 a3) override {
@@ -3883,13 +3875,13 @@ template <typename RetType,
           typename A1,
           typename A2,
           typename A3>
-inline typename FunctionResultCallback_3_3<true, RetType, P1, P2, P3, A1, A2, A3>::base*
-MakeCallback(RetType (*function)(P1, P2, P3, A1, A2, A3),
-             typename internal::ConstRef<P1>::type p1,
-             typename internal::ConstRef<P2>::type p2,
-             typename internal::ConstRef<P3>::type p3) {
-    return new FunctionResultCallback_3_3<true, RetType, P1, P2, P3, A1, A2, A3>(function, p1, p2,
-                                                                                 p3);
+inline typename FunctionResultCallback33<true, RetType, P1, P2, P3, A1, A2, A3>::base* MakeCallback(
+    RetType (*function)(P1, P2, P3, A1, A2, A3),
+    typename internal::ConstRef<P1>::type p1,
+    typename internal::ConstRef<P2>::type p2,
+    typename internal::ConstRef<P3>::type p3) {
+    return new FunctionResultCallback33<true, RetType, P1, P2, P3, A1, A2, A3>(function, p1, p2,
+                                                                               p3);
 }
 
 template <typename RetType,
@@ -3899,13 +3891,13 @@ template <typename RetType,
           typename A1,
           typename A2,
           typename A3>
-inline typename FunctionResultCallback_3_3<false, RetType, P1, P2, P3, A1, A2, A3>::base*
+inline typename FunctionResultCallback33<false, RetType, P1, P2, P3, A1, A2, A3>::base*
 MakePermanentCallback(RetType (*function)(P1, P2, P3, A1, A2, A3),
                       typename internal::ConstRef<P1>::type p1,
                       typename internal::ConstRef<P2>::type p2,
                       typename internal::ConstRef<P3>::type p3) {
-    return new FunctionResultCallback_3_3<false, RetType, P1, P2, P3, A1, A2, A3>(function, p1, p2,
-                                                                                  p3);
+    return new FunctionResultCallback33<false, RetType, P1, P2, P3, A1, A2, A3>(function, p1, p2,
+                                                                                p3);
 }
 }  // namespace kwc
 

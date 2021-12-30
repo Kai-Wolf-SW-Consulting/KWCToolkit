@@ -23,7 +23,7 @@ std::mutex g_mutex;
 // This class is a simple executor which intrinsically only provides the
 // |add()| interface, as it provides no queueing and instead immediately
 // executes work on the calling thread. This is effectively an adapter over
-// the executor interface, but keeps everything on the caller's context.
+// the executor interface, but keeps everything on the caller's context_.
 class InlineExecutor : public Executor {
   public:
     ~InlineExecutor() override = default;
@@ -31,7 +31,7 @@ class InlineExecutor : public Executor {
     void add(Callback* callback) override { callback->run(); }
 };
 
-void initModule() {
+void InitModule() {
     global_inline_executor = new InlineExecutor;
     default_executor = global_inline_executor;
 }
@@ -40,12 +40,12 @@ void initModule() {
 namespace system {
 
 Executor* Executor::defaultExecutor() {
-    std::call_once(module_init, initModule);
+    std::call_once(module_init, InitModule);
     return default_executor;
 }
 
 void Executor::setDefaultExecutor(Executor* executor) {
-    std::call_once(module_init, initModule);
+    std::call_once(module_init, InitModule);
     std::lock_guard<std::mutex> guard(g_mutex);
     default_executor = executor;
 }
@@ -55,7 +55,7 @@ Executor* MakeInlineExecutor() {
 }
 
 Executor* SingletonInlineExecutor() {
-    std::call_once(module_init, initModule);
+    std::call_once(module_init, InitModule);
     return global_inline_executor;
 }
 

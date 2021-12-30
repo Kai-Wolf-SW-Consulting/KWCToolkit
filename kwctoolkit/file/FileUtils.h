@@ -34,18 +34,18 @@ bool CreateDirectory(const FilePath& full_path);
 
 #if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
 // These are wrappers around commonly used system calls so that they retry on EINTR.
-// See wrapIncomplete below for read/write.
-int openNoInterrupt(const char* name, int flags, mode_t mode = 0666);
-int closeNoInterrupt(int fd);
+// See WrapIncomplete below for read/write.
+int OpenNoInterrupt(const char* name, int flags, mode_t mode = 0666);
+int CloseNoInterrupt(int fd);
 
-KWC_NO_DISCARD ssize_t readFull(int fd, void* buf, std::size_t count);
-ssize_t writeFull(int fd, const void* buf, std::size_t count);
+KWC_NO_DISCARD ssize_t ReadFull(int fd, void* buf, std::size_t count);
+ssize_t WriteFull(int fd, const void* buf, std::size_t count);
 
 namespace internal {
 using ssize_t = int;
 
 template <typename Func, typename... Args>
-ssize_t wrapNoInterrupt(Func f, Args... args) {
+ssize_t WrapNoInterrupt(Func f, Args... args) {
     ssize_t r;
     do {
         r = f(args...);
@@ -56,7 +56,7 @@ ssize_t wrapNoInterrupt(Func f, Args... args) {
 // Wrap calls to read/write to retry on incomplete reads or writes.
 
 template <typename Func>
-ssize_t wrapIncomplete(Func f, int fd, void* buf, std::size_t count) {
+ssize_t WrapIncomplete(Func f, int fd, void* buf, std::size_t count) {
     auto* b = static_cast<char*>(buf);
     ssize_t total_bytes = 0;
     ssize_t r;
@@ -107,7 +107,7 @@ bool ReadFile(int fd,
         std::min(buf.st_size > 0 ? (std::size_t(buf.st_size) + 1) : initial_alloc, num_bytes));
 
     while (read_so_far < out.size()) {
-        const auto actual = readFull(fd, &out[read_so_far], out.size() - read_so_far);
+        const auto actual = ReadFull(fd, &out[read_so_far], out.size() - read_so_far);
         if (actual == -1) {
             return false;
         }
@@ -130,12 +130,12 @@ template <typename Container>
 bool ReadFile(const FilePath& filename,
               Container& out,
               std::size_t num_bytes = std::numeric_limits<std::size_t>::max()) {
-    const auto fd = openNoInterrupt(filename.value().c_str(), O_RDONLY | O_CLOEXEC);
+    const auto fd = OpenNoInterrupt(filename.value().c_str(), O_RDONLY | O_CLOEXEC);
     if (fd == -1) {
         return false;
     }
 
-    KWC_SCOPE_EXIT { closeNoInterrupt(fd); };
+    KWC_SCOPE_EXIT { CloseNoInterrupt(fd); };
 
     return ReadFile(fd, out, num_bytes);
 }
@@ -154,8 +154,8 @@ bool WriteFile(const FilePath& filename,
     }
 
     bool ok =
-        data.empty() || writeFull(fd, &data[0], data.size()) == static_cast<ssize_t>(data.size());
-    return closeNoInterrupt(fd) == 0 && ok;
+        data.empty() || WriteFull(fd, &data[0], data.size()) == static_cast<ssize_t>(data.size());
+    return CloseNoInterrupt(fd) == 0 && ok;
 }
 
 #endif

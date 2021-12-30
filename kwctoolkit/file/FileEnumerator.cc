@@ -5,8 +5,9 @@
 #include "kwctoolkit/file/FileEnumerator.h"
 
 #include <dirent.h>
-#include <errno.h>
 #include <fnmatch.h>
+
+#include <cerrno>
 
 #include "kwctoolkit/file/FilePathConstants.h"
 
@@ -38,7 +39,7 @@ FilePath FileEnumerator::next() {
 
     while (current_dir_entry_ >= dir_entries_.size()) {
         if (pending_paths_.empty()) {
-            return FilePath();
+            return {};
         }
 
         root_path_ = pending_paths_.top();
@@ -78,8 +79,8 @@ FilePath FileEnumerator::next() {
 
 bool FileEnumerator::skip(const FilePath& path) {
     auto basename = path.baseName().value();
-    return basename == CURRENT_DIRECTORY ||
-           (basename == PARENT_DIRECTORY && !(INCLUDE_DOT_DOT & type_));
+    return basename == kCurrentDirectory ||
+           (basename == kParentDirectory && !(INCLUDE_DOT_DOT & type_));
 }
 
 bool FileEnumerator::readDirectory(std::vector<FileInfo>* entries,

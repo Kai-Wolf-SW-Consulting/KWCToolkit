@@ -15,7 +15,7 @@ namespace kwc {
 class Callback;
 namespace serialization {
 
-DataWriter::DataWriter() : size_(0), has_begun_(false) {}
+DataWriter::DataWriter() = default;
 
 void DataWriter::clear() {
     size_ = 0;
@@ -43,7 +43,7 @@ Status DataWriter::writeData(int64 bytes, const char* data) {
     }
 
     if (bytes < 0) {
-        return Status(base::error::INVALID_ARGUMENT, "Attempted negative write");
+        return {base::error::INVALID_ARGUMENT, "Attempted negative write"};
     }
 
     status_ = doWrite(bytes, data);
@@ -92,7 +92,7 @@ Status DataWriter::writeData(DataReader* reader, int64 max_bytes) {
     return status();
 }
 
-DataReader* DataWriter::CreateManagedDataReader(Callback* delete_cb) {
+DataReader* DataWriter::createManagedDataReader(Callback* delete_cb) {
     if (!status().ok()) {
         LOGGING(base::ERROR) << "Error from bad writer";
         return CreateManagedInvalidDataReader(status_, delete_cb);
@@ -102,15 +102,15 @@ DataReader* DataWriter::CreateManagedDataReader(Callback* delete_cb) {
 }
 
 Status DataWriter::doBegin() {
-    return Status();
+    return {};
 }
 
 Status DataWriter::doEnd() {
-    return Status();
+    return {};
 }
 
 Status DataWriter::doClear() {
-    return Status();
+    return {};
 }
 
 }  // namespace serialization

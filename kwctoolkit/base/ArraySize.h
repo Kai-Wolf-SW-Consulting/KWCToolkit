@@ -14,7 +14,7 @@ namespace internal {
 // The arraysize(arr) macro returns the number of elements in array.
 // The expression is a compile-time constant, and therefore can be used in
 // defining new arrays, for example. If you use arraysize on a pointer by
-// mistake, you will get a compile-time error, since *foo and foo[] are
+// mistake, you will get a compile-time error, since *foo_ and foo_[] are
 // two different things.
 template <typename T, std::size_t N>
 char (&ArraySizeHelper(T (&array)[N]))[N];
@@ -24,7 +24,7 @@ char (&ArraySizeHelper(T (&array)[N]))[N];
 
 // Used to explicitly mark the return value of a function as unused.
 template <typename T>
-inline void ignore_result(const T& /*unused*/) {}
+inline void IgnoreResult(const T& /*unused*/) {}
 }  // namespace base
 }  // namespace kwc
 

@@ -14,7 +14,7 @@ using kwc::file::FilePath;
 
 TEST(CommandLineTest, Constructor) {
     const CommandLine::CharType* argv[] = {"program",
-                                           "--foo=",
+                                           "--foo_=",
                                            "-bAr",
                                            "-spaetzel=pierogi",
                                            "-baz",
@@ -44,7 +44,7 @@ TEST(CommandLineTest, Constructor) {
     EXPECT_FALSE(cl.hasSwitch("--"));
 
     EXPECT_EQ(FilePath("program").value(), cl.getProgram().value());
-    EXPECT_TRUE(cl.hasSwitch("foo"));
+    EXPECT_TRUE(cl.hasSwitch("foo_"));
     EXPECT_FALSE(cl.hasSwitch("bar"));
     EXPECT_TRUE(cl.hasSwitch("baz"));
     EXPECT_TRUE(cl.hasSwitch("spaetzle"));
@@ -52,7 +52,7 @@ TEST(CommandLineTest, Constructor) {
     EXPECT_TRUE(cl.hasSwitch("input-translation"));
 
     EXPECT_EQ("Crepe", cl.getSwitchValue("spaetzle"));
-    EXPECT_EQ("", cl.getSwitchValue("foo"));
+    EXPECT_EQ("", cl.getSwitchValue("foo_"));
     EXPECT_EQ("", cl.getSwitchValue("bar"));
     EXPECT_EQ("", cl.getSwitchValue("cruller"));
     EXPECT_EQ("--dog=canine --cat=feline", cl.getSwitchValue("other-switches"));
@@ -120,17 +120,17 @@ TEST(CommandLineTest, AppendSwitchesWithDoubleDashes) {
 
     cl.appendSwitch("switch1");
     // std::cout << cl.getCommandLineString() << std::endl;
-    cl.appendSwitch("switch2", "foo");
+    cl.appendSwitch("switch2", "foo_");
     // std::cout << cl.getCommandLineString() << std::endl;
     cl.appendArg("--arg2");
     // std::cout << cl.getCommandLineString() << std::endl;
 
-    EXPECT_EQ("prog --switch1 --switch2=foo -- --arg1 --arg2", cl.getCommandLineString());
+    EXPECT_EQ("prog --switch1 --switch2=foo_ -- --arg1 --arg2", cl.getCommandLineString());
     auto cl_argv = cl.argv();
     ASSERT_EQ(cl_argv.size(), 6);
     EXPECT_EQ("prog", cl_argv[0]);
     EXPECT_EQ("--switch1", cl_argv[1]);
-    EXPECT_EQ("--switch2=foo", cl_argv[2]);
+    EXPECT_EQ("--switch2=foo_", cl_argv[2]);
     EXPECT_EQ("--", cl_argv[3]);
     EXPECT_EQ("--arg1", cl_argv[4]);
     EXPECT_EQ("--arg2", cl_argv[5]);

@@ -9,8 +9,7 @@
 namespace kwc {
 namespace transport {
 
-HttpTransactionOptions::HttpTransactionOptions()
-    : port_(0), connection_timeout_ms_(0L), executor_(nullptr), callback_executor_(nullptr) {
+HttpTransactionOptions::HttpTransactionOptions() {
     user_agent_ = "Chair";
 }
 

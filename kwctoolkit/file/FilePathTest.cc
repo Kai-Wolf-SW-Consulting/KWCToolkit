@@ -5,7 +5,8 @@
 #include "kwctoolkit/file/FilePath.h"
 
 #include <gtest/gtest.h>
-#include <stddef.h>
+
+#include <cstddef>
 
 #include "kwctoolkit/base/ArraySize.h"
 
@@ -118,8 +119,8 @@ TEST_F(FilePathTest, CheckAppendPaths) {
         FilePath observed = root.append(leaf);
         EXPECT_EQ(std::string(cases[i].expected), observed.value())
             << "i: " << i << ", root: " << root.value() << ", leaf: " << leaf;
-        FilePath observedPath = root.append(FilePath(leaf));
-        EXPECT_EQ(std::string(cases[i].expected), observedPath.value())
+        FilePath observed_path = root.append(FilePath(leaf));
+        EXPECT_EQ(std::string(cases[i].expected), observed_path.value())
             << "i: " << i << ", root: " << root.value() << ", leaf: " << leaf;
     }
 }
@@ -127,15 +128,15 @@ TEST_F(FilePathTest, CheckAppendPaths) {
 TEST_F(FilePathTest, CheckEqual) {
     const struct BinaryBooleanTestData cases[] = {
   // clang-format off
-        { { "/foo/bar/baz",  "/foo/bar/baz" },      true },
-        { { "/foo/bar",      "/foo/bar/baz" },      false },
-        { { "/foo/bar/baz",  "/foo/bar" },          false },
-        { { "//foo/bar/",    "//foo/bar/" },        true },
-        { { "/foo/bar",      "/foo2/bar" },         false },
-        { { "/foo/bar.txt",  "/foo/bar" },          false },
-        { { "foo/bar",       "foo/bar" },           true },
-        { { "foo/bar",       "foo/bar/baz" },       false },
-        { { "",              "foo" },               false },
+        { { "/foo_/bar/baz",  "/foo_/bar/baz" },      true },
+        { { "/foo_/bar",      "/foo_/bar/baz" },      false },
+        { { "/foo_/bar/baz",  "/foo_/bar" },          false },
+        { { "//foo_/bar/",    "//foo_/bar/" },        true },
+        { { "/foo_/bar",      "/foo2/bar" },         false },
+        { { "/foo_/bar.txt",  "/foo_/bar" },          false },
+        { { "foo_/bar",       "foo_/bar" },           true },
+        { { "foo_/bar",       "foo_/bar/baz" },       false },
+        { { "",              "foo_" },               false },
   // clang-format on
     };
 

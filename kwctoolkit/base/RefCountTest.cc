@@ -18,17 +18,17 @@ struct RefCountTester : public RefCount {
 
     RefCountTester(uint64 payload) : RefCount(payload) {}
 
-    RefCountTester(bool* deleted) : deleted(deleted) {}
+    RefCountTester(bool* deleted) : deleted_(deleted) {}
 
     ~RefCountTester() override {
-        if (deleted != nullptr) {
-            *deleted = true;
+        if (deleted_ != nullptr) {
+            *deleted_ = true;
         }
     }
 
     RefCountTester* getThis() { return this; }
 
-    bool* deleted = nullptr;
+    bool* deleted_ = nullptr;
 };
 
 TEST(RefCountTest, StartsWithOneRefCount) {
@@ -55,27 +55,27 @@ TEST(RefCountTest, CheckNoRaceConditions) {
     auto deleted = false;
     auto* test = new RefCountTester(&deleted);
 
-    auto refManyTimes = [test]() {
+    auto ref_many_times = [test]() {
         for (int i = 0; i < 100000; i++) {
             test->reference();
         }
     };
 
-    std::thread t1(refManyTimes);
-    std::thread t2(refManyTimes);
+    std::thread t1(ref_many_times);
+    std::thread t2(ref_many_times);
 
     t1.join();
     t2.join();
     ASSERT_EQ(test->getRefCountForTesting(), 200001);
 
-    auto releaseManyTimes = [test]() {
+    auto release_many_times = [test]() {
         for (int i = 0; i < 100000; i++) {
             test->release();
         }
     };
 
-    std::thread t3(releaseManyTimes);
-    std::thread t4(releaseManyTimes);
+    std::thread t3(release_many_times);
+    std::thread t4(release_many_times);
     t3.join();
     t4.join();
     ASSERT_EQ(test->getRefCountForTesting(), 1);
@@ -119,7 +119,7 @@ TEST(RefCountTest, CheckBoolConversion) {
 
 TEST(RefCountTest, CheckCopyConstruction) {
     bool deleted = false;
-    RefCountTester* original = new RefCountTester(&deleted);
+    auto* original = new RefCountTester(&deleted);
 
     Ref<RefCountTester> source(original);
     Ref<RefCountTester> dest(source);

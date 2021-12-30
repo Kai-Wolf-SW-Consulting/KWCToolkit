@@ -24,12 +24,9 @@ class AddressIPv4 {
     // The address will be 0.0.0.0 per default
     AddressIPv4() { address_.s_addr = 0; }
 
-    AddressIPv4(const AddressIPv4& other) : address_(other.address_) {}
+    AddressIPv4(const AddressIPv4& other) = default;
 
-    AddressIPv4& operator=(const AddressIPv4& other) {
-        address_ = other.address_;
-        return *this;
-    }
+    AddressIPv4& operator=(const AddressIPv4& other) = default;
 
     // Creates an address from an IPv4 address string in dotted decimal form
     static AddressOrError<AddressIPv4> fromString(const char* str) {
@@ -44,14 +41,14 @@ class AddressIPv4 {
 
     // Get address as string in dotted decimal format
     std::string toString() const {
-        char addrStr[INET_ADDRSTRLEN];
-        const char* addr = inet_ntop(AF_INET, &address_, addrStr, INET_ADDRSTRLEN);
+        char addr_str[INET_ADDRSTRLEN];
+        const char* addr = inet_ntop(AF_INET, &address_, addr_str, INET_ADDRSTRLEN);
 
         if (addr == nullptr) {
-            return std::string();
+            return {};
         }
 
-        return std::string(addr);
+        return {addr};
     }
 
     // Compare two addresses for equality

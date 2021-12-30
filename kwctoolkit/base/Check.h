@@ -19,7 +19,7 @@ class CheckHandler {
   public:
     CheckHandler(const char* check, const char* file, const char* func, int line);
     ~CheckHandler();
-    std::ostream& GetLog();
+    std::ostream& getLog();
 
     CheckHandler& operator=(const CheckHandler&) = delete;
     CheckHandler(const CheckHandler&) = delete;
@@ -32,7 +32,7 @@ class CheckHandler {
 #ifndef NDEBUG
     #define KWC_CHECK(b)                                       \
         ((b) ? ::kwc::base::internal::GetNullLoggingInstance() \
-             : ::kwc::base::internal::CheckHandler(#b, __FILE__, __func__, __LINE__).GetLog())
+             : ::kwc::base::internal::CheckHandler(#b, __FILE__, __func__, __LINE__).getLog())
 #else
     #define KWC_CHECK(b) ::kwc::base::internal::GetNullLoggingInstance()
 #endif

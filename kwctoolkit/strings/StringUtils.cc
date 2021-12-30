@@ -4,9 +4,8 @@
 
 #include "kwctoolkit/strings/StringUtils.h"
 
-#include <stdint.h>
-
 #include <cstddef>
+#include <cstdint>
 
 namespace kwc {
 namespace strings {
@@ -24,8 +23,8 @@ inline bool IsAlignedToMachineWord(const void* pointer) {
 
 template <typename T>
 inline T* AlignToMachineWord(T* pointer) {
-    return reinterpret_cast<T*>(reinterpret_cast<MachineWord>(pointer) &
-                                ~kMachineWordAlignmentMask);
+    return reinterpret_cast<T*>(  // NOLINT(performance-no-int-to-ptr)
+        reinterpret_cast<MachineWord>(pointer) & ~kMachineWordAlignmentMask);
 }
 
 template <std::size_t size, typename CharType>
@@ -131,6 +130,7 @@ std::string TrimString(const std::string& input,
 
 std::vector<float> StringsToFloat(const std::vector<std::string>& strings) {
     std::vector<float> floats;
+    floats.reserve(strings.size());
     for (const auto& ele : strings) {
         floats.push_back(std::stof(ele));
     }

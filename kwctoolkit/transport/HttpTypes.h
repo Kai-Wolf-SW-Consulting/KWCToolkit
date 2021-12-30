@@ -31,7 +31,7 @@ class HttpStatusCode {
   public:
     // Symbolic names for common HTTP status codes.
     // Note that the following list is not a complete enumeration of all
-    // possible HTTP status code values, but only the ones which are of
+    // possible HTTP status code_ values, but only the ones which are of
     // particular interest within this library.
     // See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html for a
     // complete list of all standard status codes
@@ -96,28 +96,28 @@ class HttpStatusCode {
         NOT_EXTENDED = 510,
     };
 
-    static bool IsValidError(int http_code) { return 100 <= http_code && http_code < 600; }
+    static bool isValidError(int http_code) { return 100 <= http_code && http_code < 600; }
 
-    static bool IsServerError(int http_code) { return 500 <= http_code && http_code < 600; }
+    static bool isServerError(int http_code) { return 500 <= http_code && http_code < 600; }
 
-    static bool IsClientError(int http_code) { return 400 <= http_code && http_code < 500; }
+    static bool isClientError(int http_code) { return 400 <= http_code && http_code < 500; }
 
-    static bool IsRedirect(int http_code) {
+    static bool isRedirect(int http_code) {
         return 300 <= http_code && http_code <= 307 && http_code != 304;
     }
 
-    static bool IsOk(int http_code) { return 200 <= http_code && http_code < 300; }
+    static bool isOk(int http_code) { return 200 <= http_code && http_code < 300; }
 
-    static bool IsInformational(int http_code) { return 100 <= http_code && http_code < 200; }
+    static bool isInformational(int http_code) { return 100 <= http_code && http_code < 200; }
 
   private:
     DISALLOW_IMPLICIT_CONSTRUCTOR(HttpStatusCode);
 };
 
-// Denotes the current state of a http request lifecycle.
-// This class includes the |StateCode| as its state machine progress as well
+// Denotes the current state_ of a http request lifecycle.
+// This class includes the |StateCode| as its state_ machine progress as well
 // as status and response data.
-// The state is shared between an HttpRequest and its HttpResponse such that
+// The state_ is shared between an HttpRequest and its HttpResponse such that
 // its accessible by either.
 class HttpRequestState {
   public:
@@ -130,10 +130,10 @@ class HttpRequestState {
         TIMED_OUT,       // request timed out before a response arrived
         CANCELLED,       // request has been cancelled before it was sent
         ABORTED,         // signal callback will never be called
-        _NUM_STATES_     // internal marker used to count the number of state
+        _NUM_STATES_     // internal marker used to count the number of state_
     };
 
-    HttpRequestState() : state_code_(UNSENT), http_code_(0) {}
+    HttpRequestState() = default;
 
     StateCode getStateCode() const {
         std::lock_guard<std::mutex> guard(mutex_);
@@ -156,9 +156,9 @@ class HttpRequestState {
     friend class HttpRequest;
     HttpRequestCallback* callback_;
     mutable std::mutex mutex_;
-    StateCode state_code_;
+    StateCode state_code_{UNSENT};
     base::Status transaction_status_;
-    int http_code_;
+    int http_code_{0};
     HttpRequest* request_;
 };
 

@@ -21,7 +21,7 @@ class FilePath {
 
     FilePath() = default;
     FilePath(const FilePath& other);
-    explicit FilePath(const StringType& path);
+    explicit FilePath(StringType path);
 
     FilePath& operator=(const FilePath& other);
     bool operator==(const FilePath& other) const;

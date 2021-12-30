@@ -36,7 +36,7 @@ std::string SystemInfo::getOSVersion() {
 }
 
 int64 SystemInfo::getAmountOfPhysicalMemoryImpl() {
-    struct host_basic_info hostInfo;
+    struct host_basic_info hoster_info;
     mach_msg_type_number_t count = HOST_BASIC_INFO_COUNT;
 
     // Handle Mach port that names a send right, since they are ref counted and need to get back
@@ -44,14 +44,14 @@ int64 SystemInfo::getAmountOfPhysicalMemoryImpl() {
     auto host = mach_host_self();
     KWC_SCOPE_EXIT { mach_port_deallocate(mach_task_self(), host); };
 
-    int result = host_info(host, HOST_BASIC_INFO, reinterpret_cast<host_info_t>(&hostInfo), &count);
+    int result = host_info(host, HOST_BASIC_INFO, reinterpret_cast<host_info_t>(&hoster_info), &count);
     if (result != KERN_SUCCESS) {
         KWC_UNREACHABLE();
         return 0;
     }
 
     KWC_ASSERT(HOST_BASIC_INFO_COUNT == count);
-    return static_cast<int64>(hostInfo.max_mem);
+    return static_cast<int64>(hoster_info.max_mem);
 }
 
 int64 SystemInfo::getAmountOfAvailablePhysicalMemoryImpl() {

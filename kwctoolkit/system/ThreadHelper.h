@@ -30,8 +30,8 @@ inline auto RunAsync(F&& f, Ts&&... params) {
 
 // Checks, if given std::future has executed already
 template <typename R>
-bool IsReady(const std::future<R>& f, int timeoutMillis = 0) {
-    return f.wait_for(std::chrono::milliseconds(timeoutMillis)) == std::future_status::ready;
+bool IsReady(const std::future<R>& f, int timeout_millis = 0) {
+    return f.wait_for(std::chrono::milliseconds(timeout_millis)) == std::future_status::ready;
 }
 
 #if defined(KWC_OS_ANDROID)

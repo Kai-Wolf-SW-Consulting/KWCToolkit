@@ -40,7 +40,7 @@ bool ParseUInt16(const std::string& src, const char* str, uint16* value);
 bool ParseInt32(const std::string& src, const char* str, int32* value);
 
 // Parses a string for a bool flag in the form of '--flag=value' or '--flag'.
-// In the former case, the value is taken as true, as long as it does not start
+// In the former case, the value is taken as true, as long as it does not start_
 // with '0', 'f', or 'F'. In the latter case, the value is taken as true.
 bool ParseBoolFlag(const char* str, const char* flag, bool* value);
 

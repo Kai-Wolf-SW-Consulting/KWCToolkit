@@ -27,7 +27,7 @@ enum Code {
 // successfully.
 class Status {
   public:
-    Status() : code_(error::OK) {}
+    Status() = default;
     Status(error::Code code, std::string msg) : code_(code), msg_(std::move(msg)) {}
     Status(const Status& status) = default;
     ~Status() = default;
@@ -47,7 +47,7 @@ class Status {
     std::string toString() const;
 
   private:
-    error::Code code_;
+    error::Code code_{error::OK};
     std::string msg_;
 };
 

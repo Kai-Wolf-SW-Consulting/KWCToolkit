@@ -54,11 +54,11 @@
 //         void bar(int a, double b);
 //     };
 //
-//     Foo* foo = new Foo;                      // [pre-bound] + [call-time]
-//     MakeCallback(foo, &Foo::bar)             --> run(23, 1.7); // 0 + 2
-//     == MakeCallback(foo, &Foo::bar, 10)      --> run(1.7) ;    // 1 + 1
-//     == MakeCallback(foo, &Foo::bar, 10, 1.7) --> run();        // 2 + 0
-//     == foo->bar(23, 1.7);
+//     Foo* foo_ = new Foo;                      // [pre-bound] + [call-time]
+//     MakeCallback(foo_, &Foo::bar)             --> run(23, 1.7); // 0 + 2
+//     == MakeCallback(foo_, &Foo::bar, 10)      --> run(1.7) ;    // 1 + 1
+//     == MakeCallback(foo_, &Foo::bar, 10, 1.7) --> run();        // 2 + 0
+//     == foo_->bar(23, 1.7);
 
 #include "kwctoolkit/base/CallbackImpl.h"
 

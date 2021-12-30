@@ -15,23 +15,23 @@
 namespace kwc {
 namespace transport {
 
-const HttpRequest::HttpMethod HttpRequest::GET("GET");
-const HttpRequest::HttpMethod HttpRequest::PUT("PUT");
-const HttpRequest::HttpMethod HttpRequest::POST("POST");
-const HttpRequest::HttpMethod HttpRequest::DELETE("DELETE");
+const HttpRequest::HttpMethod HttpRequest::kGet("GET");
+const HttpRequest::HttpMethod HttpRequest::kPut("PUT");
+const HttpRequest::HttpMethod HttpRequest::kPost("POST");
+const HttpRequest::HttpMethod HttpRequest::kDelete("DELETE");
 
-const std::string HttpRequest::ContentType_HTML("text/html");
-const std::string HttpRequest::ContentType_JSON("application/json");
-const std::string HttpRequest::ContentType_TEXT("text/plain");
+const std::string HttpRequest::kContentTypeHtml("text/html");
+const std::string HttpRequest::kContentTypeJson("application/json");
+const std::string HttpRequest::kContentTypeText("text/plain");
 
-const std::string HttpRequest::HttpHeader_AUTHORIZATION("Authorization");
-const std::string HttpRequest::HttpHeader_CONTENT_LENGTH("Content-Length");
-const std::string HttpRequest::HttpHeader_CONTENT_TYPE("Content-Type");
-const std::string HttpRequest::HttpHeader_HOST("Host");
-const std::string HttpRequest::HttpHeader_TRANSFER_ENCODING("Transfer-Encoding");
-const std::string HttpRequest::HttpHeader_USER_AGENT("Use-Agent");
+const std::string HttpRequest::kHttpHeaderAuthorization("Authorization");
+const std::string HttpRequest::kHttpHeaderContentLength("Content-Length");
+const std::string HttpRequest::kHttpHeaderContentType("Content-Type");
+const std::string HttpRequest::kHttpHeaderHost("Host");
+const std::string HttpRequest::kHttpHeaderTransferEncoding("Transfer-Encoding");
+const std::string HttpRequest::kHttpHeaderUserAgent("Use-Agent");
 
-// Helper class for encapsulating execution workflow state in order to support
+// Helper class for encapsulating execution workflow state_ in order to support
 // asynchronous requests.
 // This helper class is used for both synchronous as well as asynchronous
 // requests.
@@ -41,7 +41,7 @@ class HttpRequest::HttpRequestProcessor {
         : request_(request),
           state_(request->getResponse()->getModifiableRequestState()),
           num_redirects_(0),
-          num_retries(0),
+          num_retries_(0),
           should_retry_(true) {}
 
     void executeSync() {
@@ -57,14 +57,14 @@ class HttpRequest::HttpRequestProcessor {
     HttpRequest* request_;
     HttpRequestState* state_;
     int num_redirects_;
-    int num_retries;
+    int num_retries_;
     bool should_retry_;
 
     DISALLOW_COPY_AND_ASSIGN(HttpRequestProcessor);
 };
 
 HttpRequest::HttpRequest(HttpRequest::HttpMethod method, HttpTransaction* transaction)
-    : http_method_(method),
+    : http_method_(std::move(method)),
       options_(transaction->getRequestOptions()),
       transaction_(transaction),
       response_(new HttpResponse),

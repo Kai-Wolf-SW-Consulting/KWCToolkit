@@ -18,9 +18,9 @@ class SineGenerator {
     SineGenerator();
     ~SineGenerator() = default;
 
-    void setup(double frequency, int32 frameRate);
-    void setup(double frequency, int32 frameRate, double amplitude);
-    void render(double* buffer, int32 channelStride, int32 numFrames);
+    void setup(double frequency, int32 frame_rate);
+    void setup(double frequency, int32 frame_rate, double amplitude);
+    void render(double* buffer, int32 channel_stride, int32 num_frames);
 
   private:
     double amplitude_;

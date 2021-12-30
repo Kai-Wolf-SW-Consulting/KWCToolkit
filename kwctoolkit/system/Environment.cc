@@ -19,8 +19,8 @@ namespace system {
 namespace {
 class EnvironmentImpl : public Environment {
   public:
-    bool GetEnvVar(const std::string& var_name, std::string* result) override {
-        if (GetEnvVarImpl(var_name, result)) {
+    bool getEnvVar(const std::string& var_name, std::string* result) override {
+        if (getEnvVarImpl(var_name, result)) {
             return true;
         }
 
@@ -37,17 +37,17 @@ class EnvironmentImpl : public Environment {
             return false;
         }
 
-        return GetEnvVarImpl(alt_case_var, result);
+        return getEnvVarImpl(alt_case_var, result);
     }
 
-    bool SetEnvVar(const std::string& var_name, const std::string& new_value) override {
-        return SetEnvVarImpl(var_name, new_value);
+    bool setEnvVar(const std::string& var_name, const std::string& new_value) override {
+        return setEnvVarImpl(var_name, new_value);
     }
 
-    bool UnsetEnvVar(const std::string& var_name) override { return UnsetEnvVarImpl(var_name); }
+    bool unsetEnvVar(const std::string& var_name) override { return unsetEnvVarImpl(var_name); }
 
   private:
-    bool GetEnvVarImpl(const std::string& var_name, std::string* result) {
+    bool getEnvVarImpl(const std::string& var_name, std::string* result) {
 #if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
         const char* env_value = getenv(var_name.data());
         if (!env_value)
@@ -70,7 +70,7 @@ class EnvironmentImpl : public Environment {
 #endif
     }
 
-    bool SetEnvVarImpl(const std::string& var_name, const std::string& new_value) {
+    bool setEnvVarImpl(const std::string& var_name, const std::string& new_value) {
 #if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
         // On success, zero is returned
         return !setenv(var_name.data(), new_value.c_str(), 1);
@@ -80,7 +80,7 @@ class EnvironmentImpl : public Environment {
 #endif
     }
 
-    bool UnsetEnvVarImpl(const std::string& var_name) {
+    bool unsetEnvVarImpl(const std::string& var_name) {
 #if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
         // On success, zero is returned
         return !unsetenv(var_name.data());
@@ -95,12 +95,12 @@ class EnvironmentImpl : public Environment {
 Environment::~Environment() = default;
 
 // static
-std::unique_ptr<Environment> Environment::Create() {
+std::unique_ptr<Environment> Environment::create() {
     return std::make_unique<EnvironmentImpl>();
 }
 
-bool Environment::HasEnvVar(const std::string& var_name) {
-    return GetEnvVar(var_name, nullptr);
+bool Environment::hasEnvVar(const std::string& var_name) {
+    return getEnvVar(var_name, nullptr);
 }
 
 }  // namespace system

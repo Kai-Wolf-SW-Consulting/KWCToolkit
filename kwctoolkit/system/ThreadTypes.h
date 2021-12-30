@@ -32,18 +32,18 @@ using PlatformThreadRef = pthread_t;
 #endif
 
 // Get the ID of the current thread
-PlatformThreadId currentThreadId();
+PlatformThreadId CurrentThreadId();
 
 // Get a reference to the current thread.
-// On Windows this is the same as currentThreadId. On other platforms it's
+// On Windows this is the same as CurrentThreadId. On other platforms it's
 // the pthread_t returned by pthread_self()
-PlatformThreadRef currentThreadRef();
+PlatformThreadRef CurrentThreadRef();
 
 // Compare two threads for equality
-bool isThreadRefEqual(const PlatformThreadRef& a, const PlatformThreadRef& b);
+bool IsThreadRefEqual(const PlatformThreadRef& a, const PlatformThreadRef& b);
 
 // Set the current thread name
-void setCurrentThreadName(const char* name);
+void SetCurrentThreadName(const char* name);
 
 }  // namespace system
 }  // namespace kwc

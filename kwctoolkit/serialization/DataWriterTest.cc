@@ -28,7 +28,7 @@ using testing::Return;
 class MockDataWriter : public DataWriter {
   public:
     MockDataWriter() = default;
-    ~MockDataWriter() override {}
+    ~MockDataWriter() override = default;
 
     MOCK_METHOD0(doClear, Status());
     MOCK_METHOD0(doBegin, Status());
@@ -82,10 +82,10 @@ TEST(DataWriterTest, TestBeginAuto) {
 
 TEST(DataWriterTest, TestWriteReaderMemory) {
     const char* expect = "Lorem ipsum";
-    std::string* str = new std::string(expect);
+    auto* str = new std::string(expect);
     Callback* delete_cb = kwc::DeletePointerCallback(str);
     std::unique_ptr<DataWriter> writer(kwc::serialization::CreateStringDataWriter(str));
-    std::unique_ptr<DataReader> reader(writer->CreateManagedDataReader(delete_cb));
+    std::unique_ptr<DataReader> reader(writer->createManagedDataReader(delete_cb));
     delete writer.release();
     EXPECT_EQ(std::string(expect), reader->readRemainingToString());
 }

@@ -24,7 +24,7 @@ class App {
     // and numbers
     KWC_NO_DISCARD std::string getProjectDescription() const;
 
-    // Returns the code name of the project. Should be all lowercase without any spaces in name
+    // Returns the code_ name of the project. Should be all lowercase without any spaces in name
     KWC_NO_DISCARD std::string getProjectCodeName() const;
 
     // Returns the vendor id of the project. Contains dot connected lowercase words, usually the

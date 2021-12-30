@@ -30,8 +30,8 @@ struct ThreadAttributes {
 #endif
 }  // namespace
 
-Thread::Thread(ThreadRunFunction func, void* obj, const char* threadName, ThreadPriority priority)
-    : run_function_(func), priority_(priority), obj_(obj), name_(threadName) {
+Thread::Thread(ThreadRunFunction func, void* obj, const char* thread_name, ThreadPriority priority)
+    : run_function_(func), priority_(priority), obj_(obj), name_(thread_name) {
     KWC_ASSERT(func);
     KWC_ASSERT(!name_.empty());
     KWC_ASSERT(name_.length() < 64 && "Thread name too long");
@@ -69,7 +69,7 @@ bool Thread::isRunning() const {
 #if defined(KWC_OS_WINDOWS)
     return thread_ != nullptr;
 #else
-    return thread_ != 0;
+    return thread_ != nullptr;
 #endif
 }
 
@@ -93,12 +93,12 @@ void Thread::stop() {
     thread_id_ = 0;
 #else
     KWC_ASSERT(pthread_join(thread_, nullptr) == 0);
-    thread_ = 0;
+    thread_ = nullptr;
 #endif
 }
 
 void Thread::run() {
-    setCurrentThreadName(name_.c_str());
+    SetCurrentThreadName(name_.c_str());
     setPriority(priority_);
     run_function_(obj_);
 }
@@ -108,25 +108,27 @@ bool Thread::setPriority(ThreadPriority priority) {
     return SetThreadPriority(thread_, priority) != FALSE;
 #else
     const int policy = SCHED_FIFO;
-    const int minPriority = sched_get_priority_min(policy);
-    const int maxPriority = sched_get_priority_max(policy);
-    if (minPriority == -1 || maxPriority == -1) {
+    const int min_priority = sched_get_priority_min(policy);
+    const int max_priority = sched_get_priority_max(policy);
+    if (min_priority == -1 || max_priority == -1) {
         return false;
     }
 
-    if (maxPriority - minPriority <= 2) {
+    if (max_priority - min_priority <= 2) {
         return false;
     }
 
     sched_param param{};
-    const int topPriority = maxPriority - 1;
-    const int lowPriority = minPriority + 1;
+    const int top_priority = max_priority - 1;
+    const int low_priority = min_priority + 1;
     switch (priority) {
-        case LOW_PRIORITY: param.sched_priority = lowPriority; break;
-        case NORMAL_PRIORITY: param.sched_priority = (lowPriority + topPriority - 1) / 2; break;
-        case HIGH_PRIORITY: param.sched_priority = std::max(topPriority - 2, lowPriority); break;
-        case HIGHEST_PRIORITY: param.sched_priority = std::max(topPriority - 1, lowPriority); break;
-        case REALTIME_PRIORITY: param.sched_priority = topPriority; break;
+        case LOW_PRIORITY: param.sched_priority = low_priority; break;
+        case NORMAL_PRIORITY: param.sched_priority = (low_priority + top_priority - 1) / 2; break;
+        case HIGH_PRIORITY: param.sched_priority = std::max(top_priority - 2, low_priority); break;
+        case HIGHEST_PRIORITY:
+            param.sched_priority = std::max(top_priority - 1, low_priority);
+            break;
+        case REALTIME_PRIORITY: param.sched_priority = top_priority; break;
     }
     return pthread_setschedparam(thread_, policy, &param) == 0;
 #endif
@@ -141,7 +143,7 @@ DWORD WINAPI Thread::startThread(void* param) {
 #else
 void* Thread::startThread(void* param) {
     static_cast<Thread*>(param)->run();
-    return 0;
+    return nullptr;
 }
 #endif
 

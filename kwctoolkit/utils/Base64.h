@@ -16,4 +16,4 @@ std::string Base64Decode(const std::string& encoded_string);
 }  // namespace utils
 }  // namespace kwc
 
-#endif  // KWCTOOLKIT_UTILS_BASE_64_H_
+#endif  // KWCTOOLKIT_UTILS_BASE64_H_

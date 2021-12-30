@@ -19,49 +19,49 @@ using namespace kwc::file;
 
 class FileTest : public testing::Test {
   protected:
-    virtual void SetUp() {
-        tmp_file = GetTempDir().append(file_name);
-        file = std::unique_ptr<File>(File::open(tmp_file, "w"));
+    void SetUp() override {
+        tmp_file_ = GetTempDir().append(file_name_);
+        file_ = std::unique_ptr<File>(File::open(tmp_file_, "w"));
     }
 
-    std::string file_name{"kwc_file_test.txt"};
-    FilePath tmp_file;
-    std::unique_ptr<File> file;
+    std::string file_name_{"kwc_file_test.txt"};
+    FilePath tmp_file_;
+    std::unique_ptr<File> file_;
 };
 
 TEST_F(FileTest, CreateAndClose) {
-    ASSERT_TRUE(file != nullptr);
-    EXPECT_TRUE(file->isOpen());
+    ASSERT_TRUE(file_ != nullptr);
+    EXPECT_TRUE(file_->isOpen());
 
-    ASSERT_TRUE(file->close());
-    EXPECT_FALSE(file->isOpen());
+    ASSERT_TRUE(file_->close());
+    EXPECT_FALSE(file_->isOpen());
 }
 
 TEST_F(FileTest, RemoveOpenFile) {
-    EXPECT_TRUE(file->isOpen());
-    EXPECT_TRUE(File::exists(tmp_file));
-    EXPECT_TRUE(File::remove(tmp_file));
-    EXPECT_FALSE(File::exists(tmp_file));
+    EXPECT_TRUE(file_->isOpen());
+    EXPECT_TRUE(File::exists(tmp_file_));
+    EXPECT_TRUE(File::remove(tmp_file_));
+    EXPECT_FALSE(File::exists(tmp_file_));
 }
 
 TEST_F(FileTest, GetFileName) {
-    ASSERT_TRUE(strings::EndsWith(file->getAbsoluteFileName(), file_name));
+    ASSERT_TRUE(strings::EndsWith(file_->getAbsoluteFileName(), file_name_));
 }
 
 TEST_F(FileTest, GetFileSize) {
-    EXPECT_EQ(0, file->getSize());
-    const std::string foo("This is a foo");
-    EXPECT_EQ(foo.size(), file->write(foo.c_str(), foo.size()));
-    EXPECT_GE(0, file->getSize());
+    EXPECT_EQ(0, file_->getSize());
+    const std::string foo("This is a foo_");
+    EXPECT_EQ(foo.size(), file_->write(foo.c_str(), foo.size()));
+    EXPECT_GE(0, file_->getSize());
 }
 
 TEST_F(FileTest, WriteAndReadFile) {
-    const std::string foo("This is another foo");
+    const std::string foo("This is another foo_");
     auto size = foo.size();
-    EXPECT_EQ(size, file->write(foo.c_str(), foo.size()));
-    EXPECT_TRUE(file->close());
+    EXPECT_EQ(size, file_->write(foo.c_str(), foo.size()));
+    EXPECT_TRUE(file_->close());
 
-    std::unique_ptr<File> file2(File::open(tmp_file, "r"));
+    std::unique_ptr<File> file2(File::open(tmp_file_, "r"));
     std::vector<char> buff(size);
     EXPECT_TRUE(file2->isOpen());
     auto chars_read = file2->read(&buff[0], buff.size());

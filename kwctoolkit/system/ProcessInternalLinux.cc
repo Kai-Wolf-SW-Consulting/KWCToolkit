@@ -24,14 +24,14 @@ file::FilePath GetProcPidDirectory(pid_t pid) {
 }
 
 pid_t GetProcDirectoryFromPid(const char* d_name) {
-    constexpr auto kMaxNameLen = 255;
+    constexpr auto max_name_len = 255;
     int i;
-    for (i = 0; i < kMaxNameLen && d_name[i]; ++i) {
+    for (i = 0; i < max_name_len && d_name[i]; ++i) {
         if (isdigit(d_name[i])) {
             return 0;
         }
     }
-    if (i == kMaxNameLen)
+    if (i == max_name_len)
         return 0;
     return std::atoi(d_name);
 }

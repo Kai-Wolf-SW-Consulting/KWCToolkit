@@ -12,7 +12,7 @@ namespace system {
 
 class TimerMac : public Timer {
   public:
-    TimerMac() : Timer(), running_(false), sec_coeff_(0.0) {}
+    TimerMac() : Timer() {}
 
     ~TimerMac() override = default;
 
@@ -40,22 +40,22 @@ class TimerMac : public Timer {
   private:
     double getSecondCoeff() {
         if (sec_coeff_ == 0.0) {
-            mach_timebase_info_data_t tbInfo;
-            mach_timebase_info(&tbInfo);
+            mach_timebase_info_data_t tb_info;
+            mach_timebase_info(&tb_info);
 
-            sec_coeff_ = tbInfo.numer * (1.0 / 1000000000) / tbInfo.denom;
+            sec_coeff_ = tb_info.numer * (1.0 / 1000000000) / tb_info.denom;
         }
 
         return sec_coeff_;
     }
 
-    bool running_;
+    bool running_{false};
     uint64 start_time_;
     uint64 stop_time_;
-    double sec_coeff_;
+    double sec_coeff_{0.0};
 };
 
-Timer* createTimer() {
+Timer* CreateTimer() {
     return new TimerMac();
 }
 

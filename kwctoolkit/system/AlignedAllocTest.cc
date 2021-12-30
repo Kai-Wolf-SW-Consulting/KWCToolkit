@@ -12,14 +12,14 @@ struct AlignedAllocTestFixture : public ::testing::TestWithParam<int> {};
 
 TEST_P(AlignedAllocTestFixture, GetAlignedMemory) {
     auto size = GetParam();
-    auto* ptr = reinterpret_cast<float*>(alignedAlloc(size * sizeof(float)));
+    auto* ptr = reinterpret_cast<float*>(AlignedAlloc(size * sizeof(float)));
     ASSERT_TRUE(ptr != nullptr);
-    alignedFree(ptr);
+    AlignedFree(ptr);
 }
 
 TEST_P(AlignedAllocTestFixture, AccessAlignedMemory) {
     auto size = GetParam();
-    auto* ptr = reinterpret_cast<float*>(alignedAlloc(size * sizeof(float)));
+    auto* ptr = reinterpret_cast<float*>(AlignedAlloc(size * sizeof(float)));
     for (int idx = 0; idx < size; ++idx) {
         ASSERT_NO_FATAL_FAILURE(ptr[idx] = 0.0f);
     }
@@ -28,7 +28,7 @@ TEST_P(AlignedAllocTestFixture, AccessAlignedMemory) {
         ASSERT_EQ(ptr[idx], 0.0f);
     }
 
-    alignedFree(ptr);
+    AlignedFree(ptr);
 }
 
 INSTANTIATE_TEST_CASE_P(

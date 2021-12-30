@@ -30,13 +30,13 @@ class CommandLine {
     // A program name must be explicitly specified
     DISALLOW_DEFAULT_CTOR(CommandLine);
 
-    // Create only switches and arguments
+    // create only switches and arguments
     explicit CommandLine(NoProgram no_program);
 
-    // Create command line options from |program| as argv[0]
+    // create command line options from |program| as argv[0]
     explicit CommandLine(const file::FilePath& program);
 
-    // Create command line options from argument list
+    // create command line options from argument list
     CommandLine(int argc, const CharType* const* argv);
     explicit CommandLine(const StringVector& argv);
 
@@ -75,7 +75,7 @@ class CommandLine {
     StringVector argv_;
     SwitchMap switches_;
     std::size_t start_args_;
-    static CommandLine* current_process_;
+    static CommandLine* current_process;
 };
 
 }  // namespace base

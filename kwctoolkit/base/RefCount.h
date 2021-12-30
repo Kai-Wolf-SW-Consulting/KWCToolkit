@@ -64,12 +64,12 @@ class Ref final {
         return *this;
     }
 
-    Ref(Ref<T>&& other) {
+    Ref(Ref<T>&& other) noexcept {
         pointee_ = other.pointee_;
         other.pointee_ = nullptr;
     }
 
-    Ref<T>& operator=(Ref<T>&& other) {
+    Ref<T>& operator=(Ref<T>&& other) noexcept {
         if (&other == this) {
             return *this;
         }
@@ -124,7 +124,7 @@ class Ref final {
 };
 
 template <typename T>
-Ref<T> acquireRef(T* pointee) {
+Ref<T> AcquireRef(T* pointee) {
     Ref<T> ref(pointee);
     ref->release();
     return ref;

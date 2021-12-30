@@ -21,12 +21,12 @@ std::string App::getProjectDescription() const {
 }
 
 std::string App::getProjectCodeName() const {
-    std::string projectCodeName;
+    std::string project_code_name;
     const char* p = &APPLICATION_CODENAME[0];
     while (*p != '\0') {
-        projectCodeName += strings::ToLowerASCII(*p++);
+        project_code_name += strings::ToLowerASCII(*p++);
     }
-    return projectCodeName;
+    return project_code_name;
 }
 
 std::string App::getProjectVendorId() const {

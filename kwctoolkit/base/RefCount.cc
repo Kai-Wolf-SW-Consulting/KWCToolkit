@@ -60,9 +60,9 @@ void RefCount::release() {
     // Finally, the acquire fence in the destruction case makes sure that
     // the reference count decrease does happen in thread 2 before the last
     // *delete this*.
-    const auto prevRefCount = refcount_.fetch_sub(kRefCountIncrement, std::memory_order_release);
+    const auto prev_ref_count = refcount_.fetch_sub(kRefCountIncrement, std::memory_order_release);
 
-    if (prevRefCount < 2 * kRefCountIncrement) {
+    if (prev_ref_count < 2 * kRefCountIncrement) {
         std::atomic_thread_fence(std::memory_order_acquire);
         delete this;
     }

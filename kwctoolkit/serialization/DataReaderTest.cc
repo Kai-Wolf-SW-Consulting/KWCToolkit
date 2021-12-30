@@ -47,19 +47,19 @@ class MockDataReader : public DataReader {
   public:
     MockDataReader() : DataReader(nullptr) {}
     explicit MockDataReader(Callback* delete_cb) : DataReader(delete_cb) {}
-    virtual ~MockDataReader() = default;
+    ~MockDataReader() override = default;
 
     MOCK_METHOD1(doSetOffset, int64(int64 offset));
     MOCK_METHOD2(doReadIntoBuffer, int64(int64 max_bytes, char* append_to));
 
     void pokeDone(bool done) { setDone(done); }
 
-    void pokeStatus(Status status) { setStatus(status); }
+    void pokeStatus(const Status& status) { setStatus(status); }
 };
 
 class DataReaderTest : public testing::Test {
   public:
-    void readIntoBufferHelper(const std::string data, int64 max_bytes, char* storage) {
+    void readIntoBufferHelper(const std::string& data, int64 max_bytes, char* storage) {
         memcpy(storage, data.c_str(), data.size());
     }
 };
@@ -67,7 +67,7 @@ class DataReaderTest : public testing::Test {
 TEST_F(DataReaderTest, TestCallback) {
     auto called = false;
     {
-        // |reader| will be deleted leaving the current scope, therefore the
+        // |reader| will be deleted_ leaving the current scope, therefore the
         // destructor gets called. Inside the destructor we expect that the
         // given callback got executed
         MockDataReader reader(kwc::MakeCallback(&Raise, &called));

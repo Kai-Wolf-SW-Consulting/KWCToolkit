@@ -5,9 +5,9 @@
 #include "kwctoolkit/image/PngDecoder.h"
 
 #include <png.h>
-#include <setjmp.h>
 
 #include <algorithm>
+#include <csetjmp>
 #include <cstring>
 #include <string>
 #include <vector>
@@ -42,7 +42,7 @@ class Image;
 
 namespace {
 struct PNGContext {
-    PNGContext() : png_ptr(nullptr), info_ptr(nullptr) {}
+    PNGContext() = default;
     ~PNGContext() {
         if (png_ptr) {
             png_destroy_read_struct(&png_ptr, info_ptr ? &info_ptr : nullptr, nullptr);
@@ -52,8 +52,8 @@ struct PNGContext {
     }
     const uint8* data;
     int data_left;
-    png_structp png_ptr;
-    png_infop info_ptr;
+    png_structp png_ptr{nullptr};
+    png_infop info_ptr{nullptr};
     png_uint_32 width, height;
     int num_passes;
     int color_type;
@@ -154,23 +154,23 @@ bool DecodeInit(std::vector<uint8> data, int num_channels, int channel_depth, PN
         return false;
     }
 
-    const bool has_tRNS = (png_get_valid(context->png_ptr, context->info_ptr, PNG_INFO_tRNS)) != 0;
+    const bool has_t_rns = (png_get_valid(context->png_ptr, context->info_ptr, PNG_INFO_tRNS)) != 0;
     if (context->channels == 0) {
         if (context->color_type == PNG_COLOR_TYPE_PALETTE) {
-            context->channels = has_tRNS ? 4 : 3;
+            context->channels = has_t_rns ? 4 : 3;
         } else {
             context->channels = png_get_channels(context->png_ptr, context->info_ptr);
         }
     }
     const bool has_alpha = (context->color_type & PNG_COLOR_MASK_ALPHA) != 0;
     if ((context->channels & 1) == 0) {
-        if (has_tRNS) {
+        if (has_t_rns) {
             png_set_tRNS_to_alpha(context->png_ptr);
         } else {
             png_set_add_alpha(context->png_ptr, (1 << context->bit_depth) - 1, PNG_FILLER_AFTER);
         }
     } else {
-        if (has_alpha || has_tRNS) {
+        if (has_alpha || has_t_rns) {
             png_set_strip_alpha(context->png_ptr);
         }
     }

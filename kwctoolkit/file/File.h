@@ -34,11 +34,11 @@ class File {
     bool flush();
     size_t getSize() const;
     std::string getAbsoluteFileName() const;
-    static bool remove(FilePath name);
+    static bool remove(const FilePath& name);
     static bool exists(const FilePath& name);
 
   private:
-    File(FILE* const descriptor, const std::string& name);
+    File(FILE* const descriptor, std::string name);
     FILE* file_;
     const std::string name_;
 };

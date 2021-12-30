@@ -8,6 +8,7 @@
 #include <sys/types.h>
 
 #include <cstdio>
+#include <utility>
 
 #include "kwctoolkit/file/FilePath.h"
 
@@ -22,7 +23,7 @@
 namespace kwc {
 namespace file {
 
-File::File(FILE* const descriptor, const std::string& name) : file_(descriptor), name_(name) {}
+File::File(FILE* const descriptor, std::string name) : file_(descriptor), name_(std::move(name)) {}
 
 File* File::open(const FilePath& name, const char* const flag) {
     FILE* const fd = fopen(name.value().c_str(), flag);
@@ -66,7 +67,7 @@ std::string File::getAbsoluteFileName() const {
     return name_;
 }
 
-bool File::remove(FilePath name) {
+bool File::remove(const FilePath& name) {
     return ::remove(name.value().c_str()) == 0;
 }
 

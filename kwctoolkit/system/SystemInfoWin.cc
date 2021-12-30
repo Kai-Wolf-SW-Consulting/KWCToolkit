@@ -17,7 +17,7 @@ namespace kwc {
 namespace system {
 
 namespace {
-int64 getAmountOfMemory(DWORDLONG MEMORYSTATUSEX::*memoryField) {
+int64 GetAmountOfMemory(DWORDLONG MEMORYSTATUSEX::*memoryField) {  // NOLINT
     MEMORYSTATUSEX mem_info;
     mem_info.dwLength = sizeof(mem_info);
     if (!GlobalMemoryStatusEx(&mem_info)) {
@@ -29,9 +29,9 @@ int64 getAmountOfMemory(DWORDLONG MEMORYSTATUSEX::*memoryField) {
     return rv < 0 ? std::numeric_limits<int64>::max() : rv;
 }
 
-const _SYSTEM_INFO& getSystemInfo() {
+const _SYSTEM_INFO& GetSystemInfo() {
     _SYSTEM_INFO info = {};
-    ::GetNativeSystemInfo(&info);
+    ::GetNativeSystemInfo(&info);  // NOLINT
     return info;
 }
 
@@ -65,7 +65,7 @@ struct OSInfo {
     const ServicePack getServicePack() const { return service_pack_; }
 
     static WindowsArchitecture getArchitecture() {
-        switch (getSystemInfo().wProcessorArchitecture) {
+        switch (GetSystemInfo().wProcessorArchitecture) {
             case PROCESSOR_ARCHITECTURE_INTEL: return X86_ARCHITECTURE;
             case PROCESSOR_ARCHITECTURE_AMD64: return X64_ARCHITECTURE;
             case PROCESSOR_ARCHITECTURE_IA64: return IA64_ARCHITECTURE;
@@ -75,7 +75,7 @@ struct OSInfo {
     }
 
   private:
-    OSInfo(const _OSVERSIONINFOEXW& version_info, const _SYSTEM_INFO& systemInfo, int osType) {
+    OSInfo(const _OSVERSIONINFOEXW& version_info, const _SYSTEM_INFO& system_info, int) {
         version_number_.major = version_info.dwMajorVersion;
         version_number_.minor = version_info.dwMinorVersion;
         version_number_.build = version_info.dwBuildNumber;
@@ -83,7 +83,7 @@ struct OSInfo {
         service_pack_.major = version_info.wServicePackMajor;
         service_pack_.minor = version_info.wServicePackMinor;
 
-        cpus_ = systemInfo.dwNumberOfProcessors;
+        cpus_ = system_info.dwNumberOfProcessors;
     }
 
     static OSInfo** getInstanceStorage() {
@@ -91,11 +91,11 @@ struct OSInfo {
             _OSVERSIONINFOEXW version_info = {sizeof(version_info)};
             ::GetVersionExW(reinterpret_cast<_OSVERSIONINFOW*>(&version_info));
 
-            DWORD osType = 0;
+            DWORD os_type = 0;
             ::GetProductInfo(version_info.dwMajorVersion, version_info.dwMinorVersion, 0, 0,
-                             &osType);
+                             &os_type);
 
-            return new OSInfo(version_info, getSystemInfo(), osType);
+            return new OSInfo(version_info, GetSystemInfo(), os_type);
         }();
 
         return &info;
@@ -118,17 +118,17 @@ std::string SystemInfo::getOSName() {
 }
 
 std::string SystemInfo::getOSVersion() {
-    auto* osInfo = OSInfo::getInstance();
-    auto versionNumber = osInfo->getVersionNumber();
+    auto* os_info = OSInfo::getInstance();
+    auto version_number = os_info->getVersionNumber();
 
     std::ostringstream buffer;
-    buffer << versionNumber.major << "." << versionNumber.minor << "." << versionNumber.build;
+    buffer << version_number.major << "." << version_number.minor << "." << version_number.build;
 
-    auto servicePack = osInfo->getServicePack();
-    if (servicePack.major != 0) {
-        buffer << " SP" << servicePack.major;
-        if (servicePack.minor != 0) {
-            buffer << "." << servicePack.minor;
+    auto service_pack = os_info->getServicePack();
+    if (service_pack.major != 0) {
+        buffer << " SP" << service_pack.major;
+        if (service_pack.minor != 0) {
+            buffer << "." << service_pack.minor;
         }
     }
     return buffer.str();
@@ -146,7 +146,7 @@ std::string SystemInfo::getOSArch() {
 }
 
 int64 SystemInfo::getAmountOfPhysicalMemoryImpl() {
-    return getAmountOfMemory(&MEMORYSTATUSEX::ullTotalPhys);
+    return GetAmountOfMemory(&MEMORYSTATUSEX::ullTotalPhys);
 }
 
 int64 SystemInfo::getAmountOfAvailablePhysicalMemoryImpl() {
@@ -159,7 +159,7 @@ int64 SystemInfo::getAmountOfAvailablePhysicalMemoryImpl() {
 }
 
 int64 SystemInfo::getAmountOfVirtualMemory() {
-    return getAmountOfMemory(&MEMORYSTATUSEX::ullTotalVirtual);
+    return GetAmountOfMemory(&MEMORYSTATUSEX::ullTotalVirtual);
 }
 
 }  // namespace system

@@ -5,9 +5,8 @@
 #ifndef KWCTOOLKIT_STRINGS_UTF_STRING_CONVERSION_H_
 #define KWCTOOLKIT_STRINGS_UTF_STRING_CONVERSION_H_
 
-#include <stdint.h>
-
 #include <cstddef>
+#include <cstdint>
 #include <iosfwd>
 #include <string>
 

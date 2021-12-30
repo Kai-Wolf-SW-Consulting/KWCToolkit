@@ -14,7 +14,7 @@ namespace utils {
 
 namespace internal {
 template <typename S, typename T, typename F>
-inline void transform(const std::vector<S>& as,
+inline void Transform(const std::vector<S>& as,
                       const std::vector<T>& bs,
                       std::vector<std::pair<S, T>>& rs,
                       F f) {
@@ -23,15 +23,15 @@ inline void transform(const std::vector<S>& as,
 }  // namespace internal
 
 template <typename S, typename T>
-std::vector<std::pair<S, T>> zip(const std::vector<S>& xs, const std::vector<T>& ys) {
+std::vector<std::pair<S, T>> Zip(const std::vector<S>& xs, const std::vector<T>& ys) {
     const auto xs_size = xs.size();
     const auto ys_size = ys.size();
     std::vector<std::pair<S, T>> r(std::min(xs_size, ys_size));
     if (xs_size <= ys_size) {
-        internal::transform(xs, ys, r,
+        internal::Transform(xs, ys, r,
                             [](const S& e1, const T& e2) { return std::make_pair(e1, e2); });
     } else {
-        internal::transform(ys, xs, r,
+        internal::Transform(ys, xs, r,
                             [](const T& e1, const S& e2) { return std::make_pair(e2, e1); });
     }
     return r;

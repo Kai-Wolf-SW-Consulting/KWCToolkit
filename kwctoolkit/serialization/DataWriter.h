@@ -40,9 +40,9 @@ class DataWriter {
 
     Status writeData(DataReader* reader, int64 max_bytes = -1);
 
-    DataReader* CreateUnmanagedDataReader() { return CreateManagedDataReader(nullptr); }
+    DataReader* createUnmanagedDataReader() { return createManagedDataReader(nullptr); }
 
-    DataReader* CreateManagedDataReader(Callback* delete_cb);
+    DataReader* createManagedDataReader(Callback* delete_cb);
 
   protected:
     DataWriter();
@@ -60,8 +60,8 @@ class DataWriter {
     virtual DataReader* doCreateDataReader(Callback* delete_cb) = 0;
 
   private:
-    int64 size_;
-    bool has_begun_;
+    int64 size_{0};
+    bool has_begun_{false};
     Status status_;
 
     DISALLOW_COPY_AND_ASSIGN(DataWriter);

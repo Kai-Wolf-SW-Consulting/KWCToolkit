@@ -28,13 +28,13 @@ class HttpTransactionOptions {
     HttpTransactionOptions();
     virtual ~HttpTransactionOptions() = default;
 
-    void setExecutor(system::Executor* getExecutor) { executor_ = getExecutor; }
+    void setExecutor(system::Executor* get_executor) { executor_ = get_executor; }
 
     // Returns the getExecutor that should be used with this transaction
     system::Executor* getExecutor() const;
 
-    // Set the getExecutor to use for the HTTP callback responses
-    void setCallbackExecutor(system::Executor* getExecutor) { callback_executor_ = getExecutor; }
+    // Set the get_executor to use for the HTTP callback responses
+    void setCallbackExecutor(system::Executor* get_executor) { callback_executor_ = get_executor; }
 
     system::Executor* getCallbackExecutor() const;
 
@@ -56,12 +56,12 @@ class HttpTransactionOptions {
     void setConnectionTimeout(int64 timeout_ms);
 
   private:
-    unsigned short port_;
+    unsigned short port_{0};
     std::string host_;
     std::string user_agent_;
-    int64 connection_timeout_ms_;
-    system::Executor* executor_;
-    system::Executor* callback_executor_;
+    int64 connection_timeout_ms_{0L};
+    system::Executor* executor_{nullptr};
+    system::Executor* callback_executor_{nullptr};
 };
 
 // The following class defines an abstract interface for creating concrete

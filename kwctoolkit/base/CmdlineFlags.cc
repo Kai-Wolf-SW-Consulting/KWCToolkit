@@ -23,7 +23,7 @@ const char* ParseFlagValue(const char* str, const char* flag, bool def_optional)
         return nullptr;
     }
 
-    // The flag must start with '--'
+    // The flag must start_ with '--'
     auto flag_str = std::string("--") + std::string(flag);
 
     auto flag_len = flag_str.length();

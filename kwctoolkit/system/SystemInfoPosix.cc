@@ -61,7 +61,7 @@ std::string SystemInfo::getOSArch() {
     struct utsname info;
     if (uname(&info) < 0) {
         KWC_UNREACHABLE();
-        return std::string();
+        return {};
     }
 
     std::string arch(info.machine);

@@ -86,9 +86,9 @@ class ACallback:
     def name(self):
         name = self.__class__.__name__
         if self.num_pb_args >= 0:
-            name += "_%d" % self.num_pb_args
+            name += "%d" % self.num_pb_args
         if self.num_ct_args >= 0:
-            name += "_%d" % self.num_ct_args
+            name += "%d" % self.num_ct_args
         return name
 
     def template_decl(self, from_result_cb):

@@ -6,7 +6,6 @@
 
 #include <utility>
 
-#include "kwctoolkit/base/ArraySize.h"
 #include "kwctoolkit/file/FilePath.h"
 #include "kwctoolkit/strings/StringUtils.h"
 
@@ -15,11 +14,10 @@ using kwc::file::FilePath;
 namespace kwc {
 namespace base {
 
-const CommandLine::CharType SWITCH_TERMINATOR[] = "--";
-const CommandLine::CharType SWITCH_VALUE_SEPARATOR[] = "=";
-const CommandLine::CharType* SWITCH_PREFIXES[] = {"--", "-"};
-constexpr std::size_t num_switch_prefixes = arraysize(SWITCH_PREFIXES);
-CommandLine* CommandLine::current_process_ = nullptr;
+const CommandLine::CharType kSwitchTerminator[] = "--";
+const CommandLine::CharType kSwitchValueSeparator[] = "=";
+const CommandLine::CharType* kSwitchPrefixes[] = {"--", "-"};  // NOLINT
+CommandLine* CommandLine::current_process = nullptr;
 
 CommandLine::CommandLine(NoProgram) : argv_(1), start_args_(1) {}
 
@@ -37,19 +35,19 @@ CommandLine::CommandLine(const CommandLine::StringVector& argv) : argv_(1), star
 }
 
 bool CommandLine::init(int argc, const char* const* argv) {
-    if (current_process_) {
+    if (current_process) {
         return false;
     }
 
     // TODO: remove new call
-    current_process_ = new CommandLine(NoProgram::NO_PROGRAM);
-    current_process_->initFromArgv(argc, argv);
+    current_process = new CommandLine(NoProgram::NO_PROGRAM);
+    current_process->initFromArgv(argc, argv);
     return true;
 }
 
 void CommandLine::reset() {
-    delete current_process_;
-    current_process_ = nullptr;
+    delete current_process;
+    current_process = nullptr;
 }
 
 void CommandLine::initFromArgv(int argc, const CharType* const* argv) {
@@ -71,7 +69,7 @@ void CommandLine::initFromArgv(const CommandLine::StringVector& argv) {
         arg = strings::TrimString(arg, " ", strings::TRIM_ALL);
         CommandLine::StringType switch_string;
         CommandLine::StringType switch_value;
-        parse_switches &= (arg != SWITCH_TERMINATOR);
+        parse_switches &= (arg != kSwitchTerminator);
         if (parse_switches && isSwitch(arg, &switch_string, &switch_value)) {
             appendSwitch(switch_string, switch_value);
         } else {
@@ -146,17 +144,17 @@ void CommandLine::appendSwitch(const CommandLine::StringType& switch_string,
     }
     StringType combined_switch_str(switch_string);
     if (prefix_length == 0) {
-        combined_switch_str = SWITCH_PREFIXES[0] + combined_switch_str;
+        combined_switch_str = kSwitchPrefixes[0] + combined_switch_str;
     }
     if (!value.empty()) {
-        combined_switch_str += SWITCH_VALUE_SEPARATOR + value;
+        combined_switch_str += kSwitchValueSeparator + value;
     }
     argv_.insert(argv_.begin() + start_args_++, combined_switch_str);
 }
 
 CommandLine::StringVector CommandLine::getArgs() const {
     StringVector args(argv_.begin() + start_args_, argv_.end());
-    auto switch_terminator = std::find(args.begin(), args.end(), SWITCH_TERMINATOR);
+    auto switch_terminator = std::find(args.begin(), args.end(), kSwitchTerminator);
     if (switch_terminator != args.end()) {
         args.erase(switch_terminator);
     }
@@ -188,14 +186,14 @@ CommandLine::StringType CommandLine::getArgumentsStringInternal() const {
         StringType arg = argv_[i];
         StringType switch_string;
         StringType switch_value;
-        parse_switches &= arg != SWITCH_TERMINATOR;
+        parse_switches &= arg != kSwitchTerminator;
         if (i > 1) {
             params.append(StringType(" "));
         }
         if (parse_switches && isSwitch(arg, &switch_string, &switch_value)) {
             params.append(switch_string);
             if (!switch_value.empty()) {
-                params.append(SWITCH_VALUE_SEPARATOR + switch_value);
+                params.append(kSwitchValueSeparator + switch_value);
             }
         } else {
             params.append(arg);
@@ -213,7 +211,7 @@ bool CommandLine::isSwitch(const CommandLine::StringType& string,
     if (prefix_length == 0 || prefix_length == string.length()) {
         return false;
     }
-    auto equals_pos = string.find(SWITCH_VALUE_SEPARATOR);
+    auto equals_pos = string.find(kSwitchValueSeparator);
     *switch_string = string.substr(0, equals_pos);
     if (equals_pos != CommandLine::StringType::npos) {
         *switch_value = string.substr(equals_pos + 1);
@@ -222,8 +220,8 @@ bool CommandLine::isSwitch(const CommandLine::StringType& string,
 }
 
 std::size_t CommandLine::getSwitchPrefixLength(const CommandLine::StringType& string) const {
-    for (std::size_t i = 0; i < num_switch_prefixes; ++i) {
-        CommandLine::StringType prefix(SWITCH_PREFIXES[i]);
+    for (auto idx : kSwitchPrefixes) {
+        CommandLine::StringType prefix(idx);
         if (string.compare(0, prefix.length(), prefix) == 0) {
             return prefix.length();
         }

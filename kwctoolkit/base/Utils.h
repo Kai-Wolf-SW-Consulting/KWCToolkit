@@ -5,8 +5,7 @@
 #ifndef KWCTOOLKIT_BASE_UTILS_H_
 #define KWCTOOLKIT_BASE_UTILS_H_
 
-#include <stddef.h>
-
+#include <cstddef>
 #include <iterator>
 #include <tuple>
 #include <utility>
@@ -32,22 +31,22 @@ template <typename T,
           typename TIter = decltype(std::begin(std::declval<T>())),
           typename = decltype(std::end(std::declval<T>()))>
 constexpr auto Enumerate(T&& iterable) {
-    struct iterator {
-        size_t i;
-        TIter iter;
-        bool operator!=(const iterator& other) const { return iter != other.iter; }
+    struct iterator {  // NOLINT
+        size_t i_;
+        TIter iter_;
+        bool operator!=(const iterator& other) const { return iter_ != other.iter_; }
         void operator++() {
-            ++i;
-            ++iter;
+            ++i_;
+            ++iter_;
         }
-        auto operator*() const { return std::tie(i, *iter); }
+        auto operator*() const { return std::tie(i_, *iter_); }
     };
-    struct iterable_wrapper {
-        T iterable;
-        auto begin() { return iterator{0, std::begin(iterable)}; }
-        auto end() { return iterator{0, std::end(iterable)}; }
+    struct IterableWrapper {
+        T iterable_;
+        auto begin() { return iterator{0, std::begin(iterable_)}; }
+        auto end() { return iterator{0, std::end(iterable_)}; }
     };
-    return iterable_wrapper{std::forward<T>(iterable)};
+    return IterableWrapper{std::forward<T>(iterable)};
 }
 
 }  // namespace base

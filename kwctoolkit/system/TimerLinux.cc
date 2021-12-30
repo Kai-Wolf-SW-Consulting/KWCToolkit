@@ -12,10 +12,10 @@ namespace kwc {
 namespace system {
 
 namespace {
-uint64 getCurrentTimeNanos() {
-    struct timespec currentTime;
-    clock_gettime(CLOCK_MONOTONIC, &currentTime);
-    return currentTime.tv_sec * 1000000000llu + currentTime.tv_nsec;
+uint64 GetCurrentTimeNanos() {
+    struct timespec current_time;
+    clock_gettime(CLOCK_MONOTONIC, &current_time);
+    return current_time.tv_sec * 1000000000llu + current_time.tv_nsec;
 }
 }  // namespace
 
@@ -26,27 +26,27 @@ class TimerPosix : public Timer {
     ~TimerPosix() override = default;
 
     void start() override {
-        start_time_nanos_ = getCurrentTimeNanos();
+        start_time_nanos_ = GetCurrentTimeNanos();
         running_ = true;
     }
 
     void stop() override {
-        stop_time_nanos_ = getCurrentTimeNanos();
+        stop_time_nanos_ = GetCurrentTimeNanos();
         running_ = false;
     }
 
     double getElapsedTime() const override {
-        uint64 endTimeNanos;
+        uint64 end_time_nanos;
         if (running_) {
-            endTimeNanos = getCurrentTimeNanos();
+            end_time_nanos = GetCurrentTimeNanos();
         } else {
-            endTimeNanos = stop_time_nanos_;
+            end_time_nanos = stop_time_nanos_;
         }
 
-        return (endTimeNanos - start_time_nanos_) * 1e-9;
+        return (end_time_nanos - start_time_nanos_) * 1e-9;
     }
 
-    double getAbsoluteTime() override { return getCurrentTimeNanos() * 1e-9; }
+    double getAbsoluteTime() override { return GetCurrentTimeNanos() * 1e-9; }
 
   private:
     bool running_;
@@ -54,7 +54,7 @@ class TimerPosix : public Timer {
     uint64 stop_time_nanos_;
 };
 
-Timer* createTimer() {
+Timer* CreateTimer() {
     return new TimerPosix();
 }
 

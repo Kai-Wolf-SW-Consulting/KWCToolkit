@@ -4,9 +4,8 @@
 
 #include "kwctoolkit/serialization/DataReader.h"
 
-#include <stdint.h>
-
 #include <algorithm>
+#include <cstdint>
 #include <cstdlib>
 #include <memory>
 
@@ -197,7 +196,7 @@ void DataReader::setTotalLength(int64 length) {
 
 class InvalidDataReader : public DataReader {
   public:
-    InvalidDataReader(base::Status status, Callback* delete_cb)
+    InvalidDataReader(const base::Status& status, Callback* delete_cb)
         : DataReader(delete_cb), status_(status) {
         setStatus(status);
     }

@@ -30,16 +30,16 @@ class TimerWin : public Timer {
     }
 
     double getElapsedTime() const override {
-        LONGLONG endTime;
+        LONGLONG end_time;
         if (running_) {
             LARGE_INTEGER current_time;
             QueryPerformanceCounter(&current_time);
-            endTime = current_time.QuadPart;
+            end_time = current_time.QuadPart;
         } else {
-            endTime = stop_time_;
+            end_time = stop_time_;
         }
 
-        return static_cast<double>(endTime - start_time_) / frequency_;
+        return static_cast<double>(end_time - start_time_) / frequency_;
     }
 
     double getAbsoluteTime() override {
@@ -65,7 +65,7 @@ class TimerWin : public Timer {
     LONGLONG frequency_;
 };
 
-Timer* createTimer() {
+Timer* CreateTimer() {
     return new TimerWin();
 }
 

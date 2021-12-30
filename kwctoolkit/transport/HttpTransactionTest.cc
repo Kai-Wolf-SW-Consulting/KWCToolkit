@@ -38,6 +38,6 @@ TEST(HttpTransactionTest, InstantiateSimpleRequest) {
 
     HttpTransactionOptions options;
     auto transaction = factory->createTransaction(options);
-    auto request = transaction->createHttpRequest(HttpRequest::GET);
+    auto request = transaction->createHttpRequest(HttpRequest::kGet);
     ASSERT_TRUE(request != nullptr);
 }

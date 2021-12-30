@@ -76,20 +76,20 @@ bool CreateDirectory(const FilePath& full_path) {
 }
 
 #if defined(KWC_OS_MACOS) || defined(KWC_OS_LINUX)
-int openNoInterrupt(const char* name, int flags, mode_t mode) {
-    return int(internal::wrapNoInterrupt(open, name, flags, mode));
+int OpenNoInterrupt(const char* name, int flags, mode_t mode) {
+    return int(internal::WrapNoInterrupt(open, name, flags, mode));
 }
 
-int closeNoInterrupt(int fd) {
+int CloseNoInterrupt(int fd) {
     return IgnoreCloseReturn(close(fd));
 }
 
-ssize_t readFull(int fd, void* buf, std::size_t count) {
-    return internal::wrapIncomplete(read, fd, buf, count);
+ssize_t ReadFull(int fd, void* buf, std::size_t count) {
+    return internal::WrapIncomplete(read, fd, buf, count);
 }
 
-ssize_t writeFull(int fd, const void* buf, std::size_t count) {
-    return internal::wrapIncomplete(write, fd, const_cast<void*>(buf), count);
+ssize_t WriteFull(int fd, const void* buf, std::size_t count) {
+    return internal::WrapIncomplete(write, fd, const_cast<void*>(buf), count);
 }
 #endif
 

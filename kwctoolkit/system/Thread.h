@@ -40,9 +40,9 @@ enum ThreadPriority {
 //
 // This version of a thread is used above C++11 std::thread version to avoid
 // several flaws that come with the standard's implementation.
-// For one, C++11 threads always start immediately. While this can be avoided,
+// For one, C++11 threads always start_ immediately. While this can be avoided,
 // jumping through several hoops (using condition variables etc.), ideally
-// our implementation provides a more cleaner start()/stop() semantic.
+// our implementation provides a more cleaner start_()/stop() semantic.
 //
 // Furthermore, our implementation also provides a method to attach a name
 // to a thread, which is handy in debugging environments as well as for
@@ -54,7 +54,7 @@ class Thread {
   public:
     Thread(ThreadRunFunction func,
            void* obj,
-           const char* threadName,
+           const char* thread_name,
            ThreadPriority priority = NORMAL_PRIORITY);
     virtual ~Thread();
 
@@ -88,7 +88,7 @@ class Thread {
     DWORD thread_id_ = 0;
 #else
     static void* startThread(void* param);
-    pthread_t thread_ = 0;
+    pthread_t thread_ = nullptr;
 #endif
 };
 

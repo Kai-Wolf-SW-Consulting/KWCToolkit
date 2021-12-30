@@ -14,7 +14,7 @@
 namespace kwc {
 namespace system {
 
-PlatformThreadId currentThreadId() {
+PlatformThreadId CurrentThreadId() {
 #if defined(KWC_OS_WINDOWS)
     return GetCurrentThreadId();
 #elif defined(KWC_OS_POSIX)
@@ -30,7 +30,7 @@ PlatformThreadId currentThreadId() {
 #endif
 }
 
-PlatformThreadRef currentThreadRef() {
+PlatformThreadRef CurrentThreadRef() {
 #if defined(KWC_OS_WINDOWS)
     return GetCurrentThreadId();
 #elif defined(KWC_OS_POSIX)
@@ -38,7 +38,7 @@ PlatformThreadRef currentThreadRef() {
 #endif
 }
 
-bool isThreadRefEqual(const PlatformThreadRef& a, const PlatformThreadRef& b) {
+bool IsThreadRefEqual(const PlatformThreadRef& a, const PlatformThreadRef& b) {
 #if defined(KWC_OS_WINDOWS)
     return a == b;
 #elif defined(KWC_OS_POSIX)
@@ -46,7 +46,7 @@ bool isThreadRefEqual(const PlatformThreadRef& a, const PlatformThreadRef& b) {
 #endif
 }
 
-void setCurrentThreadName(const char* name) {
+void SetCurrentThreadName(const char* name) {
 #if defined(KWC_OS_WINDOWS)
     // Yes, we are serious. This is the officially documented way to set a thread name in Windows.
     // See the following link for more info on this:

@@ -8,13 +8,13 @@ namespace kwc {
 namespace base {
 namespace internal {
 
-intptr_t createPayload(const void* ptr, Payload type) {
+intptr_t CreatePayload(const void* ptr, Payload type) {
     auto payload = reinterpret_cast<intptr_t>(ptr);
     KWC_ASSERT((payload & 3) == 0);
     return payload | type;
 }
 
-Payload getPayload(intptr_t payload) {
+Payload GetPayload(intptr_t payload) {
     return static_cast<Payload>(payload & 3);
 }
 

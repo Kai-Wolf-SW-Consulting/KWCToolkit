@@ -16,15 +16,15 @@ namespace kwc {
 namespace base {
 
 // Specifies whether a given feature is enabled or disabled by default
-// Please note that the actual runtime state may be different, due to a command line switch*/
+// Please note that the actual runtime state_ may be different, due to a command line switch*/
 enum FeatureState { FEATURE_DISABLED_BY_DEFAULT, FEATURE_ENABLED_BY_DEFAULT };
 
-// This struct is used to define the default state for a given feature
+// This struct is used to define the default state_ for a given feature
 struct Feature {
     // Name of the feature that can be enabled/disabled on the command line as well
     const char* const name;
 
-    // Default state for this feature
+    // Default state_ for this feature
     const FeatureState default_state;
 };
 
@@ -37,14 +37,14 @@ struct Feature {
 //         "MyCoolFeature", base::FEATURE_ENABLED_BY_DEFAULT
 //     }
 //
-// Then, anywhere in the code base, one can check for this feature using:
+// Then, anywhere in the code_ base, one can check for this feature using:
 //
 //     if (base::FeatureList::IsEnabled(kMyCoolFeature)) {
 //         // New, cool feature goes here...
 //     }
 //
 // The above call to the FeatureList will take into account any command-line flags to
-// enable/disable the given feature as well as its default state, to determine whether the feature
+// enable/disable the given feature as well as its default state_, to determine whether the feature
 // is on.
 //
 // Features can be explicitly forced to be on/off by specifying a list of comma-separated feature

@@ -1,3 +1,4 @@
+
 // Copyright (c) 2021, Kai Wolf - SW Consulting. All rights reserved.
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
@@ -16,38 +17,31 @@ namespace net {
 class Address {
   public:
     // Default constructs an address from an IPv4 address
-    Address() : type_(Type::IPv4), address_ipv4_(), address_ipv6_() {}
+    Address() : address_ipv4_(), address_ipv6_() {}
 
-    Address(const AddressIPv4& ipv4Addr)
-        : type_(Type::IPv4), address_ipv4_(ipv4Addr), address_ipv6_() {}
+    Address(const AddressIPv4& ipv4_addr) : address_ipv4_(ipv4_addr), address_ipv6_() {}
 
-    Address(const AddressIPv6& ipv6Addr)
-        : type_(Type::IPv6), address_ipv4_(), address_ipv6_(ipv6Addr) {}
+    Address(const AddressIPv6& ipv6_addr)
+        : type_(Type::IPv6), address_ipv4_(), address_ipv6_(ipv6_addr) {}
 
     Address(const Address& other)
-        : type_(other.type_),
-          address_ipv4_(other.address_ipv4_),
-          address_ipv6_(other.address_ipv6_) {}
 
-    Address& operator=(const Address& other) {
-        type_ = other.type_;
-        address_ipv4_ = other.address_ipv4_;
-        address_ipv6_ = other.address_ipv6_;
-        return *this;
-    }
+        = default;
+
+    Address& operator=(const Address& other) = default;
 
     // Assign from an IPv4 address
-    Address& operator=(const AddressIPv4& ipv4Addr) {
+    Address& operator=(const AddressIPv4& ipv4_addr) {
         type_ = Type::IPv4;
-        address_ipv4_ = ipv4Addr;
+        address_ipv4_ = ipv4_addr;
         address_ipv6_ = AddressIPv6();
         return *this;
     }
 
-    Address& operator=(const AddressIPv6& ipv6Addr) {
+    Address& operator=(const AddressIPv6& ipv6_addr) {
         type_ = Type::IPv6;
         address_ipv4_ = AddressIPv4();
-        address_ipv6_ = ipv6Addr;
+        address_ipv6_ = ipv6_addr;
         return *this;
     }
 
@@ -120,7 +114,7 @@ class Address {
     }
 
   private:
-    enum class Type { IPv4, IPv6 } type_;
+    enum class Type { IPv4, IPv6 } type_{Type::IPv4};
     AddressIPv4 address_ipv4_;
     AddressIPv6 address_ipv6_;
 };

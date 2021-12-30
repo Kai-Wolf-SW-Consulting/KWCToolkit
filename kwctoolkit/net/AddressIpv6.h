@@ -22,15 +22,11 @@ namespace net {
 // This class provides the ability to create, use and manipulate ip version 6 addresses
 class AddressIPv6 {
   public:
-    AddressIPv6() : address_(IN6ADDR_ANY_INIT), scope_id_(0) {}
+    AddressIPv6() : address_(IN6ADDR_ANY_INIT) {}
 
-    AddressIPv6(const AddressIPv6& other) : address_(other.address_), scope_id_(other.scope_id_) {}
+    AddressIPv6(const AddressIPv6& other) = default;
 
-    AddressIPv6& operator=(const AddressIPv6& other) {
-        address_ = other.address_;
-        scope_id_ = other.scope_id_;
-        return *this;
-    }
+    AddressIPv6& operator=(const AddressIPv6& other) = default;
 
     // Returns the scope ID associated with the IPv6 address
     unsigned long getScopeID() const { return scope_id_; }
@@ -38,7 +34,7 @@ class AddressIPv6 {
     // Modifies the scope ID associated with the IPv6 address
     void setScopeID(unsigned long id) { scope_id_ = id; }
 
-    // Create from an IPv6 address string
+    // create from an IPv6 address string
     static AddressOrError<AddressIPv6> fromString(const char* str) {
         AddressIPv6 tmp;
 
@@ -51,14 +47,14 @@ class AddressIPv6 {
 
     // Get address as string
     std::string toString() const {
-        char addrStr[INET6_ADDRSTRLEN];
-        const char* addr = inet_ntop(AF_INET6, &address_, addrStr, INET6_ADDRSTRLEN);
+        char addr_str[INET6_ADDRSTRLEN];
+        const char* addr = inet_ntop(AF_INET6, &address_, addr_str, INET6_ADDRSTRLEN);
 
         if (addr == nullptr) {
-            return std::string();
+            return {};
         }
 
-        return std::string(addr);
+        return {addr};
     }
 
     // Compare two addresses for equality
@@ -81,7 +77,7 @@ class AddressIPv6 {
     // The underlying IPv6 address
     in6_addr address_;
     // Scope ID associated with the IPv6 address
-    unsigned long scope_id_;
+    unsigned long scope_id_{0};
 };
 
 }  // namespace net
