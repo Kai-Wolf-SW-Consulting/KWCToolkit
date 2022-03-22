@@ -3,6 +3,7 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 include(GoogleTest)
+find_package(GTest REQUIRED)
 
 add_executable(kwc_unittests
   UnittestsMain.cc)

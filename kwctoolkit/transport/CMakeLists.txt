@@ -21,7 +21,7 @@ target_include_directories(kwc_transport
     $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(kwc_transport
-  PUBLIC kwc::base)
+  PUBLIC kwc::base kwc::strings kwc::serialization kwc::system)
 
 install(TARGETS kwc_transport
   EXPORT ${PROJECT_NAME}Targets

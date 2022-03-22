@@ -2,6 +2,8 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
+find_package(PNG REQUIRED)
+
 add_library(kwc_image
   Image.cc
   Image.h

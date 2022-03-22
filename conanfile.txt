@@ -1,0 +1,7 @@
+[requires]
+gtest/1.11.0
+zlib/1.2.11
+libpng/1.6.37
+
+[generators]
+cmake_find_package

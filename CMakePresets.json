@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 19,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Default KWCToolkit config",
+            "description": "Default KWCToolkit build configuration",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build_${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install_${presetName}",
+                "BUILD_SHARED_LIBS": "OFF",
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ]
+}
