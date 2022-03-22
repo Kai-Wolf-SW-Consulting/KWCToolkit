@@ -7,15 +7,15 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "strings",
     srcs = [
-        "StringSplit.cc",
-        "StringUtils.cc",
-        "UtfStringConversion.cc"
+        "string_split.cc",
+        "string_utils.cc",
+        "utf_string_conversion.cc"
     ],
     hdrs = [
-        "StringSplit.h",
-        "StringSwitch.h",
-        "StringUtils.h",
-        "UtfStringConversion.h",
+        "string_split.h",
+        "string_switch.h",
+        "string_utils.h",
+        "utf_string_conversion.h",
     ],
     deps = [
         "//kwctoolkit/base",
@@ -27,8 +27,8 @@ cc_test(
     name = "strings_test",
     size = "small",
     srcs = [
-        "StringSplitTest.cc",
-        "StringSwitchTest.cc",
+        "string_split_test.cc",
+        "string_switch_test.cc",
     ],
     deps = [
         ":strings",

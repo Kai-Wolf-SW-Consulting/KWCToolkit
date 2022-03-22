@@ -7,13 +7,13 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "audio",
     srcs = [
-        "PcmUtils.cc",
-        "SineGenerator.cc",
+        "pcm_utils.cc",
+        "sine_generator.cc",
     ],
     hdrs = [
-        "Dft.h",
-        "PcmUtils.h",
-        "SineGenerator.h",
+        "dft.h",
+        "pcm_utils.h",
+        "sine_generator.h",
     ],
     deps = [
         "//kwctoolkit/base",

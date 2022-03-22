@@ -7,15 +7,15 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "serialization",
     srcs = [
-        "DataReader.cc",
-        "DataWriter.cc",
-        "InMemoryDataReader.cc",
-        "IstreamDataReader.cc",
-        "StringDataWriter.cc",
+        "data_reader.cc",
+        "data_writer.cc",
+        "in_memory_data_reader.cc",
+        "istream_data_reader.cc",
+        "string_data_writer.cc",
     ],
     hdrs = [
-        "DataReader.h",
-        "DataWriter.h",
+        "data_reader.h",
+        "data_writer.h",
     ],
     deps = [
         "//kwctoolkit/base",
@@ -26,8 +26,8 @@ cc_test(
     name = "serialization_test",
     size = "small",
     srcs = [
-        "DataReaderTest.cc",
-        "DataWriterTest.cc",
+        "data_reader_test.cc",
+        "data_writer_test.cc",
     ],
     deps = [
         ":serialization",

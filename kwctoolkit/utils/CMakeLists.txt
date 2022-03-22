@@ -3,15 +3,15 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 add_library(kwc_utils
-  Base64.cc
-  Base64.h
-  Benchmark.h
-  ColorPrint.cc
-  ColorPrint.h
-  Levenshtein.h
-  Regex.cc
-  Regex.h
-  Zip.h)
+  base64.cc
+  base64.h
+  benchmark.h
+  color_print.cc
+  color_print.h
+  levenshtein.h
+  regex.cc
+  regex.h
+  zip.h)
 
 add_library(kwc::utils ALIAS kwc_utils)
 
@@ -33,8 +33,8 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
   target_sources(kwc_unittests PUBLIC
-    Base64Test.cc
-    LevenshteinTest.cc
-    RegexTest.cc
-    ZipTest.cc)
+    base64_test.cc
+    levenshtein_test.cc
+    regex_test.cc
+    zip_test.cc)
 endif()

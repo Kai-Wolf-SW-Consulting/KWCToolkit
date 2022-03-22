@@ -7,16 +7,16 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "image",
     srcs = [
-        "Image.cc",
-        "ImageDecoder.cc",
-        "Metadata.cc",
-        "PngDecoder.cc",
+        "image.cc",
+        "image_decoder.cc",
+        "metadata.cc",
+        "png_decoder.cc",
     ],
     hdrs = [
-        "Image.h",
-        "ImageDecoder.h",
-        "Metadata.h",
-        "PngDecoder.h",
+        "image.h",
+        "image_decoder.h",
+        "metadata.h",
+        "png_decoder.h",
     ],
     deps = [
         "//kwctoolkit/base",

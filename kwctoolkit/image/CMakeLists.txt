@@ -5,14 +5,14 @@
 find_package(PNG REQUIRED)
 
 add_library(kwc_image
-  Image.cc
-  Image.h
-  ImageDecoder.cc
-  ImageDecoder.h
-  Metadata.cc
-  Metadata.h
-  PngDecoder.cc
-  PngDecoder.h)
+  image.cc
+  image.h
+  image_decoder.cc
+  image_decoder.h
+  metadata.cc
+  metadata.h
+  png_decoder.cc
+  png_decoder.h)
 
 add_library(kwc::image ALIAS kwc_image)
 

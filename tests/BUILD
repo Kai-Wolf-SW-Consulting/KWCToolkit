@@ -8,8 +8,8 @@ cc_test(
     name = "kwc_integrationtests",
     size = "medium",
     srcs = [
-        "IntegrationTestsMain.cc",
-        "integrationtests/DecodePngImagesTest.cc",
+        "integrationtests_main.cc",
+        "integrationtests/decode_png_images_test.cc",
     ],
     data = [
         "test_data/basket_rgb.png",

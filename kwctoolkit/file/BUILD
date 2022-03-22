@@ -7,19 +7,19 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "file",
     srcs = [
-        "File.cc",
-        "FileEnumerator.cc",
-        "FileInfo.cc",
-        "FilePath.cc",
-        "FileUtils.cc",
+        "file.cc",
+        "file_enumerator.cc",
+        "file_info.cc",
+        "file_path.cc",
+        "file_utils.cc",
     ],
     hdrs = [
-        "File.h",
-        "FileEnumerator.h",
-        "FileInfo.h",
-        "FilePath.h",
-        "FilePathConstants.h",
-        "FileUtils.h",
+        "file.h",
+        "file_enumerator.h",
+        "file_info.h",
+        "file_path.h",
+        "file_path_constants.h",
+        "file_utils.h",
     ],
     deps = [
         "//kwctoolkit/base",
@@ -31,9 +31,9 @@ cc_test(
     name = "file_test",
     size = "small",
     srcs = [
-        "FileEnumeratorTest.cc",
-        "FilePathTest.cc",
-        "FileTest.cc",
+        "file_enumerator_test.cc",
+        "file_path_test.cc",
+        "file_test.cc",
     ],
     deps = [
         ":file",

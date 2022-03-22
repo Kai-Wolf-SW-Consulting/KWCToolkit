@@ -7,17 +7,17 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "transport",
     srcs = [
-        "HttpRequest.cc",
-        "HttpResponse.cc",
-        "HttpTransaction.cc",
-        "SimpleHttpTransaction.cc",
+        "http_request.cc",
+        "http_response.cc",
+        "http_transaction.cc",
+        "simple_http_transaction.cc",
     ],
     hdrs = [
-        "HttpRequest.h",
-        "HttpResponse.h",
-        "HttpTransaction.h",
-        "HttpTypes.h",
-        "SimpleHttpTransaction.h",
+        "http_request.h",
+        "http_response.h",
+        "http_transaction.h",
+        "http_types.h",
+        "simple_http_transaction.h",
     ],
     deps = [
         "//kwctoolkit/base",
@@ -31,7 +31,7 @@ cc_test(
     name = "transport_test",
     size = "small",
     srcs = [
-        "HttpTransactionTest.cc",
+        "http_transaction_test.cc",
     ],
     deps = [
         ":transport",

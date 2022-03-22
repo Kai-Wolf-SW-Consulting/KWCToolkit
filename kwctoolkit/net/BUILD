@@ -7,14 +7,14 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "net",
     srcs = [
-        "AddressIpv4.cc",
-        "AddressIpv6.cc",
+        "address_ipv4.cc",
+        "address_ipv6.cc",
     ],
     hdrs = [
-        "Address.h",
-        "AddressIpv6.h",
-        "AddressIpv4.h",
-        "AddressTypes.h",
+        "address.h",
+        "address_ipv4.h",
+        "address_ipv6.h",
+        "address_types.h",
     ],
     deps = [
         "//kwctoolkit/base",
@@ -25,9 +25,9 @@ cc_test(
     name = "net_test",
     size = "small",
     srcs = [
-        "AddressIpv4Test.cc",
-        "AddressIpv6Test.cc",
-        "AddressTest.cc",
+        "address_ipv4_test.cc",
+        "address_ipv6_test.cc",
+        "address_test.cc",
     ],
     deps = [
         ":net",

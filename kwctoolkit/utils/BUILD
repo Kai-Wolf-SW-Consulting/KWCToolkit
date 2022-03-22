@@ -7,17 +7,17 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "utils",
     srcs = [
-        "Base64.cc",
-        "ColorPrint.cc",
-        "Regex.cc",
+        "base64.cc",
+        "color_print.cc",
+        "regex.cc",
     ],
     hdrs = [
-        "Base64.h",
-        "Benchmark.h",
-        "ColorPrint.h",
-        "Levenshtein.h",
-        "Regex.h",
-        "Zip.h",
+        "base64.h",
+        "benchmark.h",
+        "color_print.h",
+        "levenshtein.h",
+        "regex.h",
+        "zip.h",
     ],
     deps = [
         "//kwctoolkit/base",
@@ -30,10 +30,10 @@ cc_test(
     name = "utils_test",
     size = "small",
     srcs = [
-        "Base64Test.cc",
-        "LevenshteinTest.cc",
-        "RegexTest.cc",
-        "ZipTest.cc",
+        "base64_test.cc",
+        "levenshtein_test.cc",
+        "regex_test.cc",
+        "zip_test.cc",
     ],
     deps = [
         ":utils",

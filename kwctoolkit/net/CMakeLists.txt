@@ -3,12 +3,12 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 add_library(kwc_net
-  Address.h
-  AddressIpv4.cc
-  AddressIpv4.h
-  AddressIpv6.cc
-  AddressIpv6.h
-  AddressTypes.h)
+  address.h
+  address_ipv4.cc
+  address_ipv4.h
+  address_ipv6.cc
+  address_ipv6.h
+  address_types.h)
 
 add_library(kwc::net ALIAS kwc_net)
 
@@ -30,7 +30,7 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
   target_sources(kwc_unittests PUBLIC
-    AddressIpv4Test.cc
-    AddressIpv6Test.cc
-    AddressTest.cc)
+    address_ipv4_test.cc
+    address_ipv6_test.cc
+    address_test.cc)
 endif()

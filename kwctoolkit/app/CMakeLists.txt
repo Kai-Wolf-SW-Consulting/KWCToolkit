@@ -2,12 +2,12 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
-configure_file(AppInfo.h.in ${CMAKE_CURRENT_BINARY_DIR}/AppInfo.h)
+configure_file(app_info.h.in ${CMAKE_CURRENT_BINARY_DIR}/app_info.h)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_library(kwc_app
-  App.cc
-  App.h)
+  app.cc
+  app.h)
 add_library(kwc::app ALIAS kwc_app)
 
 target_link_libraries(kwc_app
@@ -19,7 +19,7 @@ target_include_directories(kwc_app
     $<BUILD_INTERFACE:${KWCToolkit_BINARY_DIR}>
     $<INSTALL_INTERFACE:include>)
 
-add_executable(kwc_main Main.cc)
+add_executable(kwc_main main.cc)
 target_link_libraries(kwc_main PRIVATE kwc::app)
 
 install(TARGETS kwc_app
@@ -30,5 +30,5 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
   target_sources(kwc_unittests PUBLIC
-    AppTest.cc)
+    app_test.cc)
 endif()

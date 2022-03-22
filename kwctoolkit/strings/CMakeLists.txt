@@ -3,13 +3,13 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 add_library(kwc_strings
-  StringSplit.cc
-  StringSplit.h
-  StringSwitch.h
-  StringUtils.cc
-  StringUtils.h
-  UtfStringConversion.cc
-  UtfStringConversion.h)
+  string_split.cc
+  string_split.h
+  string_switch.h
+  string_utils.cc
+  string_utils.h
+  utf_string_conversion.cc
+  utf_string_conversion.h)
 
 add_library(kwc::strings ALIAS kwc_strings)
 
@@ -31,6 +31,6 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
   target_sources(kwc_unittests PUBLIC
-    StringSplitTest.cc
-    StringSwitchTest.cc)
+    string_split_test.cc
+    string_switch_test.cc)
 endif()

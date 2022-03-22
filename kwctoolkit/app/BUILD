@@ -7,11 +7,11 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "app",
     srcs = [
-        "App.cc",
+        "app.cc",
     ],
     hdrs = [
-        "App.h",
-        ":AppInfo_h",
+        "app.h",
+        ":app_info_h",
     ],
     deps = [
         "//kwctoolkit/base",
@@ -22,12 +22,12 @@ cc_library(
 )
 
 genrule(
-    name = "AppInfo_h",
+    name = "app_info_h",
     srcs = [
-        "AppInfo.h.in",
+        "app_info.h.in",
     ],
     outs = [
-        "AppInfo.h",
+        "app_info.h",
     ],
     cmd = "awk '{ gsub(/^#cmakedefine/, \"#define\"); \
         gsub(/@PROJECT_VERSION_MAJOR@/, 0); \
@@ -40,7 +40,7 @@ genrule(
 cc_binary(
     name = "kwc_main",
     srcs = [
-        "Main.cc"
+        "main.cc"
     ],
     deps = [
         ":app"
@@ -51,7 +51,7 @@ cc_test(
     name = "app_test",
     size = "small",
     srcs = [
-        "AppTest.cc",
+        "app_test.cc",
     ],
     deps = [
         ":app",

@@ -6,54 +6,54 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 add_library(kwc_system
-  AlignedAlloc.cc
-  AlignedAlloc.h
-  Cmdline.cc
-  Cmdline.h
-  Cpu.cc
-  Cpu.h
-  Environment.cc
-  Environment.h
-  Executor.cc
-  Executor.h
-  FeatureList.cc
-  FeatureList.h
-  Sleep.cc
-  Sleep.h
-  SystemInfo.cc
-  SystemInfo.h
-  SystemMemoryInfo.h
-  Thread.cc
-  Thread.h
-  ThreadHelper.h
-  ThreadTypes.cc
-  ThreadTypes.h
-  Timer.h)
+  aligned_alloc.cc
+  aligned_alloc.h
+  cmdline.cc
+  cmdline.h
+  cpu.cc
+  cpu.h
+  environment.cc
+  environment.h
+  executor.cc
+  executor.h
+  feature_list.cc
+  feature_list.h
+  sleep.cc
+  sleep.h
+  system_info.cc
+  system_info.h
+  system_memory_info.h
+  thread.cc
+  thread.h
+  thread_helper.h
+  thread_types.cc
+  thread_types.h
+  timer.h)
 add_library(kwc::system ALIAS kwc_system)
 
 if(WIN32)
   target_sources(kwc_system
     PRIVATE
-      SystemInfoWin.cc
-      SystemMemoryInfoWin.cc
-      TimerWin.cc)
+    system_info_win.cc
+    system_memory_info_win.cc
+    timer_win.cc)
 elseif(APPLE)
   target_sources(kwc_system
     PRIVATE
-      SystemInfoPosix.cc
-      SystemInfoMac.mm
-      SystemMemoryInfoMac.mm
-      TimerMac.cc)
+    system_info_posix.cc
+    system_info_mac.mm
+    system_memory_info_mac.mm
+    timer_mac.cc)
   target_link_libraries(kwc_system PRIVATE "-framework QuartzCore -framework Foundation")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   target_sources(kwc_system
     PRIVATE
-      ProcessInternalLinux.cc
-      ProcessInternalLinux.h
-      SystemInfoLinux.cc
-      SystemInfoPosix.cc
-      SystemMemoryInfoLinux.cc
-      TimerLinux.cc)
+    process_internal_linux.cc
+    process_internal_linux.h
+    system_info_linux.cc
+    system_info_posix.cc
+    system_memory_info_linux.cc
+    timer_linux.cc)
 endif()
 
 target_include_directories(kwc_system
@@ -74,9 +74,9 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
   target_sources(kwc_unittests PUBLIC
-    AlignedAllocTest.cc
-    CmdlineTest.cc
-    EnvironmentTest.cc
-    SystemInfoTest.cc
-    ThreadTest.cc)
+    aligned_alloc_test.cc
+    cmdline_test.cc
+    environment_test.cc
+    system_info_test.cc
+    thread_test.cc)
 endif()

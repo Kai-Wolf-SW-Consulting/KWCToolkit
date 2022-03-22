@@ -3,11 +3,11 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 add_library(kwc_audio
-  Dft.h
-  PcmUtils.cc
-  PcmUtils.h
-  SineGenerator.cc
-  SineGenerator.h)
+  dft.h
+  pcm_utils.cc
+  pcm_utils.h
+  sine_generator.cc
+  sine_generator.h)
 
 add_library(kwc::audio ALIAS kwc_audio)
 

@@ -2,41 +2,41 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
-configure_file(BuildFlagsInternal.h.in ${CMAKE_CURRENT_BINARY_DIR}/BuildFlagsInternal.h)
+configure_file(build_flags_internal.h.in ${CMAKE_CURRENT_BINARY_DIR}/build_flags_internal.h)
 
 add_library(kwc_base
-  ArrayCopy.h
-  ArraySize.h
-  Assert.cc
-  Assert.h
-  Callback.h
-  CallbackImpl.h
-  CallbackTypes.h
-  Check.cc
-  Check.h
-  CheckedInteger.h
-  CmdlineFlags.cc
-  CmdlineFlags.h
-  Compiler.h
-  Error.h
-  ErrorTrace.cc
-  ErrorTrace.h
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:ForEachArgument.h>
-  ForEachArgument.h
-  IntegralTypes.h
-  Logging.cc
-  Logging.h
-  Macros.h
-  Platform.h
-  RefCount.cc
-  RefCount.h
-  Result.cc
-  Result.h
-  RwProtected.h
-  ScopeGuard.h
-  Status.cc
-  Status.h
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:Utils.h>)
+  array_copy.h
+  array_size.h
+  assert.cc
+  assert.h
+  callback.h
+  callback_impl.h
+  callback_types.h
+  check.cc
+  check.h
+  checked_integer.h
+  cmdline_flags.cc
+  cmdline_flags.h
+  compiler.h
+  error.h
+  error_trace.cc
+  error_trace.h
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:for_each_argument.h>
+  for_each_argument.h
+  integral_types.h
+  logging.cc
+  logging.h
+  macros.h
+  platform.h
+  ref_count.cc
+  ref_count.h
+  result.cc
+  result.h
+  rw_protected.h
+  scope_guard.h
+  status.cc
+  status.h
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:utils.h>)
 
 add_library(kwc::base ALIAS kwc_base)
 
@@ -56,17 +56,17 @@ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE kwc:: DESTINATION lib/cmake/)
 
 if(BUILD_TESTING)
   target_sources(kwc_unittests PUBLIC
-    ArrayCopyTest.cc
-    ArraySizeTest.cc
-    CallbackTest.cc
-    CheckedIntegerTest.cc
-    CmdlineFlagsTest.cc
-    RefCountTest.cc
-    ResultTest.cc
-    ScopeGuardTest.cc)
+    array_copy_test.cc
+    array_size_test.cc
+    callback_test.cc
+    checked_integer_test.cc
+    cmdline_flags_test.cc
+    ref_count_test.cc
+    result_test.cc
+    scope_guard_test.cc)
   if(NOT MSVC)
     target_sources(kwc_unittests PUBLIC
-      ForEachArgumentTest.cc
-      UtilsTest.cc)
+      for_each_argument_test.cc
+      utils_test.cc)
   endif()
 endif()
