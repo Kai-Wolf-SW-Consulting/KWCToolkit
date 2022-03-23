@@ -6,7 +6,7 @@
 
 #include <vector>
 
-#include "Assets.h"
+#include "tests/assets.h"
 #include "kwctoolkit/base/integral_types.h"
 #include "kwctoolkit/file/file_path.h"
 #include "kwctoolkit/file/file_utils.h"

@@ -27,7 +27,7 @@ target_link_libraries(kwc_unittests
     GTest::gtest GTest::gmock)
 
 set(assets_path ${CMAKE_CURRENT_SOURCE_DIR}/test_data)
-configure_file(Assets.h.in ${CMAKE_CURRENT_BINARY_DIR}/Assets.h @ONLY)
+configure_file(assets.h.in ${CMAKE_CURRENT_BINARY_DIR}/assets.h @ONLY)
 
 add_executable(kwc_integrationtests
   integrationtests_main.cc
