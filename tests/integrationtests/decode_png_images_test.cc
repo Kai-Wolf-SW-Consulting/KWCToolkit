@@ -6,6 +6,7 @@
 
 #include <vector>
 
+#include "Assets.h"
 #include "kwctoolkit/base/integral_types.h"
 #include "kwctoolkit/file/file_path.h"
 #include "kwctoolkit/file/file_utils.h"
@@ -18,7 +19,7 @@ TEST(DecodePngTests, ReadPngImage) {
     using namespace kwc::file;
 
     std::vector<uint8> data;
-    EXPECT_TRUE(ReadFile(FilePath("tests").append("test_data").append("basket_rgb.png"), data));
+    EXPECT_TRUE(ReadFile(FilePath(kAssetsPath).append("basket_rgb.png"), data));
 
     const auto reader = image::GuessImageReader(data);
     auto result = reader(data, image::MODE_RGB);
