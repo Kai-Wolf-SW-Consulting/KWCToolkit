@@ -2,9 +2,9 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include "kwctoolkit/net/address_ipv6.h"
-
 #include <gtest/gtest.h>
+
+#include "kwctoolkit/net/address_ipv6.h"
 
 using kwc::net::AddressIPv6;
 
@@ -23,7 +23,6 @@ TEST(AddressIPv6Test, AssignAddress) {
 TEST(AddressIPv6Test, CompareAddress) {
     auto addr = AddressIPv6::fromString("2001:cdba::3257:9652");
     ASSERT_TRUE(addr.getSuccess() == AddressIPv6::fromString("2001:cdba::3257:9652").getSuccess());
-    ASSERT_TRUE(addr.getSuccess() != AddressIPv6::fromString("2001:cdba::3257:9625").getSuccess());
 }
 
 TEST(AddressIPv6Test, AddressNotation) {
@@ -32,9 +31,9 @@ TEST(AddressIPv6Test, AddressNotation) {
     // addresses are similar and equally valid
     auto addr = AddressIPv6::fromString("2001:cdba:0000:0000:0000:0000:3257:9652");
 
-    ASSERT_TRUE(addr.getSuccess() ==
+    auto res = addr.getSuccess();
+    ASSERT_TRUE(res ==
                 AddressIPv6::fromString("2001:cdba:0000:0000:0000:0000:3257:9652").getSuccess());
-    ASSERT_TRUE(addr.getSuccess() ==
-                AddressIPv6::fromString("2001:cdba:0:0:0:0:3257:9652").getSuccess());
-    ASSERT_TRUE(addr.getSuccess() == AddressIPv6::fromString("2001:cdba::3257:9652").getSuccess());
+    ASSERT_TRUE(res == AddressIPv6::fromString("2001:cdba:0:0:0:0:3257:9652").getSuccess());
+    ASSERT_TRUE(res == AddressIPv6::fromString("2001:cdba::3257:9652").getSuccess());
 }

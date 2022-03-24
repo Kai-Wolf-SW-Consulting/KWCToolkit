@@ -10,7 +10,7 @@ namespace kwc {
 namespace base {
 namespace internal {
 inline int& LoggingLevelImpl() {
-    static int level = 0;
+    static int level = 3;
     return level;
 }
 

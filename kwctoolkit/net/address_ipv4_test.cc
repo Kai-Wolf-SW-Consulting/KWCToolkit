@@ -29,7 +29,8 @@ TEST(AddressIPv4Test, AssignAddress) {
 TEST(AddressIPv4Test, CompareAddress) {
     auto addr = AddressIPv4::fromString("192.168.0.1");
     ASSERT_TRUE(addr.isSuccess());
-    ASSERT_TRUE(addr.getSuccess() == AddressIPv4::fromString("192.168.0.1").getSuccess());
+    auto res = addr.getSuccess();
+    ASSERT_TRUE(res == AddressIPv4::fromString("192.168.0.1").getSuccess());
 
-    ASSERT_TRUE(addr.getSuccess() != AddressIPv4::fromString("192.168.1.1").getSuccess());
+    ASSERT_TRUE(res != AddressIPv4::fromString("192.168.1.1").getSuccess());
 }

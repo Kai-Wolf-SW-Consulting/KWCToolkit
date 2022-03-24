@@ -47,7 +47,7 @@ void RefCount::reference() {
 }
 
 void RefCount::release() {
-    KWC_ASSERT((refcount_ & kPayloadMask) != 0);
+    KWC_ASSERT((refcount_ & ~kPayloadMask) != 0);
 
     // The reasoning behind the following is again very well explained in
     // the Boost documentation referenced above.

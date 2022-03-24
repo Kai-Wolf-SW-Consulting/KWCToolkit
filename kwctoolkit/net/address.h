@@ -83,10 +83,11 @@ class Address {
         if (from_v6.isSuccess()) {
             tmp.address_ipv6_ = from_v6.getSuccess();
             tmp.type_ = Type::IPv6;
+            auto _ = from_v4.getError();
             return tmp;
         }
 
-        return from_v4.isError() ? from_v4.getError() : from_v6.getError();
+        return from_v6.getError();
     }
 
     friend bool operator==(const Address& a1, const Address& a2) {
