@@ -69,7 +69,7 @@ bool Thread::isRunning() const {
 #if defined(KWC_OS_WINDOWS)
     return thread_ != nullptr;
 #else
-    return thread_ != nullptr;
+    return thread_ != 0;
 #endif
 }
 
@@ -93,7 +93,7 @@ void Thread::stop() {
     thread_id_ = 0;
 #else
     KWC_ASSERT(pthread_join(thread_, nullptr) == 0);
-    thread_ = nullptr;
+    thread_ = 0;
 #endif
 }
 

@@ -20,11 +20,11 @@ void SetBoolFlagRunFunction(void* obj) {
 TEST(ThreadTest, CheckStartStop) {
     Thread thread(&NothingRunFunction, nullptr, "ThreadTest");
     EXPECT_TRUE(thread.name() == "ThreadTest");
-    EXPECT_TRUE(thread.getThreadRef() == nullptr);
+    EXPECT_TRUE(thread.getThreadRef() == 0);
     thread.start();
-    EXPECT_TRUE(thread.getThreadRef() != nullptr);
+    EXPECT_TRUE(thread.getThreadRef() != 0);
     thread.stop();
-    EXPECT_TRUE(thread.getThreadRef() == nullptr);
+    EXPECT_TRUE(thread.getThreadRef() == 0);
 }
 
 TEST(ThreadTest, CheckStartStopWithTwoFuncs) {

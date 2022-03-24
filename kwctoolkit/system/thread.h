@@ -88,7 +88,7 @@ class Thread {
     DWORD thread_id_ = 0;
 #else
     static void* startThread(void* param);
-    pthread_t thread_ = nullptr;
+    pthread_t thread_ = 0;
 #endif
 };
 

@@ -2,7 +2,7 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
-find_package(PNG REQUIRED)
+find_package(PNG)
 
 add_library(kwc_image
   image.cc
