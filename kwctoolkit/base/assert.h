@@ -27,7 +27,7 @@
     #define KWC_ASSERT_HELPER(file, func, line, condition)         \
         do {                                                       \
             if (!(condition)) {                                    \
-                handleAssertFailure(file, func, line, #condition); \
+                HandleAssertFailure(file, func, line, #condition); \
             }                                                      \
         } while (KWC_ASSERT_LOOP_CONDITION)
 #else
