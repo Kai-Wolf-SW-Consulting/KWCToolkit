@@ -36,3 +36,4 @@ cmake-build-*
 .DS_Store
 .vs/
 bazel-*
+install_*
