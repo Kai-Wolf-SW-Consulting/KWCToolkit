@@ -11,7 +11,9 @@
 #elif defined(__clang__)
     #define KWC_COMPILER_CLANG 1
 #elif defined(_MSC_VER)
-    #define KWC_COMPILER_MSVC
+    #define KWC_COMPILER_MSVC 1
+#elif defined(__INTEL_COMPILER)
+    #define KWC_COMPILER_INTEL 1
 #else
     #error Please add support for your compiler in Compiler.h
 #endif
