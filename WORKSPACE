@@ -33,3 +33,10 @@ http_archive(
     strip_prefix = "lpng1637",
     url = "file:third_party/libpng/1.6.37/lpng1637.zip",
 )
+
+http_archive(
+    name = "libjpeg",
+    build_file = "//third_party:libjpeg.BUILD",
+    sha256 = "bb591cf32017ef2cf83073359ec36495d4d48f27fef65c7a107813b4ac2917dc",
+    url = "file:third_party/libjpeg/9e/jpeg-9e.zip",
+)

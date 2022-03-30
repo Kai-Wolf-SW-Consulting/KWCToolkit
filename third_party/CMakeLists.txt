@@ -2,7 +2,7 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
-# Thirdparty libraries are built using ExternalProject_Add(), which per default
+# Third party libraries are built using ExternalProject_Add(), which per default
 # doesn't inherit any variables from the parent project, Thus, we set all
 # necessary variables and settings from the parent.
 set(KWCToolkit_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX})
@@ -51,4 +51,11 @@ if(USE_SYSTEM_LIBPNG)
   find_package(PNG REQUIRED)
 else()
   include(External_libpng)
+endif()
+
+option(USE_SYSTEM_LIBJPEG "Use installed version of libjpeg library" OFF)
+if(USE_SYSTEM_LIBJPEG)
+  find_package(JPEG REQUIRED)
+else()
+  include(External_libjpeg)
 endif()

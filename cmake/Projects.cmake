@@ -25,3 +25,9 @@ string(REPLACE "." "" libpng_version_string ${libpng_version})
 set(libpng_path ${third_party_dir}/libpng/${libpng_version}/lpng${libpng_version_string}.zip)
 set(libpng_md5 "883764a8ebb8352904679f2ec70eda69")
 
+# libjpeg
+list(APPEND projects libjpeg)
+set(libjpeg_version "9e")
+set(libjpeg_path ${third_party_dir}/libjpeg/${libjpeg_version}/jpeg-${libjpeg_version}.zip)
+set(libjpeg_md5 "375c4ebfc99cc641a368d7851c35215d")
+

@@ -2,6 +2,7 @@
 gtest/1.11.0
 zlib/1.2.11
 libpng/1.6.37
+libjpeg/9d
 
 [generators]
 cmake_find_package
