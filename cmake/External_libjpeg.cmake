@@ -11,8 +11,7 @@ else()
      INSTALL_DIR ${KWCToolkit_INSTALL_PREFIX}
      UPDATE_COMMAND ""
      BUILD_IN_SOURCE 1
-     CONFIGURE_COMMAND ./configure --prefix=${KWCToolkit_INSTALL_PREFIX}
-       --disable-shared)
+     CONFIGURE_COMMAND ./configure --prefix=${KWCToolkit_INSTALL_PREFIX} --disable-shared)
 endif()
 
 ExternalProject_Get_Property(libjpeg install_dir)

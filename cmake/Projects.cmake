@@ -29,5 +29,5 @@ set(libpng_md5 "883764a8ebb8352904679f2ec70eda69")
 list(APPEND projects libjpeg)
 set(libjpeg_version "9e")
 set(libjpeg_path ${third_party_dir}/libjpeg/${libjpeg_version}/jpeg-${libjpeg_version}.zip)
-set(libjpeg_md5 "375c4ebfc99cc641a368d7851c35215d")
+set(libjpeg_md5 "f36704b7046e0628f1bfe7e8f11c5964")
 
