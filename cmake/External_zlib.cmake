@@ -2,15 +2,18 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
+set(zlib_name ${CMAKE_STATIC_LIBRARY_PREFIX}z${CMAKE_STATIC_LIBRARY_SUFFIX})
+
 ExternalProject_Add(zlib
   URL ${zlib_path}
   URL_MD5 ${zlib_md5}
   INSTALL_DIR ${KWCToolkit_INSTALL_PREFIX}
+  BUILD_BYPRODUCTS
+    <INSTALL_DIR>/lib/${zlib_name}
   UPDATE_COMMAND ""
   CMAKE_ARGS -Wno-dev ${KWCToolkit_DEFAULT_ARGS} -DBUILD_SHARED_LIBS=OFF)
 
 ExternalProject_Get_Property(zlib install_dir)
-set(zlib_name ${CMAKE_STATIC_LIBRARY_PREFIX}z${CMAKE_STATIC_LIBRARY_SUFFIX})
 set(zlib_ROOT ${install_dir} CACHE INTERNAL "")
 
 file(MAKE_DIRECTORY ${zlib_ROOT}/include)

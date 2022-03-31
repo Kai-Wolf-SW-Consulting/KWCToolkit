@@ -22,6 +22,15 @@ ExternalProject_Add(googletest
   # Only build googletest if something actually needs it (BUILD_TESTING=ON)
   EXCLUDE_FROM_ALL 1
   INSTALL_DIR ${KWCToolkit_INSTALL_PREFIX}
+  BUILD_BYPRODUCTS
+    <INSTALL_DIR>/lib/${googletest_name}
+    <INSTALL_DIR>/lib/${googletest_name_debug}
+    <INSTALL_DIR>/lib/${googletest_main_name}
+    <INSTALL_DIR>/lib/${googletest_main_name_debug}
+    <INSTALL_DIR>/lib/${googlemock_name}
+    <INSTALL_DIR>/lib/${googlemock_name_debug}
+    <INSTALL_DIR>/lib/${googlemock_main_name}
+    <INSTALL_DIR>/lib/${googlemock_main_name_debug}
   UPDATE_COMMAND ""
   CMAKE_ARGS -Wno-dev ${KWCToolkit_DEFAULT_ARGS} -DBUILD_SHARED_LIBS=OFF
     -Dgtest_force_shared_crt=ON)
