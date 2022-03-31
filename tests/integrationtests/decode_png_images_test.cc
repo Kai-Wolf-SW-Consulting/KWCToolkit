@@ -8,7 +8,6 @@
 
 #include "tests/assets.h"
 #include "kwctoolkit/base/integral_types.h"
-#include "kwctoolkit/base/platform.h"
 #include "kwctoolkit/file/file_path.h"
 #include "kwctoolkit/file/file_utils.h"
 #include "kwctoolkit/image/image.h"
@@ -16,8 +15,6 @@
 
 using namespace kwc;
 
-// TODO(kwc): Fix PNG decode error on Linux
-#if !defined(KWC_OS_LINUX)
 TEST(DecodePngTests, ReadPngImage) {
     using namespace kwc::file;
 
@@ -33,4 +30,3 @@ TEST(DecodePngTests, ReadPngImage) {
     EXPECT_EQ(173, image.height());
     EXPECT_EQ(3, image.numChannels());
 }
-#endif

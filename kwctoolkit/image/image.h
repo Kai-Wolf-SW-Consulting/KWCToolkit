@@ -20,16 +20,16 @@ namespace image {
 // These modes describe the byte-ordering of packed samples in memory.
 // For instance, MODE_RGBA relates to samples ordered as R,G,B,A,R,G,B,A, etc.
 enum ColorMode {
-    MODE_RGB = 0,
-    MODE_RGBA = 1,
-    MODE_BGR = 2,
-    MODE_BGRA = 3,
-    MODE_ARGB = 4,
-    MODE_RGBA_444 = 5,
-    MODE_RGB_565 = 6,
-    MODE_YUV = 7,
-    MODE_YUVA = 8,
-    MODE_LAST = 9
+    MODE_RGB = 1 << 0,
+    MODE_RGBA = 1 << 1,
+    MODE_BGR = 1 << 2,
+    MODE_BGRA = 1 << 3,
+    MODE_ARGB = 1 << 4,
+    MODE_RGBA_444 = 1 << 5,
+    MODE_RGB_565 = 1 << 6,
+    MODE_YUV = 1 << 7,
+    MODE_YUVA = 1 << 8,
+    MODE_LAST = 1 << 9
 };
 
 // These specify the desired output format for a given image buffer, except YUV and YUVA formats

@@ -9,6 +9,8 @@ add_library(kwc_image
   image.h
   image_decoder.cc
   image_decoder.h
+  image_utils.cc
+  image_utils.h
   metadata.cc
   metadata.h
   png_decoder.cc
