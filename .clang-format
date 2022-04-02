@@ -91,7 +91,7 @@ IncludeCategories:
     Priority: 1
   - Regex: '^<.*'
     Priority: 2
-IncludeIsMainRegex: '(Test)?$'
+IncludeIsMainRegex: '(_test)?$'
 IncludeIsMainSourceRegex: ''
 IndentAccessModifiers: false
 IndentCaseLabels: true

@@ -9,6 +9,7 @@ add_library(kwc_base
   array_size.h
   assert.cc
   assert.h
+  byte_order.h
   callback.h
   callback_impl.h
   callback_types.h
@@ -58,6 +59,7 @@ if(BUILD_TESTING)
   target_sources(kwc_unittests PUBLIC
     array_copy_test.cc
     array_size_test.cc
+    byte_order_test.cc
     callback_test.cc
     checked_integer_test.cc
     cmdline_flags_test.cc
