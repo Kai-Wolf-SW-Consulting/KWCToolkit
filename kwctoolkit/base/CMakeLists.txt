@@ -37,7 +37,8 @@ add_library(kwc_base
   scope_guard.h
   status.cc
   status.h
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:utils.h>)
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:utils.h>
+  windows.h)
 
 add_library(kwc::base ALIAS kwc_base)
 

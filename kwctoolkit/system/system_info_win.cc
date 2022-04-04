@@ -6,9 +6,7 @@
 #include "kwctoolkit/base/macros.h"
 #include "kwctoolkit/system/system_info.h"
 #include "kwctoolkit/system/system_memory_info.h"
-
-#define NOMINMAX
-#include <windows.h>
+#include "kwctoolkit/base/windows.h"
 
 #include <limits>
 #include <sstream>

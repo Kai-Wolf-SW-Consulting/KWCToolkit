@@ -2,8 +2,7 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include <windows.h>
-
+#include "kwctoolkit/base/windows.h"
 #include "kwctoolkit/system/timer.h"
 
 namespace kwc {

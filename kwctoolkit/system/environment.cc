@@ -8,10 +8,7 @@
 
 #include "kwctoolkit/base/platform.h"
 #include "kwctoolkit/strings/string_utils.h"
-
-#if defined(KWC_OS_WINDOWS)
-    #include <windows.h>
-#endif
+#include "kwctoolkit/base/windows.h"
 
 namespace kwc {
 namespace system {

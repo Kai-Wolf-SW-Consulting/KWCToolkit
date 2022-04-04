@@ -9,10 +9,7 @@
 
 #include "kwctoolkit/base/cmdline_flags.h"
 #include "kwctoolkit/base/platform.h"  // IWYU pragma: keep
-
-#if defined(KWC_OS_WINDOWS)
-    #include <Windows.h>
-#endif
+#include "kwctoolkit/base/windows.h"
 
 DECLARE_bool(color_print);
 

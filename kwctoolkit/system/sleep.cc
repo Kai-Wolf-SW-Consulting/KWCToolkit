@@ -8,10 +8,7 @@
 #include <ctime>
 
 #include "kwctoolkit/base/platform.h"
-
-#if defined(KWC_OS_WINDOWS)
-    #include <Windows.h>
-#endif
+#include "kwctoolkit/base/windows.h"
 
 namespace kwc {
 namespace system {
