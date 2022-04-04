@@ -50,7 +50,7 @@
     #define KWC_ARCH_CPU_ARM64 1
     #define KWC_ARCH_CPU_64_BITS 1
 #else
-    #error Please add support for your architecture in Compiler.h
+    #error Please add support for your architecture in compiler.h
 #endif
 
 // Following are some educated guesses of the L1 cache size for alignment

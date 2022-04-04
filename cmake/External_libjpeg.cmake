@@ -2,8 +2,22 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
-if (WIN32)
-  message(STATUS "Nothing to build for libjpeg just yet")
+if(WIN32)
+  ExternalProject_Add(libjpeg
+    URL ${libjpeg_path}
+    URL_MD5 ${libjpeg_md5}
+    INSTALL_DIR ${KWCToolkit_INSTALL_PREFIX}
+    UPDATE_COMMAND ""
+    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different
+      ${CMAKE_SOURCE_DIR}/third_party/libjpeg/9e/CMakeLists.txt <BINARY_DIR>
+    BUILD_IN_SOURCE 1
+    CMAKE_ARGS -Wno-dev ${KWCToolkit_DEFAULT_ARGS})
+
+  ExternalProject_Add_Step(libjpeg copy_jconfig
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+      <SOURCE_DIR>/jconfig.vc <BINARY_DIR>/jconfig.h
+    DEPENDEES patch
+    DEPENDERS build)
 else()
   ExternalProject_Add(libjpeg
      URL ${libjpeg_path}

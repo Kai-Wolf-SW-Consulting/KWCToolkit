@@ -3,6 +3,13 @@
 # list of contributors see the AUTHORS file in the same directory.
 
 set(zlib_name ${CMAKE_STATIC_LIBRARY_PREFIX}z${CMAKE_STATIC_LIBRARY_SUFFIX})
+if(CMAKE_HOST_WIN32)
+    if(CMAKE_BUILD_TYPE MATCHES Debug)
+        set(zlib_name zlibd${CMAKE_STATIC_LIBRARY_SUFFIX})
+    else()
+        set(zlib_name zlib${CMAKE_STATIC_LIBRARY_SUFFIX})
+    endif()
+endif()
 
 ExternalProject_Add(zlib
   URL ${zlib_path}

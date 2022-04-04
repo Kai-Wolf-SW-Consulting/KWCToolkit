@@ -14,13 +14,13 @@ void ConvertFloatToPCM16(const float* source, int16* dest, int32 num_samples) {
         auto fval = source[idx];
         fval += 1.0f;
         fval *= 1 << 15;
-        auto sample = static_cast<int32_t>(fval);
+        auto sample = static_cast<int32>(fval);
         if (sample < 0)
             sample = 0;
         else if (sample > (1 << 16) - 1)
             sample = (1 << 16) - 1;
         sample -= 1 << 15;  // center at zero
-        dest[idx] = static_cast<int16_t>(sample);
+        dest[idx] = static_cast<int16>(sample);
     }
 }
 

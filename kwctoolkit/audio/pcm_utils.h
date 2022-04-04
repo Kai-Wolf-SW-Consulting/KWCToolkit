@@ -6,7 +6,6 @@
 #define KWCTOOLKIT_AUDIO_PCM_UTILS_H_
 
 #include <sys/types.h>
-#include <unistd.h>
 
 #include "kwctoolkit/base/integral_types.h"
 
@@ -19,4 +18,4 @@ void ConvertPCM16ToFloat(const int16* source, float* dest, int32 num_samples);
 }  // namespace audio
 }  // namespace kwc
 
-#endif  // KWCTOOLKIT_AUDIO_PCM_U_TILS_H_
+#endif  // KWCTOOLKIT_AUDIO_PCM_UTILS_H_

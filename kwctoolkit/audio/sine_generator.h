@@ -5,7 +5,6 @@
 #ifndef KWCTOOLKIT_AUDIO_SINE_GENERATOR_H_
 #define KWCTOOLKIT_AUDIO_SINE_GENERATOR_H_
 
-#include <cmath>
 #include <cstdint>
 
 #include "kwctoolkit/base/integral_types.h"
@@ -35,4 +34,4 @@ class SineGenerator {
 }  // namespace audio
 }  // namespace kwc
 
-#endif  // KWCTOOLKIT_AUDIO_SINEGENERATOR_H_
+#endif  // KWCTOOLKIT_AUDIO_SINE_GENERATOR_H_

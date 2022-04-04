@@ -37,6 +37,7 @@ if(WIN32)
     system_info_win.cc
     system_memory_info_win.cc
     timer_win.cc)
+  target_link_libraries(kwc_system PRIVATE psapi.lib)
 elseif(APPLE)
   target_sources(kwc_system
     PRIVATE

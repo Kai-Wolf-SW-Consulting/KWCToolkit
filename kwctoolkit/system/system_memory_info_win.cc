@@ -2,9 +2,11 @@
 // For the licensing terms see LICENSE file in the root directory. For the
 // list of contributors see the AUTHORS file in the same directory.
 
-#include <psapi.h>
+// clang-format off
 #include <windows.h>
+#include <psapi.h>
 #include <winternl.h>
+// clang-format on
 
 #include <cstddef>
 #include <cstdint>

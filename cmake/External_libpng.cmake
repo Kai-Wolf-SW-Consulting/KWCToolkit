@@ -2,7 +2,14 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
-set(libpng_name ${CMAKE_STATIC_LIBRARY_PREFIX}png${CMAKE_STATIC_LIBRARY_SUFFIX})
+set(libpng_name ${CMAKE_STATIC_LIBRARY_PREFIX}png16${CMAKE_STATIC_LIBRARY_SUFFIX})
+if(CMAKE_HOST_WIN32)
+  if(CMAKE_BUILD_TYPE MATCHES Debug)
+    set(libpng_name libpng16_staticd${CMAKE_STATIC_LIBRARY_SUFFIX})
+  else()
+    set(libpng_name libpng16_static${CMAKE_STATIC_LIBRARY_SUFFIX})
+  endif()
+endif()
 
 ExternalProject_Add(libpng
   URL ${libpng_path}
@@ -13,7 +20,8 @@ ExternalProject_Add(libpng
   UPDATE_COMMAND ""
   DEPENDS zlib
   CMAKE_ARGS
-    -Wno-dev ${KWCToolkit_DEFAULT_ARGS} -DPNG_SHARED=OFF -DPNG_TESTS=OFF -DPNG_STATIC=ON -DAWK=)
+    -Wno-dev ${KWCToolkit_DEFAULT_ARGS} -DPNG_SHARED=OFF
+      -DPNG_EXECUTABLES=OFF -DPNG_TESTS=OFF -DPNG_STATIC=ON -DAWK=)
 
 ExternalProject_Get_Property(libpng install_dir)
 set(libpng_ROOT ${install_dir} CACHE INTERNAL "")

@@ -5,6 +5,7 @@
 #include "kwctoolkit/image/image.h"
 
 #include <algorithm>
+#include <iterator>
 
 namespace kwc {
 namespace image {

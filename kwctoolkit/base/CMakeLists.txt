@@ -47,6 +47,10 @@ target_include_directories(kwc_base
     $<BUILD_INTERFACE:${KWCToolkit_BINARY_DIR}>
     $<INSTALL_INTERFACE:include>)
 
+if(WIN32)
+  target_link_libraries(kwc_base wsock32 ws2_32)
+endif()
+
 install(TARGETS kwc_base
   EXPORT ${PROJECT_NAME}Targets
   ARCHIVE DESTINATION ${INSTALL_ARCHIVE_DIR}
