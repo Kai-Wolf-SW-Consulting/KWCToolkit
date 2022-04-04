@@ -22,6 +22,27 @@ TEST(UtilsTest, EnumerateOverTuples) {
     ASSERT_EQ(index, 4);
 }
 
+TEST(UtilsTest, IterateOverCStyleArrays) {
+    const char *strings[] = {"foo", "bar", "bam", "bat"};
+    size_t str_len = 4;
+
+    int expected = 0;
+    for (const auto str : Iterate(strings, str_len)) {
+        EXPECT_STREQ(strings[expected++], str);
+    }
+}
+
+TEST(UtilsTest, IterateOverSubrangePointers) {
+    int numbers[] = {17, 23, 42, 36, 49, 85, 96};
+
+    int expected = 1;
+    int *num1 = &numbers[expected];
+    int *num2 = &numbers[5];
+    for (const auto num : Iterate(num1, num2)) {
+        EXPECT_EQ(numbers[expected++], num);
+    }
+}
+
 TEST(UtilsTest, MergeVariadicNumberOfVectors) {
     std::vector<float> a{1, 2, 3};
     std::vector<float> b{4, 5, 6};

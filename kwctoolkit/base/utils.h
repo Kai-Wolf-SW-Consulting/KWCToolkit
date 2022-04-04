@@ -49,6 +49,41 @@ constexpr auto Enumerate(T&& iterable) {
     return IterableWrapper{std::forward<T>(iterable)};
 }
 
+template <typename TIter>
+constexpr auto Iterate(TIter data, size_t size) {
+    class IterateType {
+      public:
+        TIter begin_;
+        TIter end_;
+
+        explicit IterateType(TIter begin, TIter end)
+            : begin_(std::move(begin)), end_(std::move(end)) {}
+
+        TIter begin() { return std::move(begin_); }
+        TIter end() { return std::move(end_); }
+    };
+
+    return IterateType(data, data + size);
+}
+
+template <typename TIter>
+constexpr auto Iterate(TIter begin, TIter end) {
+    class IterateType {
+      public:
+        TIter begin_;
+        TIter end_;
+
+        explicit IterateType(TIter begin, TIter end)
+            : begin_(std::move(begin)), end_(std::move(end)) {}
+
+        TIter begin() { return std::move(begin_); }
+        TIter end() { return std::move(end_); }
+    };
+
+    return IterateType(std::move(begin), std::move(end));
+}
+
+
 }  // namespace base
 }  // namespace kwc
 

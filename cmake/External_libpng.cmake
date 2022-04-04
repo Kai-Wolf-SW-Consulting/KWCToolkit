@@ -2,7 +2,7 @@
 # For the licensing terms see LICENSE file in the root directory. For the
 # list of contributors see the AUTHORS file in the same directory.
 
-set(libpng_name ${CMAKE_STATIC_LIBRARY_PREFIX}png16${CMAKE_STATIC_LIBRARY_SUFFIX})
+set(libpng_name ${CMAKE_STATIC_LIBRARY_PREFIX}png${CMAKE_STATIC_LIBRARY_SUFFIX})
 if(CMAKE_HOST_WIN32)
   if(CMAKE_BUILD_TYPE MATCHES Debug)
     set(libpng_name libpng16_staticd${CMAKE_STATIC_LIBRARY_SUFFIX})
