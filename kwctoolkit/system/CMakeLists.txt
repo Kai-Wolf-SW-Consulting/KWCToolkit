@@ -10,8 +10,8 @@ add_library(kwc_system
   aligned_alloc.h
   cmdline.cc
   cmdline.h
-  cpu.cc
-  cpu.h
+  $<$<NOT:$<STREQUAL:${CMAKE_HOST_SYSTEM_PROCESSOR},arm64>>:cpu.cc>
+  $<$<NOT:$<STREQUAL:${CMAKE_HOST_SYSTEM_PROCESSOR},arm64>>:cpu.h>
   environment.cc
   environment.h
   executor.cc

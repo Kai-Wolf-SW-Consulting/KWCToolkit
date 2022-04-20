@@ -6,12 +6,22 @@
 
 #include <vector>
 
+#include "kwctoolkit/base/compiler.h"
+#include "kwctoolkit/base/platform.h"
+
 #if defined(KWC_OS_WINDOWS)
     #include <direct.h>
     #include <io.h>
     #define close _close
 #else
+    #include <sys/stat.h>
     #include <unistd.h>
+#endif
+
+#if defined(KWC_ARCH_CPU_ARM_FAMILY)
+    #define stat64 stat
+    #define fstat64 fstat
+    #define lstat64 lstat
 #endif
 
 namespace kwc {

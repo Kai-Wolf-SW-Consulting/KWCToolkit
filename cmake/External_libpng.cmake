@@ -20,7 +20,7 @@ ExternalProject_Add(libpng
   UPDATE_COMMAND ""
   DEPENDS zlib
   CMAKE_ARGS
-    -Wno-dev ${KWCToolkit_DEFAULT_ARGS} -DPNG_SHARED=OFF
+    -Wno-dev ${KWCToolkit_DEFAULT_ARGS} -DPNG_SHARED=OFF -DPNG_ARM_NEON=off
       -DPNG_EXECUTABLES=OFF -DPNG_TESTS=OFF -DPNG_STATIC=ON -DAWK=)
 
 ExternalProject_Get_Property(libpng install_dir)
