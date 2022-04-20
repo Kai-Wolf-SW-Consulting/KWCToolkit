@@ -19,6 +19,11 @@ config_setting(
     constraint_values = ["@bazel_tools//platforms:linux"],
 )
 
+config_setting(
+    name = "x86_64",
+    constraint_values = ["@platforms//cpu:x86_64"],
+)
+
 objc_library(
     name = "system_mac",
     srcs = [
@@ -39,7 +44,6 @@ cc_library(
     srcs = [
         "aligned_alloc.cc",
         "cmdline.cc",
-        "cpu.cc",
         "environment.cc",
         "executor.cc",
         "feature_list.cc",
@@ -48,6 +52,9 @@ cc_library(
         "thread.cc",
         "thread_types.cc",
     ] + select({
+        ":x86_64": [
+            "cpu.cc",
+        ],
         ":windows": [
             "system_info_win.cc",
             "system_memory_info_Win.cc",
@@ -68,7 +75,6 @@ cc_library(
     hdrs = [
         "aligned_alloc.h",
         "cmdline.h",
-        "cpu.h",
         "environment.h",
         "executor.h",
         "feature_list.h",
@@ -80,6 +86,9 @@ cc_library(
         "thread_types.h",
         "timer.h",
     ] + select({
+        ":x86_64": [
+            "cpu.h",
+        ],
         ":linux": [
             "process_internal_linux.h",
         ],

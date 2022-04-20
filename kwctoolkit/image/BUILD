@@ -9,12 +9,14 @@ cc_library(
     srcs = [
         "image.cc",
         "image_decoder.cc",
+        "image_utils.cc",
         "metadata.cc",
         "png_decoder.cc",
     ],
     hdrs = [
         "image.h",
         "image_decoder.h",
+        "image_utils.h",
         "metadata.h",
         "png_decoder.h",
     ],

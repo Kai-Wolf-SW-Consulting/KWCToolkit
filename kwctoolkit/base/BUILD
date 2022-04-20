@@ -40,6 +40,7 @@ cc_library(
         "status.h",
         "utils.h",
         ":build_flags_internal_h",
+        "windows.h",
     ],
 )
 

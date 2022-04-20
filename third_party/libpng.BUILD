@@ -9,6 +9,11 @@ config_setting(
     constraint_values = ["@bazel_tools//platforms:windows"],
 )
 
+config_setting(
+    name = "arm64",
+    constraint_values = ["@platforms//cpu:arm64"],
+)
+
 cc_library(
     name = "libpng",
     srcs = [
@@ -46,6 +51,7 @@ cc_library(
     ],
     copts = select({
         ":windows": ["-DPNG_INTEL_SSE_OPT=1"],
+        ":arm64": ["-DPNG_ARM_NEON=off"],
         "//conditions:default": [],
     }),
     includes = ["."],
