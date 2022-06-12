@@ -5,11 +5,11 @@
 # Third party libraries are built using ExternalProject_Add(), which per default
 # doesn't inherit any variables from the parent project, Thus, we set all
 # necessary variables and settings from the parent.
-set(KWCToolkit_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX})
+set(KWCToolkit_INSTALL_PREFIX ${EXTERNAL_INSTALL_PREFIX}/${CMAKE_BUILD_TYPE})
 set(KWCToolkit_DEFAULT_ARGS
   -DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}
   -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-  -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
+  -DCMAKE_INSTALL_PREFIX:PATH=${KWCToolkit_INSTALL_PREFIX}
   -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
   -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER}
   -DCMAKE_GENERATOR:STRING=${CMAKE_GENERATOR}
@@ -36,6 +36,7 @@ option(USE_SYSTEM_GTEST "Use installed version of googletest library" OFF)
 if(USE_SYSTEM_GTEST)
   find_package(GTest REQUIRED)
 else()
+  set(as_subproject "GTest;${as_subproject}" CACHE INTERNAL "" FORCE)
   include(External_googletest)
 endif()
 
@@ -43,6 +44,7 @@ option(USE_SYSTEM_ZLIB "Use installed version of zlib library" OFF)
 if(USE_SYSTEM_ZLIB)
   find_package(ZLIB REQUIRED)
 else()
+  set(as_subproject "ZLIB;${as_subproject}" CACHE INTERNAL "" FORCE)
   include(External_zlib)
 endif()
 
@@ -50,6 +52,7 @@ option(USE_SYSTEM_LIBPNG "Use installed version of libpng library" OFF)
 if(USE_SYSTEM_LIBPNG)
   find_package(PNG REQUIRED)
 else()
+  set(as_subproject "PNG;${as_subproject}" CACHE INTERNAL "" FORCE)
   include(External_libpng)
 endif()
 
@@ -57,5 +60,6 @@ option(USE_SYSTEM_LIBJPEG "Use installed version of libjpeg library" OFF)
 if(USE_SYSTEM_LIBJPEG)
   find_package(JPEG REQUIRED)
 else()
+  set(as_subproject "JPEG;${as_subproject}" CACHE INTERNAL "" FORCE)
   include(External_libjpeg)
 endif()

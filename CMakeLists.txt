@@ -27,16 +27,19 @@ build_option(ENABLE_ASSERTS         "Enable asserts in codebase (Debug mode)" OF
 
 ## Setup project defaults
 include(CompilerFlags)
+include(BuildType)
 include(InstallLocation)
 include(StaticAnalyzer)
+include(Utils)
 
 ## Automatically creates a BUILD_TESTING option (default ON)
 include(CTest)
+
+add_subdirectory(third_party)
 
 if(BUILD_TESTING)
   enable_testing()
   add_subdirectory(tests)
 endif()
 
-add_subdirectory(third_party)
 add_subdirectory(kwctoolkit)
