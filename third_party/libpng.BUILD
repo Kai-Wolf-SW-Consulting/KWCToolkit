@@ -9,10 +9,6 @@ config_setting(
     constraint_values = ["@bazel_tools//platforms:windows"],
 )
 
-config_setting(
-    name = "arm64",
-    constraint_values = ["@platforms//cpu:arm64"],
-)
 
 cc_library(
     name = "libpng",
@@ -37,6 +33,9 @@ cc_library(
         "pngwrite.c",
         "pngwtran.c",
         "pngwutil.c",
+        "arm/arm_init.c",
+        "arm/filter_neon_intrinsics.c",
+        "arm/palette_neon_intrinsics.c",
     ] + select({
         ":windows": [
             "intel/intel_init.c",
@@ -51,7 +50,6 @@ cc_library(
     ],
     copts = select({
         ":windows": ["-DPNG_INTEL_SSE_OPT=1"],
-        ":arm64": ["-DPNG_ARM_NEON=off"],
         "//conditions:default": [],
     }),
     includes = ["."],
