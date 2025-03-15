@@ -4,6 +4,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include <ostream>
 
 #include "kwctoolkit/app/app.h"
@@ -20,7 +21,7 @@
 inline void SegmentationFaultHandler(int sig) {
     using namespace kwc;
     LOGGING(base::ERROR) << "\n*** *** *** *** *** *** *** *** *** *** *** *** *** ***\n";
-    LOGGING(base::ERROR) << "KWCToolkit: " << ::sys_siglist[sig] << "\n";
+    LOGGING(base::ERROR) << "KWCToolkit: " << strsignal(sig) << "\n";
     LOGGING(base::ERROR) << "Backtrace:\n";
     void* array[50];
     const auto nsize = backtrace(array, 50);
